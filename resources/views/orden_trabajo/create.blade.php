@@ -27,17 +27,17 @@
 				</div>
 				<div class="panel-body">
 					<div class="row">
-						<div class="col-sm-3">
+						<div class="form-group col-sm-3">
 							<label class="control-label" for="appaterno">✱Numero de cotizacion:</label>
 							@if($coleccion)
-								<select type="select" id="cotizacion">
+								<select type="select" id="cotizacion" class="form-control">
 									<option value="">Seleccione una opcion</option>
 									@foreach ($cotizaciones as $cotizacion)
 										<option value="{{$cotizacion->id}}">{{$cotizacion->nocotizacion}}</option>
 									@endforeach
 								</select>
 							@else
-								<select type="select" id="cotizacion" readonly>			
+								<select type="select" id="cotizacion" readonly class="form-control">			
 										<option value="{{$cotizaciones->id}}" selected="selected">{{$cotizaciones->nocotizacion}}</option>
 								</select>
 							@endif
@@ -45,7 +45,7 @@
 						</div>
 						<div class="col-sm-3">
 							<label class="control-label" for="appaterno">Actividades:</label>
-							<select type="select" id="act">
+							<select type="select" id="act" class="form-control">
 								<option value="">Seleccione una opcion</option>
 								<option value="Actividad ejemplo">Actividad ejemplo</option>
 								{{-- @foreach ($cotizaciones as $cotizacion)

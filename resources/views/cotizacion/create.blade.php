@@ -63,12 +63,12 @@
 							<div class="nav nav-tabs" id="nav-tab" role="tablist">
 								<a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab"
 									href="#nav-obras" role="tab" aria-controls="nav-home">Obras</a>
-								<a class="nav-item nav-link" id="nav-home-tab" data-toggle="tab"
+								{{-- <a class="nav-item nav-link" id="nav-home-tab" data-toggle="tab"
 									href="#nav-mano_de_obra" role="tab" aria-controls="nav-home">Mano de obra</a>
 								<a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-varios"
 									role="tab" aria-controls="nav-profile">Varios</a>
 								<a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-envios"
-									role="tab" aria-controls="nav-contact">Envíos</a>
+									role="tab" aria-controls="nav-contact">Envíos</a> --}}
 							</div>
 						</nav>
 						<div class="tab-content" id="nav-tabContent">
@@ -166,7 +166,7 @@
 
 
 							</div>
-							<div class="tab-pane fade" id="nav-mano_de_obra" role="tabpanel">
+							{{-- <div class="tab-pane fade" id="nav-mano_de_obra" role="tabpanel">
 
 								<div class="card">
 									<div class="card-header">
@@ -446,7 +446,7 @@
 									</div>
 								</div>
 							</div>
-						</div>
+ --}}						</div>
 					</div>
 				</div>
 				<hr>
