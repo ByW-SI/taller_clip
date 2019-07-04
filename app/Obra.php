@@ -30,6 +30,18 @@ class Obra extends Model
         return $this->belongsToMany('App\Orden', 'obra_orden');
     }
 
+    public function varios(){
+        return $this->hasMany('App\Vario');
+    }
+
+    public function manodeobras(){
+        return $this->hasMany('App\Manodeobra');
+    }
+
+    public function envios(){
+        return $this->hasMany('App\Envio');
+    }
+
     public function total(){
         $materiales = $this->materiales;
         // return $materiales;

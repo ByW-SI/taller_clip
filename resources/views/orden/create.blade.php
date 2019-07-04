@@ -151,17 +151,17 @@
                                 <div class="col-sm-3 form-group">
                                     <input type="hidden" class="totals_manodeobra" value="0">
                                     <label class="control-label">Total Mano de Obra ${i+1}:</label>
-                                    <input readonly value="0" class="form-control totalO" type="text" name="total_manodeobra[]" id="total_manodeobra${i+1}"  min="0">
+                                    <input readonly value="0" class="form-control totalMO" type="text" name="total_manodeobra[]" id="total_manodeobra${i+1}"  min="0">
                                 </div>
                                 <div class="col-sm-3 form-group">
                                     <input type="hidden" class="totals_varios" value="0">
                                     <label class="control-label">Total Varios ${i+1}:</label>
-                                    <input readonly value="0" class="form-control totalO" type="text" name="totals_varios[]" id="totals_varios${i+1}"  min="0">
+                                    <input readonly value="0" class="form-control totalV" type="text" name="totals_varios[]" id="totals_varios${i+1}"  min="0">
                                 </div>
                                 <div class="col-sm-3 form-group">
                                     <input type="hidden" class="totals_envio" value="0">
                                     <label class="control-label">Total Envíos ${i+1}:</label>
-                                    <input readonly value="0" class="form-control totalO" type="text" name="totals_envio[]" id="totals_envio${i+1}"  min="0">
+                                    <input readonly value="0" class="form-control totalE" type="text" name="totals_envio[]" id="totals_envio${i+1}"  min="0">
                                 </div>
                                 <div class="col-sm-6 form-group">
                                     <label class="control-label">Descripción de la obra:</label>
@@ -699,6 +699,26 @@
                 total_orden += parseFloat($('.totalO').eq(i).val().replace(',', ''));
                 //console.log('total_orden ' + total_orden);
             }
+
+            total_MO = 0.0;
+            $('.totalMO').each(function(index, el) {
+                total_MO += parseFloat($(el).val());
+            });
+            console.log(total_MO);
+
+            total_V = 0.0;
+            $('.totalV').each(function(index, el) {
+                total_V += parseFloat($(el).val());
+            });
+            console.log(total_V);
+
+            total_E = 0.0;
+            $('.totalE').each(function(index, el) {
+                total_E += parseFloat($(el).val());
+            });
+            console.log(total_E);
+            total_orden += total_MO + total_V + total_E;
+
             $('#total').val(new Intl.NumberFormat('es-MX').format(total_orden));
         }
 
@@ -733,21 +753,23 @@
                 return 0;
             }
             let total = parseFloat(inputs.eq(2).val());// - parseFloat($('#costomanodeobra').val());
-            var ht = '<tr id="algo' + contador + '"><td> <input type="hidden" form="formroden" name="manodeobrasn[][]" value="' + inputs.eq(0).val() + '"> ' + inputs.eq(0).val() + '</td>' +
-                ' <td><input type="hidden" form="formroden" name="manodeobrasp[][]" value="' + inputs.eq(1).val() + '" >' + inputs.eq(1).val() + '</td>' +
-                '<td><input type="hidden" form="formroden" name="manodeobrasd[][]" value="' + $('#desmanodeobra').val() + '"> ' + $('#desmanodeobra').val() + '</td>' +
-                '<td class="montomanodeobra"> <input type="hidden" form="formroden" name="manodeobrasm[][]" value="' + inputs.eq(2).val() + '">' + inputs.eq(2).val() +
-                '<td><input type="hidden" form="formroden" name="manodeobrasc[][]" class="costos_manodeobra" value="' + inputs.eq(3).val() + '"> ' + inputs.eq(3).val() + '</td>' +
-                '<td><input type="hidden" form="formroden" name="manodeobrast[][]" class="totals_manodeobra" value="' + total + '"> ' + total + '</td>' +
+            var ht = '<tr id="algo' + contador + '"><td> <input type="hidden" form="formroden" name="manodeobrasn['+(parseInt(obra_id) - 1)+'][]" value="' + inputs.eq(0).val() + '"> ' + inputs.eq(0).val() + '</td>' +
+                ' <td><input type="hidden" form="formroden" name="manodeobrasp['+(parseInt(obra_id) - 1)+'][]" value="' + inputs.eq(1).val() + '" >' + inputs.eq(1).val() + '</td>' +
+                '<td><input type="hidden" form="formroden" name="manodeobrasd['+(parseInt(obra_id) - 1)+'][]" value="' + $('#desmanodeobra').val() + '"> ' + $('#desmanodeobra').val() + '</td>' +
+                '<td class="montomanodeobra"> <input type="hidden" form="formroden" name="manodeobrasm['+(parseInt(obra_id) - 1)+'][]" value="' + inputs.eq(2).val() + '">' + inputs.eq(2).val() +
+                '<td><input type="hidden" form="formroden" name="manodeobrasc['+(parseInt(obra_id) - 1)+'][]" class="costos_manodeobra" value="' + inputs.eq(3).val() + '"> ' + inputs.eq(3).val() + '</td>' +
+                '<td><input type="hidden" form="formroden" name="manodeobrast['+(parseInt(obra_id) - 1)+'][]" class="totals_manodeobra" value="' + total + '"> ' + total + '</td>' +
                 '<td><button class="btn btn-danger" id="btn-elim-mo-'+obra_id+'" type="button" onclick="removeManoO(' + "'algo" + contador + "'" + ',' + inputs.eq(2).val() + ')">Eliminar</button></td></tr>';
             card.find('tbody#tablamanodeobras'+obra_id).append(ht);
             card.find('tbody#tablamanodeobras'+obra_id+ ' tr').each(function(index, el) {
                 totalmo = +totalmo + +parseFloat($(el).find('.montomanodeobra input').val());
             });
+
+            input_total_mano.trigger('change');
             totales.eq(0).val((totalmo.toFixed(2)));
             input_total_mano_hidden.val(totalmo.toFixed(2));
             input_total_mano.val(totalmo.toFixed(2));
-            // calcular();
+            
         });
 
         function removeManoO(id, precio) {
@@ -792,10 +814,10 @@
                 });
                 return 0;
             }
-            var ht = ' <tr id="algo' + contador + '"><td> <input type="hidden" form="formroden" name="variosd[][]" value="' + inputs.eq(0).val() + '" > ' + inputs.eq(0).val() + '</td>' +
-                '<td class="montovario"><input type="hidden" form="formroden" name="variosm[][]" value="' + inputs.eq(1).val() + '" > ' + inputs.eq(1).val() + '</td>' +
-                ' <td> <input type="hidden" form="formroden" class="costos_varios" name="variosc[][]" value="' + inputs.eq(2).val() + '" > ' + inputs.eq(2).val() + '</td>' +
-                ' <td> <input type="hidden" form="formroden" class="totals_varios" name="variost[][]" value="' + inputs.eq(1).val() + '" > ' + inputs.eq(1).val() + '</td>' +
+            var ht = ' <tr id="algo' + contador + '"><td> <input type="hidden" form="formroden" name="variosd['+(parseInt(obra_id) - 1)+'][]" value="' + inputs.eq(0).val() + '" > ' + inputs.eq(0).val() + '</td>' +
+                '<td class="montovario"><input type="hidden" form="formroden" name="variosm['+(parseInt(obra_id) - 1)+'][]" value="' + inputs.eq(1).val() + '" > ' + inputs.eq(1).val() + '</td>' +
+                ' <td> <input type="hidden" form="formroden" class="costos_varios" name="variosc['+(parseInt(obra_id) - 1)+'][]" value="' + inputs.eq(2).val() + '" > ' + inputs.eq(2).val() + '</td>' +
+                ' <td> <input type="hidden" form="formroden" class="totals_varios" name="variost['+(parseInt(obra_id) - 1)+'][]" value="' + inputs.eq(1).val() + '" > ' + inputs.eq(1).val() + '</td>' +
                 '<td><button class="btn btn-danger" id="btn-elim-v-'+obra_id+'" onclick="removeVario(' + "'algo" + contador + "'" + ',' + inputs.eq(1).val() + ')">Eliminar</button></td></tr>';
 
             card.find('#tablavarios').append(ht);
@@ -803,6 +825,7 @@
                 totalva = +totalva + +parseFloat($(el).find('.montovario input').val());
             });
 
+            input_total_varios.trigger('change');
             totales.eq(0).val(totalva.toFixed(2));
             input_total_varios_hidden.val(totalva.toFixed(2));
             input_total_varios.val(totalva.toFixed(2));
@@ -855,16 +878,19 @@
                 return 0;
             }
 
-            var ht = '<tr id="algo' + contador + '"><td> <input type="hidden" form="formroden" name="enviosdi[][]" value="' + direccion.val() + '" > ' + direccion.val() + '</td>' +
-                ' <td> <input type="hidden" form="formroden" name="enviosd[][]" value="' + inputs.eq(0).val() + '" >' + inputs.eq(0).val() + '</td>' +
-                ' <td class="montoenvio"> <input type="hidden" form="formroden" name="enviosm[][]" value="' + inputs.eq(1).val() + '"  > ' + inputs.eq(1).val() + '</td>' +
-                ' <td class="montoenvio"> <input type="hidden" form="formroden" class="costos_envio" name="enviosc[][]" value="' + inputs.eq(2).val() + '"  > ' + inputs.eq(2).val() + '</td>' +
-                ' <td class="montoenvio"> <input type="hidden" form="formroden" class="totals_envio" name="enviost[][]" value="' + inputs.eq(1).val() + '"  > ' + inputs.eq(1).val() + '</td>' +
+            var ht = '<tr id="algo' + contador + '"><td> <input type="hidden" form="formroden" name="enviosdi['+(parseInt(obra_id) - 1)+'][]" value="' + direccion.val() + '" > ' + direccion.val() + '</td>' +
+                ' <td> <input type="hidden" form="formroden" name="enviosd['+(parseInt(obra_id) - 1)+'][]" value="' + inputs.eq(0).val() + '" >' + inputs.eq(0).val() + '</td>' +
+                ' <td class="montoenvio"> <input type="hidden" form="formroden" name="enviosm['+(parseInt(obra_id) - 1)+'][]" value="' + inputs.eq(1).val() + '"  > ' + inputs.eq(1).val() + '</td>' +
+                ' <td class="montoenvio"> <input type="hidden" form="formroden" class="costos_envio" name="enviosc['+(parseInt(obra_id) - 1)+'][]" value="' + inputs.eq(2).val() + '"  > ' + inputs.eq(2).val() + '</td>' +
+                ' <td class="montoenvio"> <input type="hidden" form="formroden" class="totals_envio" name="enviost['+(parseInt(obra_id) - 1)+'][]" value="' + inputs.eq(1).val() + '"  > ' + inputs.eq(1).val() + '</td>' +
                 '<td><button class="btn btn-danger" onclick="removeEnvio(' + "'algo" + contador + "'" + ',' + $("#montoenvio").val() + ')">Eliminar</button></td></tr>';
             card.find('#tablaenvios').append(ht);
             card.find('tbody#tablaenvios tr').each(function(index, el) {
                 totalenvio = +totalenvio + +parseFloat($(el).find('.montoenvio input').val());
             });
+
+            input_total_envio.trigger('change');
+
             totales.eq(0).val(totalenvio.toFixed(2));
             input_total_envio_hidden.val(totalenvio.toFixed(2));
             input_total_envio.val(totalenvio.toFixed(2));
@@ -893,25 +919,61 @@
             //calcular();
         }
 
+        $(document).on('change', '.totalsV', function(event) {
+            console.log('si cambio');
+            let totalvarios = 0.0;
+            totalvarios += parseFloat($(this).val());
+            var precio_total = parseFloat($('#total').val().replace(',', ''));
+            precio_total += totalsvarios;
+            $('#total').val(new Intl.NumberFormat('es-MX').format(precio_total));
+        });
+        $(document).on('change', '.totalsMO', function(event) {
+            console.log('si cambio');
+            let totalmanoobra = 0.0;
+            totalmanoobra += parseFloat($(this).val());
+            var precio_total = parseFloat($('#total').val().replace(',', ''));
+            precio_total += totalmanoobra;
+            $('#total').val(new Intl.NumberFormat('es-MX').format(precio_total));
+        });
+        $(document).on('change', '.totalsE', function(event) {
+            console.log('si cambio');
+            let totalenvios = 0.0;
+            totalenvios += parseFloat($(this).val());
+            var precio_total = parseFloat($('#total').val().replace(',', ''));
+            precio_total += totalenvios;
+            $('#total').val(new Intl.NumberFormat('es-MX').format(precio_total));
+        });
+        $(document).on('change', '.totalsO', function(event) {
+            console.log('si cambio');
+            let totalordens = 0.0;
+            totalordens += parseFloat($(this).val());
+            var precio_total = parseFloat($('#total').val().replace(',', ''));
+            precio_total += precio_total;
+            $('#total').val(new Intl.NumberFormat('es-MX').format(precio_total));
+        });
+
         function calcular() {
             let totalvarios = 0.0;
             let totalmanoobra = 0.0;
             let totalenvios = 0.0;
             let totalordens = 0.0;
             /***SUMAS***/
-            $('.totals_varios').each(function () {
+            $('.totalsV').each(function () {
                 totalvarios += parseFloat($(this).val());
             });
-            $('.totals_manodeobra').each(function () {
+            $('.totalMO').each(function () {
                 totalmanoobra += parseFloat($(this).val());
             });
-            $('.totals_envio').each(function () {
+            $('.totalE').each(function () {
                 totalenvios += parseFloat($(this).val());
             });
-            totalordens = parseFloat($('#totalordenes').text());
-            $('#totalenvios').text(totalenvios);
-            $('#totalvarios').text(totalvarios);
-            $('#totalmanodeobra').text(totalmanoobra);
+            $('.totalO').each(function () {
+                totalordens += parseFloat($(this).val());
+            });
+            //totalordens = parseFloat($('#totalordenes').text());
+            // $('#totalenvios').text(totalenvios);
+            // $('#totalvarios').text(totalvarios);
+            // $('#totalmanodeobra').text(totalmanoobra);
 
             /***GANANCIAS Y DESCUENTOS***/
             let a = parseFloat($('#totalordenes').text()) - parseFloat($('#descuento_ordenes').val()) + parseFloat($('#ganancia_ordenes').val());

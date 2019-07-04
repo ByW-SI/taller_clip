@@ -38,7 +38,7 @@
 			  <li class="nav-item">
 			    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Ordenes</a>
 			  </li>
-			  <li class="nav-item">
+			  {{-- <li class="nav-item">
 			    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Mano de obra</a>
 			  </li>
 			  <li class="nav-item">
@@ -46,7 +46,7 @@
 			  </li>
 			  <li class="nav-item">
 			    <a class="nav-link" id="envios-tab" data-toggle="tab" href="#envios" role="tab" aria-controls="envios" aria-selected="false">Envios</a>
-			  </li>
+			  </li> --}}
 			</ul>
 			<div class="tab-content" id="myTabContent">
 			  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
@@ -129,81 +129,93 @@
 							                </tr>
 						                @endforeach
 						            </table>
+						            <table class="table table-striped table-bordered">
+									    <thead>
+									    	<tr class="table-secondary collapse collapse{{$orden->id}}">
+							                  <th scope="col" colspan="7">Mano de obra de {{$obra->nombre}}</th>
+							                </tr>
+									      <tr class="table-secondary collapse collapse{{$orden->id}}">
+									        <th scope="col">Nombre</th>
+									        <th scope="col">Puesto</th>
+									        <th scope="col">Monto</th>
+									        <th scope="col">Descripción</th>
+									      </tr>
+									    </thead>
+									    <tbody id="tablamanodeobras">
+									    	@foreach($obra->manodeobras as $manodeobras)
+									    		<tr class="collapse collapse{{$orden->id}} tr-space">
+									    			<td>{{ $manodeobras->nombre }}</td>
+									    			<td>{{ $manodeobras->puesto }}</td>
+									    			<td>{{ $manodeobras->monto }}</td>
+									    			<td>{{ $manodeobras->descripcion }}</td>
+									    		</tr>
+											@endforeach
+									    </tbody>
+								  	</table>
+								  	<table class="table  table-striped table-bordered">
+									    <thead class="table-info">
+									      <tr class="table-secondary collapse collapse{{$orden->id}}">
+						                    <th scope="col" colspan="7">Varios de {{$obra->nombre}}</th>
+						                  </tr>
+									      <tr class="table-secondary collapse collapse{{$orden->id}}">
+									        <th scope="col">Monto</th>
+									        <th scope="col">Descripción</th>
+									      </tr>
+									    </thead>
+									    <tbody id="tablavarios">
+									    	@foreach($obra->varios as $varios)
+									    		<tr class="collapse collapse{{$orden->id}} tr-space">
+									    			<td>{{ $varios->monto }}</td>
+									    			<td>{{ $varios->descripcion }}</td>
+									    		</tr>
+											@endforeach
+									    </tbody>
+								  	</table>
+								  	<table class="table table-striped table-bordered">
+									    <thead class="table-info">
+									      <tr class="table-secondary collapse collapse{{$orden->id}}">
+						                    <th scope="col" colspan="7">Envios de {{$obra->nombre}}</th>
+						                  </tr>
+									      <tr class="table-secondary collapse collapse{{$orden->id}}">
+									        <th scope="col">Dirección</th>
+									        <th scope="col">Descripción</th>
+									        <th scope="col">Monto</th>
+									      </tr>
+									    </thead>
+									    <tbody id="tablaenvios">
+									    	@foreach($obra->envios as $envios)
+									    		<tr class="collapse collapse{{$orden->id}} tr-space">
+									    			<td>{{ $envios->direccion }}</td>
+									    			<td>{{ $envios->descripcion }}</td>
+									    			<td>{{ $envios->monto }}</td>
+									    		</tr>
+											@endforeach
+									    </tbody>
+								  	</table>
 				            </table>
+							{{-- <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+								<div class="row"><h5>Mano de obra:</h5></div>
+								<div class="row">
+								  
+								</div>	
+							</div>
+							<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+								<div class="row"><h5>Varios:</h5></div>
+								<div class="row">
+								  
+								</div>
+							</div>
+							<div class="tab-pane fade" id="envios" role="tabpanel" aria-labelledby="envios-tab">
+								<div class="row"><h5>Envios:</h5></div>
+								<div class="row">
+								  
+								</div>	
+							</div> --}}
 		                @endforeach
 		            </tbody>
 		          </table>
               	@endforeach
 			  	</div>
-			  </div>
-			  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-		        <div class="row"><h5>Mano de obra:</h5></div>
-		        <div class="row">
-		          <table class="table table-striped table-bordered">
-		            <thead>
-		              <tr class="table-info">
-		                <th scope="col">Nombre</th>
-		                <th scope="col">Puesto</th>
-		                <th scope="col">Monto</th>
-		                <th scope="col">Descripción</th>
-		              </tr>
-		            </thead>
-		            <tbody id="tablamanodeobras">
-		            	@foreach($cotizacion->manodeobras as $manodeobras)
-		            		<tr>
-		            			<td>{{ $manodeobras->nombre }}</td>
-		            			<td>{{ $manodeobras->puesto }}</td>
-		            			<td>{{ $manodeobras->monto }}</td>
-		            			<td>{{ $manodeobras->descripcion }}</td>
-		            		</tr>
-		        		@endforeach
-		            </tbody>
-		          </table>
-		        </div>	
-			  </div>
-			  <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-		        <div class="row"><h5>Varios:</h5></div>
-		        <div class="row">
-		          <table class="table  table-striped table-bordered">
-		            <thead class="table-info">
-		              <tr>
-		                <th scope="col">Monto</th>
-		                <th scope="col">Descripción</th>
-		              </tr>
-		            </thead>
-		            <tbody id="tablavarios">
-		            	@foreach($cotizacion->varios as $varios)
-		            		<tr>
-		            			<td>{{ $varios->monto }}</td>
-		            			<td>{{ $varios->descripcion }}</td>
-		            		</tr>
-		        		@endforeach
-		            </tbody>
-		          </table>
-		        </div>
-			  </div>
-			  <div class="tab-pane fade" id="envios" role="tabpanel" aria-labelledby="envios-tab">
-		        <div class="row"><h5>Envios:</h5></div>
-		        <div class="row">
-		          <table class="table table-striped table-bordered">
-		            <thead class="table-info">
-		              <tr>
-		                <th scope="col">Dirección</th>
-		                <th scope="col">Descripción</th>
-		                <th scope="col">Monto</th>
-		              </tr>
-		            </thead>
-		            <tbody id="tablaenvios">
-		            	@foreach($cotizacion->envios as $envios)
-		            		<tr>
-		            			<td>{{ $envios->direccion }}</td>
-		            			<td>{{ $envios->descripcion }}</td>
-		            			<td>{{ $envios->monto }}</td>
-		            		</tr>
-		        		@endforeach
-		            </tbody>
-		          </table>
-		        </div>	
 			  </div>
 	        </div>
 	        <div class="row"><h5>Total:</h5></div>
@@ -220,6 +232,7 @@
 	              </div>
 	            </div>
 	          </div>
+	          {{-- 
 	          <div class="col-sm-3 form-group">
 	            <label class="control-label">Total mano(s) de obra(s):</label>
 	            <div class="input-group mb-3">
@@ -255,7 +268,7 @@
 	                <span class="input-group-text">MXN</span>
 	              </div>
 	            </div>
-	          </div>
+	          </div> --}}
 	        </div>
 	        <div class="row">
 	          <div class="form-group col col-md-4 offset-4">

@@ -50,7 +50,7 @@ class OrdenController extends Controller
      */
     public function store(Request $request)
     {
-        return dd($request->all());
+        // return dd($request->all());
 
         $precio_orden = str_replace(",", "",$request->precio_orden);
         $orden = Orden::create($request->all());
@@ -74,11 +74,46 @@ class OrdenController extends Controller
             for($j = 0; $j < sizeof($request->materiales_obra[$i]); $j++){
                 $obra->materiales()->attach( $request->materiales_obra[$i][$j] , ['cantidad'=>$request->cantidad_material_obra[$i][$j]]);
             }
+            // -- Se guarda Mano de obras --
+            if($request->manodeobrasd){
+                for($j = 0; $j < sizeof($request->manodeobrasd[$i]); $j++){
+                    $obra->manodeobras()->create([
+                        'descripcion'=>$request->manodeobrasd[$i][$j],
+                        'monto'=>$request->manodeobrasm[$i][$j],
+                        'nombre'=>$request->manodeobrasn[$i][$j],
+                        'puesto'=>$request->manodeobrasp[$i][$j],
+                        'costo'=>$request->manodeobrasc[$i][$j],
+                        'total'=>$request->manodeobrast[$i][$j]
+                    ]);
+                }
+            }
+            //-- Se guarda Varios
+            if($request->variosm[$i]){
+                for ($j = 0; $j < sizeof($request->variosm[$i]) ; $j++) {
+                    $obra->varios()->create([
+                        'descripcion'=>$request->variosd[$i][$j],
+                        'monto'=>$request->variosm[$i][$j],
+                        'costo'=>$request->variosc[$i][$j],
+                        'total'=>$request->variost[$i][$j]
+                    ]);
+                }
+            }
+            //-- Se guarda envios
+            if($request->enviosdi[$i]){
+                for ($j = 0; $j < sizeof($request->enviosdi[$i]) ; $j++) {
+                    $obra->envios()->create([
+                        'descripcion'=>$request->enviosd[$i][$j],
+                        'monto'=>$request->enviosm[$i][$j],
+                        'direccion'=>$request->enviosdi[$i][$j],
+                        'costo'=>$request->enviosc[$i][$j],
+                        'total'=>$request->enviost[$i][$j]
+                    ]);
+                }
+            }
 
             $orden->obras()->attach($obra->id);
             
         }
-
         
         $alert = ['message'=>"Orden ".$orden->nombre." registrado", 'class'=>'success'];
         return redirect()->route('orden.create')->with('alert',$alert);

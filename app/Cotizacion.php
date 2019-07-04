@@ -25,17 +25,17 @@ class Cotizacion extends Model
     ];
 
 
-    public function varios(){
-        return $this->hasMany('App\Vario');
-    }
+    // public function varios(){
+    //     return $this->hasMany('App\Vario');
+    // }
 
-    public function manodeobras(){
-        return $this->hasMany('App\Manodeobra');
-    }
+    // public function manodeobras(){
+    //     return $this->hasMany('App\Manodeobra');
+    // }
 
-    public function envios(){
-        return $this->hasMany('App\Envio');
-    }
+    // public function envios(){
+    //     return $this->hasMany('App\Envio');
+    // }
 
     public function ordens(){
         return $this->belongsToMany('App\Orden', 'cotizacion_orden');

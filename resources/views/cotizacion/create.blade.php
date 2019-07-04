@@ -467,7 +467,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-sm-3 form-group">
+					{{-- <div class="col-sm-3 form-group">
 						<label for="tmanodeobra" class="control-label">Total mano(s) de obra(s):</label>
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
@@ -505,7 +505,7 @@
 								<span class="input-group-text">MXN</span>
 							</div>
 						</div>
-					</div>
+					</div> --}}
 				</div>
 				<!--########################## Ganancias del pryecto#######################-->
 				<div class="row">
@@ -525,7 +525,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-sm-3 text form-group">
+					{{-- <div class="col-sm-3 text form-group">
 						<label for="tenvios" class="control-label">Ganancia mano(s) de obra(s):</label>
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
@@ -563,7 +563,7 @@
 								<span class="input-group-text">MXN</span>
 							</div>
 						</div>
-					</div>
+					</div> --}}
 				</div>
 				<div class="row">
 					<div class="form-group col-3">
@@ -813,65 +813,65 @@
 
 	function calcular() {
 		let totalvarios = 0.0;
-		let totalmanoobra = 0.0;
-		let totalenvios = 0.0;
-		let totalordens = 0.0;
+		// let totalmanoobra = 0.0;
+		// let totalenvios = 0.0;
+		// let totalordens = 0.0;
 		/***SUMAS***/
-		$('.totals_varios').each(function () {
-			totalvarios += parseFloat($(this).val());
-		});
-		$('.totals_manodeobra').each(function () {
-			totalmanoobra += parseFloat($(this).val());
-		});
-		$('.totals_envio').each(function () {
-			totalenvios += parseFloat($(this).val());
-		});
+		// $('.totals_varios').each(function () {
+		// 	totalvarios += parseFloat($(this).val());
+		// });
+		// $('.totals_manodeobra').each(function () {
+		// 	totalmanoobra += parseFloat($(this).val());
+		// });
+		// $('.totals_envio').each(function () {
+		// 	totalenvios += parseFloat($(this).val());
+		// });
 		totalordens = parseFloat($('#totalordenes').text());
-		$('#totalenvios').text(totalenvios);
-		$('#totalvarios').text(totalvarios);
-		$('#totalmanodeobra').text(totalmanoobra);
+		// $('#totalenvios').text(totalenvios);
+		// $('#totalvarios').text(totalvarios);
+		// $('#totalmanodeobra').text(totalmanoobra);
 
 		/***GANANCIAS Y DESCUENTOS***/
 		let a = parseFloat($('#totalordenes').text()) - parseFloat($('#descuento_ordenes').val()) + parseFloat($('#ganancia_ordenes').val());
 		$("#inputtotalordenes").val(a);
-		let b = parseFloat($('#totalmanodeobra').text()) - parseFloat($('#descuento_manodeobra').val()) + parseFloat($('#ganancia_manodeobra').val());
-		$('#tmanodeobra').val(b);
-		let c = parseFloat($('#totalvarios').text()) - parseFloat($('#descuento_varios').val()) + parseFloat($('#ganancia_varios').val());
-		$('#tvarios').val(c);
-		let d = parseFloat($('#totalenvios').text()) - parseFloat($('#descuento_envios').val()) + parseFloat($('#ganancia_envios').val());
-		$('#tenvios').val(d);
+		// let b = parseFloat($('#totalmanodeobra').text()) - parseFloat($('#descuento_manodeobra').val()) + parseFloat($('#ganancia_manodeobra').val());
+		// $('#tmanodeobra').val(b);
+		// let c = parseFloat($('#totalvarios').text()) - parseFloat($('#descuento_varios').val()) + parseFloat($('#ganancia_varios').val());
+		// $('#tvarios').val(c);
+		// let d = parseFloat($('#totalenvios').text()) - parseFloat($('#descuento_envios').val()) + parseFloat($('#ganancia_envios').val());
+		// $('#tenvios').val(d);
 		
 		/***FINAL***/
-		$('#totalproyecto').val(a+b+c+d)
+		$('#totalproyecto').val(a);
 
 		/***  Ganancias Netas  ***/
 		let gananciaordenes = a;
-		let gananciamanoobra = b;
-		let gananciavarios = c;
-		let gananciaenvios = d;
+		// let gananciamanoobra = b;
+		// let gananciavarios = c;
+		// let gananciaenvios = d;
 		$('.costos_orden').each(function() {
 			gananciaordenes -= parseFloat($(this).val());
 		});
-		$('.costos_manodeobra').each(function() {
-			gananciamanoobra -= parseFloat($(this).val());
-		});
-		$('.costos_varios').each(function() {
-			gananciavarios -= parseFloat($(this).val());
-		});
-		$('.costos_envio').each(function() {
-			gananciaenvios -= parseFloat($(this).val());
-		});
+		// $('.costos_manodeobra').each(function() {
+		// 	gananciamanoobra -= parseFloat($(this).val());
+		// });
+		// $('.costos_varios').each(function() {
+		// 	gananciavarios -= parseFloat($(this).val());
+		// });
+		// $('.costos_envio').each(function() {
+		// 	gananciaenvios -= parseFloat($(this).val());
+		// });
 
 		$('#gordenes').val(gananciaordenes);
-		$('#gmanodeobra').val(gananciamanoobra);
-		$('#gvarios').val(gananciavarios);
-		$('#genvios').val(gananciaenvios);
+		// $('#gmanodeobra').val(gananciamanoobra);
+		// $('#gvarios').val(gananciavarios);
+		// $('#genvios').val(gananciaenvios);
 
 		
 	}
 	$('input[name=iva]').change(function(){
 		let bruto = parseFloat($('#totalproyecto').val());
-		let gneto = parseFloat($('#gordenes').val()) + parseFloat($('#gmanodeobra').val()) + parseFloat($('#gvarios').val()) + parseFloat($('#genvios').val());
+		let gneto = parseFloat($('#gordenes').val());
 		if(document.getElementById('coniva').checked){
 			$('#totalneto').val(bruto*1.16);
 			$('#ganancianeto').val(gneto);
