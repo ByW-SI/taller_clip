@@ -951,9 +951,11 @@
         });
 
         // ----  PARA ACTUALIZAR LA SUMA DE MANO DE OBRA CON LOS DESCUENTOS Y GANANCIAS
-        $(document).on('change keyup', '.descuento_manodeobra .ganancia_manodeobra', function(event) {
-            console.log($(this));
-            console.log('Hola');
+        $(document).on('change', ".descuento_manodeobra", function(event) {
+            calcularSMO(this);
+        });
+        $(document).on('change', ".ganancia_manodeobra", function(event) {
+            calcularSMO(this);
         });
 
         // Para actualizar el total de la orden.
@@ -1040,6 +1042,14 @@
             $('#gmanodeobra').val(gananciamanoobra);
             $('#gvarios').val(gananciavarios);
             $('#genvios').val(gananciaenvios);       
+        }
+
+        function calcularSMO(elemento){
+            let input_total = $(elemento).parents('div.row').find('input').eq(0);
+            let descuento = parseFloat($(elemento).parents('div.row').find('input').eq(1).val());
+            let ganancia = parseFloat($(elemento).parents('div.row').find('input').eq(2).val());
+            total = parseFloat(input_total.val()) - descuento + ganancia;
+            input_total.val(total.toFixed(2));
         }
 
 
