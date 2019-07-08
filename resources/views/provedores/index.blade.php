@@ -31,11 +31,9 @@
 			<thead>
 				<tr class="info">
 					<th>@sortablelink('id', 'Identificador')</th>
-					<th>@sortablelink('nombre', 'Nombre/Razón Social'){{-- Nombre --}}</th>
+					<th>@sortablelink('nombre', 'Nombre/Razón Social')</th>
 					<th>@sortablelink('tipopersona', 'Tipo de persona')</th>
-					<th>@sortablelink('alias', 'Alias')</th>
 					<th>@sortablelink('rfc', 'RFC')</th>
-					<th>@sortablelink('vendedor', 'Vendedor') </th>
 					<th>Operacion</th>
 				</tr>
 			</thead>
@@ -54,9 +52,7 @@
 						@endif
 					</td>
 					<td>{{ $provedore->tipopersona }}</td>
-					<td>{{ $provedore->alias }}</td>
 					<td>{{ strtoupper($provedore->rfc) }}</td>
-					<td>{{$provedore->vendedor}}</td>
 					<td>
 							<a class="btn btn-success btn-sm" href="{{ route('provedores.show',['provedor'=>$provedore]) }}">
 								<i class="fa fa-eye" aria-hidden="true"></i> 

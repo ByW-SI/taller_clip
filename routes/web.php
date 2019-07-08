@@ -74,6 +74,9 @@ Route::get('consulta',function(){
 	return View::make('Empleadoconsulta.consulta');
 });
 
+Route::get('import-export-csv-excel', array('as' => 'excel.import', 'uses' => 'Material\MaterialController@importExportExcel'));
+Route::post('import-csv-excel', array('as' => 'import-csv-excel', 'uses' => 'Material\MaterialController@guardarExcel'));
+
 
 
 //   11/Dic/2017

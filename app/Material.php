@@ -21,7 +21,8 @@ class Material extends Model
 		'proveedor_id',
         'costo',
         'ganancia',
-        'precio'
+        'precio',
+        'provedor_name'
      ];
 
      // public function descripcion()

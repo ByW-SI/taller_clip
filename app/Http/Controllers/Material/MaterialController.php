@@ -6,7 +6,10 @@ use App\Descripcion;
 use App\Http\Controllers\Controller;
 use App\Material;
 use App\Proveedor;
+use App\Imports\MaterialImport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
+use UxWeb\SweetAlert\SweetAlert as Alert;
 
 class MaterialController extends Controller
 {
@@ -17,7 +20,7 @@ class MaterialController extends Controller
      */
     public function index(Request $req)
     {
-        $materiales = Material::paginate(10);
+        $materiales = Material::get();
         return view('material.index',['materiales'=>$materiales]);
        
     }
@@ -130,5 +133,56 @@ class MaterialController extends Controller
         return view('material.list',['materiales'=>$materiales, 'idtabla' => $idtabla]);
          $materiales = Material::where('seccion', $req->seccion)->with(['descripcion'])->get();
             return $materiales;
+    }
+
+    public function importExportExcel() {
+        return view('excel.importar');
+    }
+
+    public function guardarExcel(Request $request)
+    {
+        //Excel::import(new MaterialImport, $request->file('sample_file'));
+        //return redirect('/')->with('success', 'All good!');
+
+        // ########
+        if($request->hasFile('sample_file')) {
+            //$path = $request->file('sample_file')->getPathName();
+            //$data = \Excel::load($path, null, null, true, null)->get();
+            $data = Excel::toArray(new MaterialImport, request()->file('sample_file'));
+            $data = $data[0];
+            unset($data[0]);
+            if(count($data)) {
+                foreach ($data as $row) {
+                    $arr[] = [
+                        'seccion'     => $row[1],
+                        'clave'    => $row[2], 
+                        'ancho' => $row[3],
+                        'alto' => $row[4],
+                        'espesor' => $row[5],
+                        'tipo_unidad' => $row[6],
+                        'color' => $row[7],
+                        'provedor_name' => $row[8],
+                        'precio' => $row[9],
+                        'created_at' => date('Y-m-d h:m:s'),
+                        'updated_at' => date('Y-m-d h:m:s'),
+                    ];
+                }
+                if (!empty($arr)) {
+                    // dd($arr);
+                    Material::insert($arr);
+                    Alert::success('Archivo subido correctamente.');
+                    return redirect()->back();
+                } else
+                    return('Error al subir el archivo.');
+                    return redirect()->back()->with('error', 'Error al subir el archivo.');
+            } else
+            return('Error al subir el archivo.');
+                return redirect()->back()->with('error', 'Error al subir el archivo.');
+        } else
+            return('No se subio ningun archivo');
+            return redirect()->back()->with('error', 'No se subio ningun archivo');
+
+        return('Error al subir el archivo.');
+        return redirect()->back()->with('error', 'Error al subir el archivo.');
     }
 }

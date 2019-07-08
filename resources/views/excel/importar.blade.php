@@ -8,9 +8,9 @@
 				<div class="col-xs-12 col-sm-12 col-md-12">
 					<h4>
 						
-						<a class="label label-info label-bs" href="{{ route('excel-file',['type'=>'xls']) }}"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Descargar en archivo xls</a>
+						{{-- <a class="label label-info label-bs" href="{{ route('excel-file',['type'=>'xls']) }}"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Descargar en archivo xls</a>
 						<a class="label label-info" href="{{ route('excel-file',['type'=>'xlsx']) }}"> <i class="fa fa-file-excel-o" aria-hidden="true"></i> Descargar en archivo xlsx</a>
-						<a class="label label-info" href="{{ route('excel-file',['type'=>'csv']) }}"><i class="fa fa-download" aria-hidden="true"></i> Descargar en archivo csv</a>
+						<a class="label label-info" href="{{ route('excel-file',['type'=>'csv']) }}"><i class="fa fa-download" aria-hidden="true"></i> Descargar en archivo csv</a> --}}
 					</h4>
 				</div>
 			</div>

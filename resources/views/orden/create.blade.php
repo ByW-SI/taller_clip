@@ -92,16 +92,16 @@
                             <a class="nav-link active" id="home${i+1}-tab" data-toggle="tab" href="#home${i+1}" role="tab" aria-controls="home" aria-selected="true">Datos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="profile${i+1}-tab" data-toggle="tab" href="#profile${i+1}" role="tab" aria-controls="profile" aria-selected="false">Materiales</a>
+                            <a class="nav-link disabled" id="profile${i+1}-tab" data-toggle="tab" href="#profile${i+1}" role="tab" aria-controls="profile" aria-selected="false">Materiales</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="mano_obra${i+1}-tab" data-toggle="tab" href="#mano_obra${i+1}" role="tab" aria-controls="mano_obra" aria-selected="false">Mano de obra</a>
+                            <a class="nav-link disabled" id="mano_obra${i+1}-tab" data-toggle="tab" href="#mano_obra${i+1}" role="tab" aria-controls="mano_obra" aria-selected="false">Mano de obra</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="varios${i+1}-tab" data-toggle="tab" href="#varios${i+1}" role="tab" aria-controls="varios" aria-selected="false">Varios</a>
+                            <a class="nav-link disabled" id="varios${i+1}-tab" data-toggle="tab" href="#varios${i+1}" role="tab" aria-controls="varios" aria-selected="false">Varios</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="envios${i+1}-tab" data-toggle="tab" href="#envios${i+1}" role="tab" aria-controls="envios" aria-selected="false">Envíos</a>
+                            <a class="nav-link disabled" id="envios${i+1}-tab" data-toggle="tab" href="#envios${i+1}" role="tab" aria-controls="envios" aria-selected="false">Envíos</a>
                         </li>
                     </ul>
                     <div class="tab-content" id="myTabContent">
@@ -113,7 +113,7 @@
                                 </div>
                                 <div class="col-sm-3 form-group">
                                     <label class="control-label">Número de piezas:</label>
-                                    <input required type="number" name="nopiezas_obra[]" step="1" min="1"  value="{{($edit && $obra) ? $obra->nopiezas : "1"}}" class="form-control" id="nopiezas${i+1}" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" onchange="actualizarPrecioMedidas(${i+1})" required>
+                                    <input required type="number" name="nopiezas_obra[]" step="1" min="1"  value="{{($edit && $obra) ? $obra->nopiezas : "1"}}" class="form-control medidas" id="nopiezas${i+1}" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" onchange="actualizarPrecioMedidas(${i+1})" required>
                                 </div>
                                 <div class="col-sm-3 form-group">
                                     <label class="control-label">Alto de la obra (cm):</label>
@@ -127,15 +127,15 @@
                             <div class="row">
                                 <div class="col-sm-3 form-group">
                                     <label class="control-label">Alto marco (cm):</label>
-                                    <input required type="number" onchange="cambiarPrecio(0,${i+1})" name="alto_obra_marco[]" step="0.01" min="0" value="0" id="alto_obra_marco${i+1}" class="form-control controladordeprecio">
+                                    <input required type="number" onchange="cambiarPrecio(0,${i+1})" name="alto_obra_marco[]" step="0.01" min="0" value="0" id="alto_obra_marco${i+1}" class="form-control controladordeprecio medidas">
                                 </div>
                                 <div class="col-sm-3 form-group">
                                     <label class="control-label">Ancho marco (cm):</label>
-                                    <input required type="number" onchange="cambiarPrecio(0,${i+1})" name="ancho_obra_marco[]" step="0.01" min="0" value="0" id="ancho_obra_marco${i+1}" class="form-control controladordeprecio">
+                                    <input required type="number" onchange="cambiarPrecio(0,${i+1})" name="ancho_obra_marco[]" step="0.01" min="0" value="0" id="ancho_obra_marco${i+1}" class="form-control controladordeprecio medidas">
                                 </div>
                                 <div class="col-sm-3 form-group">
                                     <label class="control-label">Profundidad marco (cm):</label>
-                                    <input required type="number"  onchange="cambiarPrecio(0,${i+1})" name="profundidad_obra_marco[]" step="0.01" min="0" value="0" id="profundidad_obra_marco${i+1}" class="form-control controladordeprecio">
+                                    <input required type="number"  onchange="cambiarPrecio(0,${i+1})" name="profundidad_obra_marco[]" step="0.01" min="0" value="0" id="profundidad_obra_marco${i+1}" class="form-control controladordeprecio medidas">
                                 </div>
                                 <div class="col-sm-3 form-group">
                                     <label class="control-label">Profundidad de la obra:</label>
@@ -295,7 +295,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">$</span>
                                                 </div>
-                                                <input type="number" value="0" step="0.01" class="form-control" onchange="calcular()"
+                                                <input type="number" value="0" step="0.01" class="form-control descuento_manodeobra" onchange="calcular()"
                                                     id="descuento_manodeobra">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text">MXN</span>
@@ -308,7 +308,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">$</span>
                                                 </div>
-                                                <input type="number" value="0" step="0.01" class="form-control" onchange="calcular()"
+                                                <input type="number" value="0" step="0.01" class="form-control ganancia_manodeobra" onchange="calcular()"
                                                     id="ganancia_manodeobra">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text">MXN</span>
@@ -508,6 +508,17 @@
             
         }
 
+        $(document).on('change', '.medidas', function(event) {
+            let obra_id = parseInt($(this).prop('id').replace(/[a-z_]+/, ""));
+            let links = $(this).parents('div#obras').find('ul#myTab').eq(obra_id-1).children('li').children();
+            //console.log($('#nopiezas'+obra_id).val());
+            if ($('#alto_obra_marco'+obra_id).val() != '0' && $('#ancho_obra_marco'+obra_id).val() != '0' ) {
+                let clase = $(links[1]).prop('class');
+                clase = clase.replace("disabled", "");
+                $(links[1]).prop('class', clase);
+            }
+        });
+
         function agregarATabla(id){
             $.ajax({
                 url: '../buscarMaterial/'+$('#'+id).val() + '/'+ id.replace('seccion',''),
@@ -584,6 +595,14 @@
             $("#myMaterials" + id).append(rowHTML);
             console.log('material.costo: ' + material.costo);
             cambiarPrecio(material.precio, id, material.costo);
+
+            // para habilitar la mano de obra, varios y envio
+            let links = $('ul#myTab').eq(id-1).children('li').children();
+            let clase = $(links[2]).prop('class');
+            clase = clase.replace("disabled", "");
+            $(links[2]).prop('class', clase);
+            $(links[3]).prop('class', clase);
+            $(links[4]).prop('class', clase);
             //alert(id);
         }
         
@@ -769,6 +788,7 @@
             totales.eq(0).val((totalmo.toFixed(2)));
             input_total_mano_hidden.val(totalmo.toFixed(2));
             input_total_mano.val(totalmo.toFixed(2));
+            actualizarPrecioMedidas(obra_id);
             
         });
 
@@ -829,6 +849,7 @@
             totales.eq(0).val(totalva.toFixed(2));
             input_total_varios_hidden.val(totalva.toFixed(2));
             input_total_varios.val(totalva.toFixed(2));
+            actualizarPrecioMedidas(obra_id);
             //calcular();
         });
 
@@ -894,6 +915,7 @@
             totales.eq(0).val(totalenvio.toFixed(2));
             input_total_envio_hidden.val(totalenvio.toFixed(2));
             input_total_envio.val(totalenvio.toFixed(2));
+            actualizarPrecioMedidas(obra_id);
             //calcular();
         });
 
@@ -927,6 +949,14 @@
             precio_total += totalsvarios;
             $('#total').val(new Intl.NumberFormat('es-MX').format(precio_total));
         });
+
+        // ----  PARA ACTUALIZAR LA SUMA DE MANO DE OBRA CON LOS DESCUENTOS Y GANANCIAS
+        $(document).on('change keyup', '.descuento_manodeobra .ganancia_manodeobra', function(event) {
+            console.log($(this));
+            console.log('Hola');
+        });
+
+        // Para actualizar el total de la orden.
         $(document).on('change', '.totalsMO', function(event) {
             console.log('si cambio');
             let totalmanoobra = 0.0;

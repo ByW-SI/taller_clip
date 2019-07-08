@@ -16,7 +16,7 @@ class Provedor extends Model
     //
     protected $table='proveedores';
 
-    public $sortable = ['id', 'nombre','apellidopaterno','apellidomaterno', 'razonsocial', 'email'];
+    public $sortable = ['id', 'nombre','apellidopaterno','apellidomaterno', 'razonsocial', 'tipopersona'];
    /**
      * The attributes that are mass assignable.
      *
@@ -25,7 +25,7 @@ class Provedor extends Model
     protected $fillable = [
 
 
-        'id','tipopersona', 'nombre', 'apellidopaterno','apellidomaterno', 'razonsocial', 'alias', 'rfc','vendedor','email', 'calle', 'numext', 'numinter', 'colonia', 'municipio', 'ciudad', 'estado', 'calle1', 'calle2','referencia'
+        'id','tipopersona', 'nombre', 'apellidopaterno','apellidomaterno', 'razonsocial', 'rfc','vendedor','email', 'calle', 'numext', 'numinter', 'colonia', 'municipio', 'ciudad', 'estado', 'calle1', 'calle2','referencia'
 
     ];
 

@@ -88,12 +88,11 @@
 										class="btn btn-info">Editar</a>
 								</div>
 							</td>
-							<td>{{$material->seccion}} / {{$material->descripcion}} / {{$material->proveedor->razonsocial ?
-								$material->proveedor->razonsocial : $material->proveedor->nombre." ".$material->proveedor->apellidopaterno."
-								".$material->proveedor->apellidomaterno}}</td>
-							<td>{{$material->alto}} X {{$material->ancho}} X {{$material->espesor}} cm</td>
+							<td>{{$material->seccion}} / {{$material->descripcion? $material->descripcion:'sin - desc'}} / {{$material->proveedor ?
+								$material->proveedor->razonsocial : $material->provedor_name}}</td>
+							<td>{{$material->alto}} X {{$material->ancho}} X {{$material->espesor}} {{ $material->tipo_unidad?$material->tipo_unidad: "cm" }}</td>
 							<td>{{$material->color}}</td>
-							<td>${{$material->costo}}</td>
+							<td>${{$material->costo?$material->costo: '--'}}</td>
 							<td>${{$material->precio}}</td>
 							<td>{{date('d-m-Y', strtotime($material->created_at))}}</td>
 

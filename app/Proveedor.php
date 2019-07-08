@@ -31,7 +31,7 @@ class Proveedor extends Model
         'referencia'
     ];
     
-    public $sortable = ['id', 'nombre','apellidopaterno','apellidomaterno', 'razonsocial', 'email'];
+    public $sortable = ['id', 'nombre','apellidopaterno','apellidomaterno', 'razonsocial', 'email', 'tipopersona'];
 
     protected $hidden = [
         'updated_at', 'created_at'

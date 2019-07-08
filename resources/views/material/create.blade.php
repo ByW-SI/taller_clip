@@ -32,10 +32,10 @@
                             <label class="control-label">Sección:</label>
                             <select required class="custom-select" name="seccion" id="seccion" required>
                                 <option value="">---</option>
-                                <option value="Maria Luisa" {{($edit && $material->seccion == "Maria Luisa") ? "selected" : ""}}>Maria Luisa</option>
-                                <option value="Montaje" {{($edit && $material->seccion == "Montaje") ? "selected" : ""}}>Montaje</option>
-                                <option value="Marco" {{($edit && $material->seccion == "Marco") ? "selected" : ""}}>Marco</option>
-                                <option value="Protección" {{($edit && $material->seccion == "Protección") ? "selected" : ""}}>Protección</option>
+                                <option value="Maria Luisa" {{($edit && $material->seccion == "Maria Luisa" || "MARIA LUISA") ? "selected" : ""}}>Maria Luisa</option>
+                                <option value="Montaje" {{($edit && $material->seccion == "Montaje"||"MONTAJE") ? "selected" : ""}}>Montaje</option>
+                                <option value="Marco" {{($edit && $material->seccion == "Marco"||"MARCO") ? "selected" : ""}}>Marco</option>
+                                <option value="Protección" {{($edit && $material->seccion == "Protección"||"PROTECCION") ? "selected" : ""}}>Protección</option>
                                 <option value="Generales" {{($edit && $material->seccion == "Generales") ? "selected" : ""}}>Generales</option>
                             </select>
                         </div>
