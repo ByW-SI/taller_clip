@@ -50,7 +50,7 @@ class OrdenController extends Controller
      */
     public function store(Request $request)
     {
-        // return dd($request->all());
+        //return dd($request->all());
 
         $precio_orden = str_replace(",", "",$request->precio_orden);
         $orden = Orden::create($request->all());

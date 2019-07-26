@@ -381,7 +381,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">$</span>
                                                 </div>
-                                                <input type="number" value="0" step="0.01" class="form-control" onchange="calcular()"
+                                                <input type="number" value="0" step="0.01" class="form-control descuento_varios" onchange="calcular()"
                                                     id="descuento_varios">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text">MXN</span>
@@ -395,7 +395,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">$</span>
                                                 </div>
-                                                <input type="number" value="0" step="0.01" class="form-control" onchange="calcular()"
+                                                <input type="number" value="0" step="0.01" class="form-control ganancia_varios" onchange="calcular()"
                                                     id="ganancia_varios">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text">MXN</span>
@@ -473,7 +473,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">$</span>
                                                 </div>
-                                                <input type="number" value="0" step="0.01" class="form-control" onchange="calcular()"
+                                                <input type="number" value="0" step="0.01" class="form-control descuento_envios" onchange="calcular()"
                                                     id="descuento_envios">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text">MXN</span>
@@ -486,7 +486,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">$</span>
                                                 </div>
-                                                <input type="number" value="0" step="0.01" class="form-control" onchange="calcular()"
+                                                <input type="number" value="0" step="0.01" class="form-control ganancia_envios" onchange="calcular()"
                                                     id="ganancia_envios">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text">MXN</span>
@@ -683,7 +683,7 @@
         }
 
         function actualizarPrecioMedidas(obra_id) {
-            console.log('obraid  ' + obra_id);
+            //console.log('obraid  ' + obra_id);
             var total_obra = 0;
             for (var i = 0; i < $('.cant_input').length; i++) {
                 var num_obra = $('.cant_input').eq(i).attr('name').replace('cantidad_material_obra\[', '').replace(/\]\[\]/, '').replace(',', '');
@@ -723,19 +723,19 @@
             $('.totalMO').each(function(index, el) {
                 total_MO += parseFloat($(el).val());
             });
-            console.log(total_MO);
+            //console.log(total_MO);
 
             total_V = 0.0;
             $('.totalV').each(function(index, el) {
                 total_V += parseFloat($(el).val());
             });
-            console.log(total_V);
+            //console.log(total_V);
 
             total_E = 0.0;
             $('.totalE').each(function(index, el) {
                 total_E += parseFloat($(el).val());
             });
-            console.log(total_E);
+            //console.log(total_E);
             total_orden += total_MO + total_V + total_E;
 
             $('#total').val(new Intl.NumberFormat('es-MX').format(total_orden));
@@ -784,8 +784,8 @@
                 totalmo = +totalmo + +parseFloat($(el).find('.montomanodeobra input').val());
             });
 
-            input_total_mano.trigger('change');
             totales.eq(0).val((totalmo.toFixed(2)));
+            calcularSumaMO(totales.eq(0));
             input_total_mano_hidden.val(totalmo.toFixed(2));
             input_total_mano.val(totalmo.toFixed(2));
             actualizarPrecioMedidas(obra_id);
@@ -809,6 +809,8 @@
             input_total_mano_hidden.val(totalmo.toFixed(2));
             input_total_mano.val(totalmo.toFixed(2));
             $(`#${id}`).remove();
+            calcularSumaMO(total.eq(0));
+            actualizarPrecioMedidas(obra_id);
             //calcular()
         }
 
@@ -845,8 +847,8 @@
                 totalva = +totalva + +parseFloat($(el).find('.montovario input').val());
             });
 
-            input_total_varios.trigger('change');
             totales.eq(0).val(totalva.toFixed(2));
+            calcularSumaVarios(totales.eq(0));
             input_total_varios_hidden.val(totalva.toFixed(2));
             input_total_varios.val(totalva.toFixed(2));
             actualizarPrecioMedidas(obra_id);
@@ -871,6 +873,8 @@
             input_total_varios_hidden.val(totalva.toFixed(2));
             input_total_varios.val(totalva.toFixed(2));
             $(`#${id}`).remove();
+            calcularSumaVarios(total.eq(0));
+            actualizarPrecioMedidas(obra_id);
             //calcular();
         }
 
@@ -902,17 +906,16 @@
             var ht = '<tr id="algo' + contador + '"><td> <input type="hidden" form="formroden" name="enviosdi['+(parseInt(obra_id) - 1)+'][]" value="' + direccion.val() + '" > ' + direccion.val() + '</td>' +
                 ' <td> <input type="hidden" form="formroden" name="enviosd['+(parseInt(obra_id) - 1)+'][]" value="' + inputs.eq(0).val() + '" >' + inputs.eq(0).val() + '</td>' +
                 ' <td class="montoenvio"> <input type="hidden" form="formroden" name="enviosm['+(parseInt(obra_id) - 1)+'][]" value="' + inputs.eq(1).val() + '"  > ' + inputs.eq(1).val() + '</td>' +
-                ' <td class="montoenvio"> <input type="hidden" form="formroden" class="costos_envio" name="enviosc['+(parseInt(obra_id) - 1)+'][]" value="' + inputs.eq(2).val() + '"  > ' + inputs.eq(2).val() + '</td>' +
-                ' <td class="montoenvio"> <input type="hidden" form="formroden" class="totals_envio" name="enviost['+(parseInt(obra_id) - 1)+'][]" value="' + inputs.eq(1).val() + '"  > ' + inputs.eq(1).val() + '</td>' +
-                '<td><button class="btn btn-danger" onclick="removeEnvio(' + "'algo" + contador + "'" + ',' + $("#montoenvio").val() + ')">Eliminar</button></td></tr>';
+                ' <td class=""> <input type="hidden" form="formroden" class="costos_envio" name="enviosc['+(parseInt(obra_id) - 1)+'][]" value="' + inputs.eq(2).val() + '"  > ' + inputs.eq(2).val() + '</td>' +
+                ' <td class=""> <input type="hidden" form="formroden" class="totals_envio" name="enviost['+(parseInt(obra_id) - 1)+'][]" value="' + inputs.eq(1).val() + '"  > ' + inputs.eq(1).val() + '</td>' +
+                '<td><button class="btn btn-danger" id="btn-elim-e-'+obra_id+'" onclick="removeEnvio(' + "'algo" + contador + "'" + ',' + $("#montoenvio").val() + ')">Eliminar</button></td></tr>';
             card.find('#tablaenvios').append(ht);
             card.find('tbody#tablaenvios tr').each(function(index, el) {
                 totalenvio = +totalenvio + +parseFloat($(el).find('.montoenvio input').val());
             });
 
-            input_total_envio.trigger('change');
-
             totales.eq(0).val(totalenvio.toFixed(2));
+            calcularSumaEnvio(totales.eq(0));
             input_total_envio_hidden.val(totalenvio.toFixed(2));
             input_total_envio.val(totalenvio.toFixed(2));
             actualizarPrecioMedidas(obra_id);
@@ -931,13 +934,15 @@
             card.find('tbody#tablaenvios tr').each(function(index, el) {
                 totalenvio = +totalenvio + +parseFloat($(el).find('.montovario input').val());
             });
-            console.log(precio);
+            //console.log(precio);
             totalenvio = +totalenvio + -precio;
-            console.lof(totalenvio);
+            //console.lof(totalenvio);
             total.val(totalenvio.toFixed(2));
             input_total_envio_hidden.val(totalenvio.toFixed(2));
             input_total_envio.val(totalenvio.toFixed(2));
             $(`#${id}`).remove();
+            calcularSumaEnvio(total);
+            actualizarPrecioMedidas(obra_id);
             //calcular();
         }
 
@@ -952,13 +957,27 @@
 
         // ----  PARA ACTUALIZAR LA SUMA DE MANO DE OBRA CON LOS DESCUENTOS Y GANANCIAS
         $(document).on('change', ".descuento_manodeobra", function(event) {
-            calcularSMO(this);
+            calcularSumaMO(this);
         });
         $(document).on('change', ".ganancia_manodeobra", function(event) {
-            calcularSMO(this);
+            calcularSumaMO(this);
         });
 
-        // Para actualizar el total de la orden.
+        $(document).on('change', ".descuento_varios", function(event) {
+            calcularSumaVarios(this);
+        });
+        $(document).on('change', ".ganancia_varios", function(event) {
+            calcularSumaVarios(this);
+        });
+
+        $(document).on('change', ".descuento_envios", function(event) {
+            calcularSumaEnvio(this);
+        });
+        $(document).on('change', ".ganancia_envios", function(event) {
+            calcularSumaEnvio(this);
+        });
+
+        // ---- Para actualizar el total de la orden.
         $(document).on('change', '.totalsMO', function(event) {
             console.log('si cambio');
             let totalmanoobra = 0.0;
@@ -1044,12 +1063,54 @@
             $('#genvios').val(gananciaenvios);       
         }
 
-        function calcularSMO(elemento){
+        function calcularSumaMO(elemento){
+            //console.log(elemento);
+            let obra_id = $(elemento).parents('div.card').eq(0).children().find('button.agregarmanodeobra').prop('id').split("-")[2];
+            let filas = $(elemento).parents('div.card').eq(0).children('div.card-body').find('table tbody tr');
             let input_total = $(elemento).parents('div.row').find('input').eq(0);
             let descuento = parseFloat($(elemento).parents('div.row').find('input').eq(1).val());
             let ganancia = parseFloat($(elemento).parents('div.row').find('input').eq(2).val());
-            total = parseFloat(input_total.val()) - descuento + ganancia;
-            input_total.val(total.toFixed(2));
+            let aux = 0.0;
+            filas.find('.montomanodeobra input').each(function(index, el) {
+                aux += parseFloat($(el).val());
+            });
+            aux = aux - descuento + ganancia;
+            input_total.val(aux.toFixed(2));
+            $('#total_manodeobra'+obra_id).val(aux.toFixed(2));
+            actualizarPrecioMedidas(obra_id);
+        }
+        function calcularSumaVarios(elemento){
+            let obra_id = $(elemento).parents('div.card').eq(0).children().find('button.agregarvario').prop('id').split("-")[2];
+            //console.log(obra_id);
+            let filas = $(elemento).parents('div.card').eq(1).children('div.card-body').find('table tbody tr');
+            let input_total = $(elemento).parents('div.row').find('input').eq(0);
+            let descuento = parseFloat($(elemento).parents('div.row').find('input').eq(1).val());
+            let ganancia = parseFloat($(elemento).parents('div.row').find('input').eq(2).val());
+            let aux = 0.0;
+            //console.log(input_total);
+            filas.find('.montovario input').each(function(index, el) {
+                aux += parseFloat($(el).val());
+            });
+            aux = aux - descuento + ganancia;
+            input_total.val(aux.toFixed(2));
+            $('#totals_varios'+obra_id).val(aux.toFixed(2));
+            actualizarPrecioMedidas(obra_id);
+        }
+        function calcularSumaEnvio(elemento){
+            console.log(elemento);
+            let obra_id = $(elemento).parents('div.card').eq(0).children().find('button.agregarenvio').prop('id').split("-")[2];
+            let filas = $(elemento).parents('div.card').eq(0).children('div.card-body').find('table tbody tr');
+            let input_total = $(elemento).parents('div.row').find('input').eq(0);
+            let descuento = parseFloat($(elemento).parents('div.row').find('input').eq(1).val());
+            let ganancia = parseFloat($(elemento).parents('div.row').find('input').eq(2).val());
+            let aux = 0.0;
+            filas.find('.montoenvio input').each(function(index, el) {
+                aux += parseFloat($(el).val());
+            });
+            aux = aux - descuento + ganancia;
+            input_total.val(aux.toFixed(2));
+            $('#totals_envio'+obra_id).val(aux.toFixed(2));
+            actualizarPrecioMedidas(obra_id);
         }
 
 
