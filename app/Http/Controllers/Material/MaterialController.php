@@ -153,36 +153,32 @@ class MaterialController extends Controller
             unset($data[0]);
             if(count($data)) {
                 foreach ($data as $row) {
-                    $arr[] = [
-                        'seccion'     => $row[1],
-                        'clave'    => $row[2], 
-                        'ancho' => $row[3],
-                        'alto' => $row[4],
-                        'espesor' => $row[5],
-                        'tipo_unidad' => $row[6],
-                        'color' => $row[7],
+                    $arr = [
+                        'seccion' => $row[1],
+                        'clave' => $row[2], 
+                        'ancho' => $row[3]?$row[3]:0,
+                        'alto' => $row[4]?$row[4]:0,
+                        'espesor' => $row[5]?$row[5]:0,
+                        'tipo_unidad' => $row[6]?$row[6]:"N/A",
+                        'color' => $row[7]?$row[7]:"N/A",
                         'provedor_name' => $row[8],
-                        'precio' => $row[9],
+                        'costo' => $row[9]?$row[9]:0,
+                        'precio' => $row[9]?$row[9]:0,
                         'created_at' => date('Y-m-d h:m:s'),
                         'updated_at' => date('Y-m-d h:m:s'),
                     ];
+                    Material::updateOrCreate($arr);
                 }
                 if (!empty($arr)) {
                     // dd($arr);
-                    Material::insert($arr);
                     Alert::success('Archivo subido correctamente.');
                     return redirect()->back();
                 } else
-                    return('Error al subir el archivo.');
                     return redirect()->back()->with('error', 'Error al subir el archivo.');
             } else
-            return('Error al subir el archivo.');
                 return redirect()->back()->with('error', 'Error al subir el archivo.');
         } else
-            return('No se subio ningun archivo');
             return redirect()->back()->with('error', 'No se subio ningun archivo');
-
-        return('Error al subir el archivo.');
         return redirect()->back()->with('error', 'Error al subir el archivo.');
     }
 }
