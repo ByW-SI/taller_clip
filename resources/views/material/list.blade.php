@@ -4,7 +4,7 @@
 		<td scope="row">
 			{{$material->clave}}
 		</td>
-		<td>{{$material->descripcion}}</td>
+		<td>{{$material->seccion}}</td>
 		<td>{{$material->alto}} cm</td>
 		<td>{{$material->ancho}} cm</td>
 		<td>{{$material->espesor}} cm</td>

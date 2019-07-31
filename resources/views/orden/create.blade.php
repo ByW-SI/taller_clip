@@ -163,6 +163,11 @@
                                     <label class="control-label">Total Envíos ${i+1}:</label>
                                     <input readonly value="0" class="form-control totalE" type="text" name="totals_envio[]" id="totals_envio${i+1}"  min="0">
                                 </div>
+                                <div class="col-sm-3 form-group">
+                                    <input type="hidden" class="totals_obra" value="0">
+                                    <label class="control-label">Total Obra ${i+1}:</label>
+                                    <input readonly value="0" class="form-control totalObra" type="text" name="totals_obra[]" id="totals_obra${i+1}"  min="0">
+                                </div>
                                 <div class="col-sm-6 form-group">
                                     <label class="control-label">Descripción de la obra:</label>
                                     <textarea required name="descripcion_obra[]" id="descripcion_obra" class="form-control">{{($edit && $obra) ? $obra->descripcion_obra : ""}}</textarea>
@@ -564,14 +569,18 @@
                 var volumen = (ancho_marco * alto_marco * profundidad_marco);
             }
             else{*/
-                var volumen = (ancho_marco * alto_marco);
             //}
+            if (material.seccion == "MARCO"){
+                var volumen = ((ancho_marco * 2) + (alto_marco*2));
+            }
+            else
+                var volumen = (ancho_marco * alto_marco);
             var rowHTML = 
             `<tr id="row${material.id}">
                 <td scope="row">
                     ${material.clave}
                 </td>
-                <td>${material.descripcion}</td>
+                <td>${material.seccion}</td>
                 <td>${material.alto} cm</td>
                 <td>${material.ancho} cm</td>
                 <td>${material.espesor} cm</td>
@@ -594,7 +603,7 @@
             </tr>`;
             $("#myMaterials" + id).append(rowHTML);
             console.log('material.costo: ' + material.costo);
-            cambiarPrecio(material.precio, id, material.costo);
+            cambiarPrecio(material.precio, id, material.costo, material);
 
             // para habilitar la mano de obra, varios y envio
             let links = $('ul#myTab').eq(id-1).children('li').children();
@@ -604,6 +613,7 @@
             $(links[3]).prop('class', clase);
             $(links[4]).prop('class', clase);
             //alert(id);
+            calcularObraTotal(id);
         }
         
         function removeMaterial(id) {
@@ -620,9 +630,10 @@
             //alert('cantidad a quitar:\n' + cantaquitar + '\nid obra:\n' + obra);
             cambiarPrecio(-cantaquitar, obra, -celda);
             $(`#${id}`).remove();
+            calcularObraTotal(obra);
         }
 
-        function cambiarPrecio(preciom2, obra_id, costo_material){
+        function cambiarPrecio(preciom2, obra_id, costo_material, material=1){
             var ancho_marco = parseFloat($('#ancho_obra_marco' + obra_id).val()) / 100;
             var alto_marco = parseFloat($('#alto_obra_marco' + obra_id).val()) / 100;
             //var profundidad_marco = parseFloat($('#profundidad_obra_marco' + obra_id).val()) / 100;
@@ -642,8 +653,12 @@
                 var volumen = (ancho_marco * alto_marco * profundidad_marco);
             }
             else{*/
-                var volumen = (ancho_marco * alto_marco);
             //}
+            if (material != 1 &&  material.seccion == "MARCO"){
+                var volumen = ((ancho_marco * 2) + (alto_marco*2));
+            }
+            else
+                var volumen = (ancho_marco * alto_marco);
 
             var temp = volumen *preciom2 * cantidad_material;
             var ganaciamaterial = 0.0;
@@ -656,12 +671,12 @@
             var valor =  parseFloat($('#total_obra'+obra_id).val().replace(',', '')) + (temp);
             var valor_anterior = parseFloat($('#total_obra'+obra_id).val().replace(',', ''));
             var precio_total = parseFloat($('#total').val().replace(',', ''));
-
             if (valor > 0.5){
                 valor *= $('#nopiezas' + obra_id).val();
                 precio_total -= valor_anterior;
                 $('#total_obra'+obra_id).val(new Intl.NumberFormat('es-MX').format(valor));
                 precio_total += valor;
+
                 $('#total').val(new Intl.NumberFormat('es-MX').format(precio_total));
             }else{
                 $('#total_obra'+obra_id).val(0);
@@ -692,19 +707,24 @@
                     var cantidad_material = parseInt($('.cant_input')[i].value);
                     var ancho_marco = parseFloat($('#ancho_obra_marco' + obra_id).val()) / 100;
                     var alto_marco = parseFloat($('#alto_obra_marco' + obra_id).val()) / 100;
-                    var profundidad_marco = parseFloat($('#profundidad_obra_marco' + obra_id).val()) / 100;
+                    var seccion = $('.cant_input').eq(i).parents('tr').children().eq(1).text();
+                    //var profundidad_marco = parseFloat($('#profundidad_obra_marco' + obra_id).val()) / 100;
 
-                    if (profundidad_marco != 0) {
+                    /*if (profundidad_marco != 0) {
                         var volumen = (ancho_marco * alto_marco * profundidad_marco);
                     }
-                    else{
+                    else{*/
+                    //}
+                    console.log(seccion);
+                    if (seccion == "MARCO")
+                        var volumen = ((ancho_marco * 2) + (alto_marco*2));
+                    else
                         var volumen = (ancho_marco * alto_marco);
-                    }
 
                     total_obra += (precio_m2 * cantidad_material * volumen );
                     let precioMaterial = (precio_m2 * cantidad_material * volumen).toFixed(4);
                     precioMaterial = new Intl.NumberFormat('es-MX').format(parseFloat(precioMaterial));
-                    $('.precioFmaterial').eq(i).text(precioMaterial);
+                    $('.precioFmaterial').eq(i).text('$' + precioMaterial);
                 }
             }
             total_obra *= $('#nopiezas' + obra_id).val();
@@ -739,6 +759,8 @@
             total_orden += total_MO + total_V + total_E;
 
             $('#total').val(new Intl.NumberFormat('es-MX').format(total_orden));
+
+            calcularObraTotal(obra_id);
         }
 
         /*
@@ -982,7 +1004,7 @@
             console.log('si cambio');
             let totalmanoobra = 0.0;
             totalmanoobra += parseFloat($(this).val());
-            var precio_total = parseFloat($('#total').val().replace(',', ''));
+            var precio_total = parseFloat($('#total').val().replace(/,/g, ''));
             precio_total += totalmanoobra;
             $('#total').val(new Intl.NumberFormat('es-MX').format(precio_total));
         });
@@ -990,7 +1012,7 @@
             console.log('si cambio');
             let totalenvios = 0.0;
             totalenvios += parseFloat($(this).val());
-            var precio_total = parseFloat($('#total').val().replace(',', ''));
+            var precio_total = parseFloat($('#total').val().replace(/,/g, ''));
             precio_total += totalenvios;
             $('#total').val(new Intl.NumberFormat('es-MX').format(precio_total));
         });
@@ -998,7 +1020,7 @@
             console.log('si cambio');
             let totalordens = 0.0;
             totalordens += parseFloat($(this).val());
-            var precio_total = parseFloat($('#total').val().replace(',', ''));
+            var precio_total = parseFloat($('#total').val().replace(/,/g, ''));
             precio_total += precio_total;
             $('#total').val(new Intl.NumberFormat('es-MX').format(precio_total));
         });
@@ -1111,6 +1133,22 @@
             input_total.val(aux.toFixed(2));
             $('#totals_envio'+obra_id).val(aux.toFixed(2));
             actualizarPrecioMedidas(obra_id);
+        }
+
+        /*+
+        * New Update se agrega un campo para el total de la obra
+        * La funcion de abajo realiza la sumna y coloca el total en el campo.
+        */
+        function calcularObraTotal(obra_id) {
+            let divObra = $('#home'+ obra_id);
+            let input_total = $(divObra).find('#totals_obra' + obra_id);
+            let input_precioxmedidas = parseFloat($(divObra).find('#total_obra' + obra_id).val().replace(/,/g, ''));
+            let input_total_mano = parseFloat($(divObra).find('#total_manodeobra' + obra_id).val());
+            let input_total_varios = parseFloat($(divObra).find('#totals_varios' + obra_id).val());
+            let input_total_envio = parseFloat($(divObra).find('#totals_envio' + obra_id).val());
+            let total = input_precioxmedidas + input_total_mano + input_total_varios + input_total_envio;
+            //console.log(total);
+            input_total.val(new Intl.NumberFormat('es-MX').format(total));
         }
 
 

@@ -8,21 +8,20 @@ class Material extends Model
 {
     protected $table = 'materials';
     protected $fillable=[
-        'seccion',
         'clave',
+        'seccion',
 		'ancho',
         'alto',
         'espesor',
-        'medidas',
 		'color',
         'tipo',
-        // 'descripcion_id',
         'descripcion',
+        // 'descripcion_id',
 		'proveedor_id',
         'costo',
-        'ganancia',
         'precio',
-        'provedor_name'
+        'provedor_name',
+        'tipo_unidad'
      ];
 
      // public function descripcion()

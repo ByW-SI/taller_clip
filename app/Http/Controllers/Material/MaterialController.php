@@ -143,16 +143,19 @@ class MaterialController extends Controller
     {
         //Excel::import(new MaterialImport, $request->file('sample_file'));
         //return redirect('/')->with('success', 'All good!');
-
         // ########
         if($request->hasFile('sample_file')) {
             //$path = $request->file('sample_file')->getPathName();
             //$data = \Excel::load($path, null, null, true, null)->get();
             $data = Excel::toArray(new MaterialImport, request()->file('sample_file'));
+            //dd($data);
             $data = $data[0];
             unset($data[0]);
             if(count($data)) {
                 foreach ($data as $row) {
+                    if (is_null($row[3]) && is_null($row[4]) && is_null($row[5]) && is_null($row[9])) {
+                        continue;
+                    }
                     $arr = [
                         'seccion' => $row[1],
                         'clave' => $row[2], 
@@ -163,9 +166,9 @@ class MaterialController extends Controller
                         'color' => $row[7]?$row[7]:"N/A",
                         'provedor_name' => $row[8],
                         'costo' => $row[9]?$row[9]:0,
-                        'precio' => $row[9]?$row[9]:0,
-                        'created_at' => date('Y-m-d h:m:s'),
-                        'updated_at' => date('Y-m-d h:m:s'),
+                        'precio' => $row[9]?$row[9]:0
+                        //'created_at' => date('Y-m-d h:m:s'),
+                        //'updated_at' => date('Y-m-d h:m:s'),
                     ];
                     Material::updateOrCreate($arr);
                 }
