@@ -41,7 +41,7 @@
                         </div>
                         <div class="col-sm-3 form-group">
                             <label class="control-label">Descripción:</label>
-                            <input required type="text" name="descripcion" value="{{($edit && $material) ? $material->descripcion : ""}}" id="descripcion" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
+                            <input type="text" name="descripcion" value="{{($edit && $material) ? $material->descripcion : ""}}" id="descripcion" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
                         </div>
                         <div class="col-sm-3 form-group">
                             <label class="control-label">Clave:</label>
@@ -69,7 +69,7 @@
                     <div class="row">
                         <div class="col-sm-3 form-group">
                             <label class="control-label">Proveedor:</label>
-                            <select required class="custom-select" name="proveedor" id="descripcion" required>
+                            <select class="custom-select" name="proveedor" id="descripcion">
                                 <option value="">---</option>
                                     @foreach($provedores as $provedor)
                                         <option value="{{$provedor->id}}" {{($edit && $material->proveedor_id == $provedor->id) ? "selected" : ""}}>{{$provedor->razonsocial ? $provedor->razonsocial : $provedor->nombre." ".$provedor->apellidopaterno." ".$provedor->apellidomaterno }}</option>
