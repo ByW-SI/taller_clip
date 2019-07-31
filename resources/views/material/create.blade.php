@@ -41,7 +41,7 @@
                         </div>
                         <div class="col-sm-3 form-group">
                             <label class="control-label">Descripción:</label>
-                            <input type="text" name="descripcion" value="{{($edit && $material) ? $material->descripcion : ""}}" id="descripcion" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
+                            <input type="text" name="descripcion" value="{{($edit && $material) ? $material->descripcion : ""}}" id="descripcion" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                         </div>
                         <div class="col-sm-3 form-group">
                             <label class="control-label">Clave:</label>
