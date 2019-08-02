@@ -7,7 +7,7 @@
 
 			<li role="presentation" class="active"><a href="{{ route('empleados.datoslaborales.index',['empleado'=>$empleado]) }}" class="ui-tabs-anchor">Laborales:</a></li>
 
-			
+			<li role="presentation" class=""><a href="{{ route('empleados.estudios.index', ['empleado' => $empleado]) }}" class="ui-tabs-anchor">Estudios:</a></li>
 
 			<li role="presentation" class=""><a href="{{ route('empleados.emergencias.index',['empleado'=>$empleado]) }}" class="ui-tabs-anchor">Emergencias:</a></li>
 

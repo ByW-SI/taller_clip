@@ -164,6 +164,10 @@
                                     <input readonly value="0" class="form-control totalE" type="text" name="totals_envio[]" id="totals_envio${i+1}"  min="0">
                                 </div>
                                 <div class="col-sm-3 form-group">
+                                    <label class="control-label">Ganancia Obra ${i+1}:</label>
+                                    <input value="0" class="form-control aumentoObra" type="number" name="aumento_obra[]" id="aumento_obra${i+1}"  min="0" step="0.01">
+                                </div>
+                                <div class="col-sm-3 form-group">
                                     <input type="hidden" class="totals_obra" value="0">
                                     <label class="control-label">Total Obra ${i+1}:</label>
                                     <input readonly value="0" class="form-control totalObra" type="text" name="totals_obra[]" id="totals_obra${i+1}"  min="0">
@@ -294,7 +298,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-4">
+                                        <div class="col-4" style="display:none">
                                             <label for="descmano">Descuento mano obra</label>
                                             <div class="input-group mb-3">
                                                 <div class="input-group-prepend">
@@ -307,7 +311,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-4">
+                                        <div class="col-4" style="display:none">
                                             <label for="ganancia_manodeobra">Ganancia mano obra</label>
                                             <div class="input-group mb-3">
                                                 <div class="input-group-prepend">
@@ -380,7 +384,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-4">
+                                        <div class="col-4" style="display:none">
                                             <label for="desvario">Descuento Varios</label>
                                             <div class="input-group mb-3">
                                                 <div class="input-group-prepend">
@@ -394,7 +398,7 @@
                                             </div>
                                         </div>
                                         
-                                        <div class="col-4">
+                                        <div class="col-4" style="display:none">
                                             <label for="ganancia_varios">Ganancia Varios</label>
                                             <div class="input-group mb-3">
                                                 <div class="input-group-prepend">
@@ -472,7 +476,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-4">
+                                        <div class="col-4" style="display:none">
                                             <label for="descenvio">Descuento Envios</label>
                                             <div class="input-group mb-3">
                                                 <div class="input-group-prepend">
@@ -485,7 +489,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-4">
+                                        <div class="col-4" style="display:none">
                                             <label for="ganancia_envios">Ganancia Envios</label>
                                             <div class="input-group mb-3">
                                                 <div class="input-group-prepend">
@@ -732,12 +736,6 @@
             $('#total_obra' + obra_id).val(new Intl.NumberFormat('es-MX').format(total_obra));
             var total_orden = 0;
             //console.log($('.totalO'));
-            for (var i = 0; i < $('.totalO').length; i++) {
-                //console.log('totalO' + i + '  ' + $('.totalO').eq(i).val());
-                //console.log('total_orden ' + total_orden);
-                total_orden += parseFloat($('.totalO').eq(i).val().replace(',', ''));
-                //console.log('total_orden ' + total_orden);
-            }
 
             total_MO = 0.0;
             $('.totalMO').each(function(index, el) {
@@ -756,11 +754,15 @@
                 total_E += parseFloat($(el).val());
             });
             //console.log(total_E);
+            calcularObraTotal(obra_id);
+            
+            for (var i = 0; i < $('.totalO').length; i++) {
+                total_orden += parseFloat($('.totalO').eq(i).val().replace(',', ''));
+            }
             total_orden += total_MO + total_V + total_E;
 
             $('#total').val(new Intl.NumberFormat('es-MX').format(total_orden));
 
-            calcularObraTotal(obra_id);
         }
 
         /*
@@ -1025,6 +1027,11 @@
             $('#total').val(new Intl.NumberFormat('es-MX').format(precio_total));
         });
 
+        $(document).on('change', '.aumentoObra', function(event) {
+            let obra_id = $(this).prop('id').replace(/[a-z_]/g, '');
+            calcularObraTotal(obra_id);
+        });
+
         function calcular() {
             let totalvarios = 0.0;
             let totalmanoobra = 0.0;
@@ -1146,7 +1153,8 @@
             let input_total_mano = parseFloat($(divObra).find('#total_manodeobra' + obra_id).val());
             let input_total_varios = parseFloat($(divObra).find('#totals_varios' + obra_id).val());
             let input_total_envio = parseFloat($(divObra).find('#totals_envio' + obra_id).val());
-            let total = input_precioxmedidas + input_total_mano + input_total_varios + input_total_envio;
+            let input_ganancia = parseFloat($(divObra).find('#aumento_obra' + obra_id).val());
+            let total = input_precioxmedidas + input_total_mano + input_total_varios + input_total_envio + input_ganancia;
             //console.log(total);
             input_total.val(new Intl.NumberFormat('es-MX').format(total));
         }
