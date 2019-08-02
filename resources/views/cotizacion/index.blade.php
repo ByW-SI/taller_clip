@@ -32,15 +32,16 @@
                             <tr>
                                 <td scope="row">{{ ($cotizacion->cliente->tipopersona == "Fisica" ? $cotizacion->cliente->nombre." ".$cotizacion->cliente->apellidopaterno." ".$cotizacion->cliente->apellidomaterno : $cotizacion->cliente->razonsocial ) }} / {{$cotizacion->correo}}</td>
                                 <td>{{ $cotizacion->nocotizacion }}</td>
-                                <td>{{$cotizacion->fechaactual}}</td>
-                                <td>{{$cotizacion->fechaentrega}}</td>
-                                <td>${{$cotizacion->totalproyecto}} MXN</td>
-                                <td>{{$cotizacion->ganancianeto ? "$".$cotizacion->ganancianeto." MXN" : "Sin Ganancia"}}</td>
-                                <td>${{$cotizacion->resultado}}MXN</td>
-                                <td>${{$cotizacion->totalneto}}MXN</td>
+                                <td>{{ $cotizacion->fechaactual}}</td>
+                                <td>{{ $cotizacion->fechaentrega}}</td>
+                                <td>${{ number_format($cotizacion->totalproyecto,2)}} MXN</td>
+                                <td>{{ $cotizacion->ganancianeto ? "$".$cotizacion->ganancianeto." MXN" : "Sin Ganancia"}}</td>
+                                <td>${{number_format($cotizacion->totalordenes,2)}}MXN</td>
+                                <td>${{number_format($cotizacion->totalneto,2)}}MXN</td>
                                 <td><a href="{{ route('cotizacion.show',['cotizacion'=>$cotizacion]) }}" class="btn btn-info btn-sm">Detalle</a>
                                     <a href="{{ url('cotizacion/downloadPDF/'.$cotizacion->id) }}" class="btn btn-secondary btn-sm">PDF</a>
-                                    <a href="{{ url('ordentrabajoconvert/'.$cotizacion->id)}}" class="btn btn-success btn-sm">Generar Orden</a></td>
+                                    <a href="{{ url('ordentrabajoconvert/'.$cotizacion->id)}}" class="btn btn-success btn-sm">Generar Orden</a>
+                                </td>
 
                             </tr>
                         @endforeach

@@ -37,7 +37,7 @@
                 </td>
                 <td>{{$orden->descripcion}}</td>
                 <td>$ {{number_format($orden->precio_orden,4)}}</td>
-                <td>$ {{ number_format(($orden->precio_orden - $orden->ganancia_orden),4) }}</td>
+                <td>$ {{ number_format(($orden->precio_orden - $orden->ganancia_orden),2) }}</td>
                 <td>
                     {{$orden->noobras}} obra(s): <br>
                     @foreach ($orden->obras as $obra)
@@ -74,10 +74,10 @@
                                   </td>
                                   <td>{{$obra->nopiezas}}</td>
                                   <td colspan="2">{{$obra->descripcion_obra}}</td>
-                                  <td>{{$obra->alto_obra}} cm</td>
-                                  <td>{{$obra->ancho_obra}} cm</td>
-                                  <td>{{$obra->profundidad_obra}} cm</td>
-                                  <td>$ {{ number_format($obra->precio_obra,4) }}</td>
+                                  <td>{{$obra->alto_marco}} cm</td>
+                                  <td>{{$obra->ancho_marco}} cm</td>
+                                  <td>{{$obra->profundidad_marco}} cm</td>
+                                  <td>$ {{ number_format($obra->total_obra,2) }}</td>
                                 </tr>
                               </tbody>
                             </table>
@@ -94,7 +94,7 @@
                                   <th scope="col">Ancho</th>
                                   <th scope="col">Espesor</th>
                                   <th scope="col">Cantidad</th>
-                                  <th scope="col">Precio</th>
+                                  <th scope="col">Precio del material</th>
                                 </tr>
                                 @foreach ($obra->materiales as $material)
                                 <tr>
@@ -105,7 +105,7 @@
                                   <td>{{$material->ancho}} cm</td>
                                   <td>{{$material->espesor}} cm</td>
                                   <td>{{ $material->pivot->cantidad }}</td>
-                                  <td>$ {{number_format($material->precio, 4)}} MXN</td>
+                                  <td>$ {{number_format($material->precio, 2)}} MXN</td>
                                 </tr>
                                 @endforeach
                               </tbody>

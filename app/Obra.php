@@ -42,15 +42,23 @@ class Obra extends Model
         return $this->hasMany('App\Envio');
     }
 
-    public function total(){
-        $materiales = $this->materiales;
-        // return $materiales;
-        $total = 0;
-        foreach ($materiales as $material) {
-            $total = $total +($material->precio *$material->pivot->cantidad);
-
+    public function getTotalObraAttribute(){
+        $manodeobras = 0;
+        foreach ($this->manodeobras as $manos) {
+            $manodeobras += $manos->total;
         }
-        $total = $total*$this->nopiezas;
+
+        $envios = 0;
+        foreach ($this->envios as $envio) {
+            $envios += $envio->total;
+        }
+
+        $varios = 0;
+        foreach ($this->varios as $vario) {
+            $varios += $vario->total;
+        }
+
+        $total = $this->precio_obra + $manodeobras + $envios + $varios;
 
         return $total;
     }

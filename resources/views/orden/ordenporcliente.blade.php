@@ -15,7 +15,7 @@
         <td>{{$orden->nombre}}</td>
         <td>{{$orden->fecha}}</td>
         <td colspan="2">{{$orden->descripcion}}</td>
-        <td>{{$orden->precio_orden}}</td>
+        <td>${{number_format($orden->precio_orden,2)}}</td>
         <td>
             <div class="row mt-1 mb-1 justify-content-md-center">
                 <a href="#" onclick="addOrden({{json_encode($orden)}})" class="btn btn-success">Agregar</a>
@@ -54,7 +54,7 @@
             {{$obra->profundidad_marco != 0.0?'x Profunidad:'.$obra->profundidad_marco.' cm': ''}}
             </b>
             </td>
-            <td><b>${{ $obra->precio_obra }}</b></td>
+            <td><b>${{ number_format($obra->total_obra,2) }}</b></td>
         </tr>
         <tr class="table-secondary collapse collapse{{$orden->id}}">
             <th scope="col" colspan="7">Material(es) de {{$obra->nombre}}</th>
