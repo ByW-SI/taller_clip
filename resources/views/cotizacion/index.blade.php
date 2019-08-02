@@ -20,7 +20,7 @@
                             <th scope="col">fecha de creación</th>
                             <th scope="col">Fecha de entrega</th>
                             <th scope="col">Costo proyecto</th>
-                            <th scope="col">Ganancia</th>
+                            {{-- <th scope="col">Ganancia</th> --}}
                             <th scope="col">Subtotal</th>
                             <th scope="col">Total</th>
                             <th scope="col">Acción</th>
@@ -35,7 +35,7 @@
                                 <td>{{ $cotizacion->fechaactual}}</td>
                                 <td>{{ $cotizacion->fechaentrega}}</td>
                                 <td>${{ number_format($cotizacion->totalproyecto,2)}} MXN</td>
-                                <td>{{ $cotizacion->ganancianeto ? "$".$cotizacion->ganancianeto." MXN" : "Sin Ganancia"}}</td>
+                                {{-- <td>{{ $cotizacion->ganancianeto ? "$".$cotizacion->ganancianeto." MXN" : "Sin Ganancia"}}</td> --}}
                                 <td>${{number_format($cotizacion->totalordenes,2)}}MXN</td>
                                 <td>${{number_format($cotizacion->totalneto,2)}}MXN</td>
                                 <td><a href="{{ route('cotizacion.show',['cotizacion'=>$cotizacion]) }}" class="btn btn-info btn-sm">Detalle</a>
