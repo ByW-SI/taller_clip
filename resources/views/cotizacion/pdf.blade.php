@@ -398,7 +398,12 @@
                            @foreach ($orden->obras as $obra)
                                 <tr>
                                   <td scope="row" style="text-align:center">{{$obra->nopiezas}}</td>
-                                  <td style="text-align:center">{{$obra->nombre}}</td>
+                                  <td>
+                                    <sapn style="text-align: left;"><b>Obra:</b>{{$obra->nombre}}</sapn><br>
+                                    @foreach($obra->materiales as $material)
+                                      <p style="text-align:center">{{ $material->pivot->cantidad }} X {{ $material->clave }}<br></p>
+                                    @endforeach
+                                  </td>
                                   <td style="text-align:center">{{$obra->total_obra}}</td>
                                 </tr>
                           @endforeach
