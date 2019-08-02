@@ -242,7 +242,7 @@
     .table > thead > tr > td,
     .table > tbody > tr > td,
     .table > tfoot > tr > td {
-      padding: 8px;
+      padding: 0px;
       line-height: 1.42857143;
       vertical-align: top;
       border-top: 1px solid #dddddd;
@@ -323,6 +323,7 @@
 	</style>
 </head>
 <body>
+  <img src="{{ public_path('img/header.jpg') }}" alt="" class="img">
   <h4>Por medio de la presente, me permito presentar a su amable consideración la siguiente cotización</h4>
 	<div class="container-fluid">
 	  <div class="card">
@@ -360,7 +361,6 @@
 	      </div>
 	    </div>
 	    <div class="card-body">
-	      <form role="form" method="POST" id="formcotizacion" action="">
 	        <div class="row">
 	        
 			<div class="tab-content" id="myTabContent">
@@ -370,87 +370,80 @@
 		            
 		                <thead>		                
 		                <tr class="table-info">
-		                  <th scope="col">Número</th>
-		                  <th scope="col">Orden</th>
-		                  <th scope="col">Fecha</th>
-		                  <th scope="col">Descripción</th>
+		                  <th scope="col" style="text-align:center">Número</th>
+		                  <th scope="col" style="text-align:center">Orden</th>
+		                  <th scope="col" style="text-align:center">Fecha</th>
+		                  <th scope="col" style="text-align:center">Descripción</th>
 		                  {{-- <th scope="col">Precio</th> --}}
 		                  
 		                </tr>
 		                <tbody>
-    		        @if($cotizacion->ordens)
-    		         @foreach ($cotizacion->ordens as $orden)
-			                <tr>
-			                  <td scope="row" style="text-align:center">{{$orden->noorden}}</td>
-			                  <td style="text-align:center">{{$orden->nombre}}</td>
-			                  <td style="text-align:center">{{$orden->fecha}}</td>
-			                  <td style="text-align:center">{{$orden->descripcion}}</td>
-                          <table class="table table-striped table-bordered" border="1">
-                            <thead>                   
-                            <tr class="table-info">
-                              <th scope="col">Cantidad</th>
-                              <th scope="col">Descripción</th>
-                              <th scope="col" colspan="2">Total</th>
-                            </tr>
-                          </thead>
-                            <tbody>
+        		        @if($cotizacion->ordens)
+        		         @foreach ($cotizacion->ordens as $orden)
+    			                <tr>
+    			                  <td scope="row" style="text-align:center">{{$orden->noorden}}</td>
+    			                  <td style="text-align:center">{{$orden->nombre}}</td>
+    			                  <td style="text-align:center">{{$orden->fecha}}</td>
+    			                  <td style="text-align:center">{{$orden->descripcion}}</td>
+    			                </tr> 
+                          <tr><td colspan="4"><b>Obras:</b></td></tr>              
                           @if($orden->obras)
-                           @foreach ($orden->obras as $obra)
-                                <tr>
-                                  <td scope="row" style="text-align:center">{{$obra->nopiezas}}</td>
-                                  <td>
-                                    <sapn style="text-align: left;"><b>Obra:</b>{{$obra->nombre}}</sapn><br>
-                                    @foreach($obra->materiales as $material)
-                                      <p style="text-align:center">{{ $material->pivot->cantidad }} X {{ $material->clave }}<br></p>
-                                    @endforeach
-                                  </td>
-                                  <td style="text-align:center">{{$obra->total_obra}}</td>
-                                </tr>
+                          <tr class="table-info">
+                            <th scope="col" style="text-align: center;">Cantidad</th>
+                            <th scope="col" colspan="2" style="text-align: center;">Descripción</th>
+                            <th scope="col" style="text-align: center;">Total</th>
+                          </tr>
+                          @foreach ($orden->obras as $obra)
+                            <tr>
+                              <td scope="row" style="text-align:center">{{$obra->nopiezas}}</td>
+                              <td  colspan="2">
+                                <sapn style="text-align: left;"><b>Obra:</b>{{$obra->nombre}}</sapn><br>
+                                @foreach($obra->materiales as $material)
+                                  <p style="text-align:center; padding: 0px;">{{ $material->pivot->cantidad }} X {{ $material->clave }}</p>
+                                @endforeach
+                              </td>
+                              <td style="text-align:center; vertical-align: middle;">{{$obra->total_obra}}</td>
+                            </tr>
                           @endforeach
-                            </tbody>
-                          </table>
+                          @endif
+                  	@endforeach
+                        <tr>
+                          <th colspan="2"></th>
+                          <th>Subtotal:</th>
+                          <td style="text-align:center">${{ $cotizacion->totalproyecto }}</td>
+                        </tr>
+                        @if( $cotizacion->totalproyecto != $cotizacion->totalneto )
+                          <tr>
+                            <th colspan="2"></th>
+                            <th>I.V.A. 16%</th>
+                            <td style="text-align:center">${{$cotizacion->totalproyecto*0.16}}</td>
+                          </tr>
                         @endif
-			                </tr>
-              	@endforeach
-              		</tbody>
-              	@endif
+                        <tr>
+                          <th colspan="2"></th>
+                          <th>Total:</th>
+                          <td style="text-align:center">${{ $cotizacion->totalneto }}</td>
+                        </tr>
+                  	@endif
+              	</tbody>
 		        </table>
+            <table>
+              
+            </table>
 			  	</div>
 			  </div>
-	        <div class="row">
-	          <div class="form-group col col-md-4">
-	          	<table class="table">
-	          		<tr>
-	          			<th>Subtotal:</th>
-	          			<td>${{ $cotizacion->totalproyecto }}</td>
-	          		</tr>
-	          		@if( $cotizacion->totalproyecto != $cotizacion->totalneto )
-	          			<tr>
-	          				<th>I.V.A. 16%</th>
-	          				<td>${{$cotizacion->totalproyecto*0.16}}
-	          				</td>
-	          			</tr>
-	          		@endif
-	          		<tr>
-	          			<th>Total:</th>
-	          			<td>${{ $cotizacion->totalneto }}</td>
-	          		</tr>
-	          	</table>
-	           
-	        </div>
-	      </form>
 	    </div>
       <div class="row">
         <img src="{{public_path('img/footer.png')}}" alt="" width="100%">
       </div>
       <div class="row">
-        <div class="col-xs-6" style="padding: 0px; border: solid 2px; border-radius: 10px;">
+        <div class="col-xs-6" style="padding: 0px; margin: auto 0px; border: solid 2px; border-radius: 10px;">
           {{--  <img src="{{public_path('img/footer-pdf-1.png')}}" alt="" width="100%" class="img">--}}
           <h5 style="text-align: center;">Observaciones: El horario de entrega es de lunes a viernes de 9 hrs a 6 hrs 
               Para realizar el trabajo se solicita el 50% del costo del trabajo y en la entrega el pago restante 
           </h5>
         </div>
-        <div class="col-xs-6" style="padding: 0px; margin: auto 0px;color: white; background-color: rgba(8, 8, 164,0.86); border-radius: 10px;">
+        <div class="col-xs-6" style="padding: 0px;  color: white; background-color: rgba(8, 8, 164,0.86); border-radius: 10px;">
           {{--  <img src="{{public_path('img/footer-pdf-2.png')}}" alt="" width="90%" class="img">--}}
           <h5 style="text-align: center">Atentatemante: <br>
               GAVIER GAONA DELAPORTE<br>
@@ -459,7 +452,12 @@
         </div>
       </div>
       <div class="row">
-        <img src="{{public_path('img/footer-pdf-3.png')}}" alt="" width="100%">
+        <div class="col-xs-12" style="color: white; background-color: rgb(12, 118, 212); border-radius: 10px;">
+          {{-- <img src="{{public_path('img/footer-pdf-3.png')}}" alt="" width="100%" class="img"> --}}
+          <h4 style="text-align: center;">JESUS FLORES No. 105, COL. OBSERVATORIO MIGUEL HIDALGO <br>
+            https://cliptaller.com/                           Tels. 5616-6078 Y 5616-6077  
+          </h4>
+        </div>
       </div>
 	  </div>
 	</div>
