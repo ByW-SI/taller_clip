@@ -645,7 +645,7 @@
 	      		</tr>      		
 	      	</table>
           <div class="row">
-            <img src="{{public_path('img/header-pdf.png')}}" alt="" width="100%">
+            <img src="{{public_path('img/header-pdf.png')}}" alt="" width="100%" class="img">
           </div>
 	      </div>
 	    </div>
@@ -656,7 +656,6 @@
 			<div class="tab-content" id="myTabContent">
 			  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 		        <div class="row"><h5>Ordenes:</h5></div>
-		       {{--  <div class="row"> --}}
 	        	<table class="table table-striped table-bordered" border="1">
 		            
 		                <thead>		                
@@ -669,25 +668,41 @@
 		                  
 		                </tr>
 		                <tbody>
-		        @if($cotizacion->ordens)
-		         @foreach ($cotizacion->ordens as $orden)
-			          
+    		        @if($cotizacion->ordens)
+    		         @foreach ($cotizacion->ordens as $orden)
 			                <tr>
 			                  <td scope="row" style="text-align:center">{{$orden->noorden}}</td>
 			                  <td style="text-align:center">{{$orden->nombre}}</td>
 			                  <td style="text-align:center">{{$orden->fecha}}</td>
 			                  <td style="text-align:center">{{$orden->descripcion}}</td>
-			                 {{--  <td>${{$orden->precio_orden}}MXN</td> --}}
-			                  
+                          <table class="table table-striped table-bordered" border="1">
+                            <thead>                   
+                            <tr class="table-info">
+                              <th scope="col">Cantidad</th>
+                              <th scope="col">Descripción</th>
+                              <th scope="col" colspan="2">Total</th>
+                            </tr>
+                          </thead>
+                            <tbody>
+                          @if($orden->obras)
+                           @foreach ($orden->obras as $obra)
+                                <tr>
+                                  <td scope="row" style="text-align:center">{{$obra->nopiezas}}</td>
+                                  <td style="text-align:center">{{$obra->nombre}}</td>
+                                  <td style="text-align:center">{{$obra->total_obra}}</td>
+                                </tr>
+                          @endforeach
+                            </tbody>
+                          </table>
+                        @endif
 			                </tr>
-			                {{-- </tbody>
-		          		</table> --}}
               	@endforeach
               		</tbody>
-		        </table>
               	@endif
+		        </table>
 			  	</div>
 			  </div>
+
 
 	        <br>
 	        <br>
@@ -718,8 +733,19 @@
         <img src="{{public_path('img/footer.png')}}" alt="" width="100%">
       </div>
       <div class="row">
-        <div class="col-sm-6"><img src="{{public_path('img/footer-pdf-1.png')}}" alt="" width="100%"></div>
-        <div class="col-sm-6"><img src="{{public_path('img/footer-pdf-2.png')}}" alt="" width="100%"></div>
+        <div class="col-xs-6" style="padding: 0px; border: solid 2px; border-radius: 10px;">
+          {{--  <img src="{{public_path('img/footer-pdf-1.png')}}" alt="" width="100%" class="img">--}}
+          <h5 style="text-align: center;">Observaciones: El horario de entrega es de lunes a viernes de 9 hrs a 6 hrs 
+              Para realizar el trabajo se solicita el 50% del costo del trabajo y en la entrega el pago restante 
+          </h5>
+        </div>
+        <div class="col-xs-6" style="padding: 0px; margin: auto 0px;color: white; background-color: rgba(8, 8, 164,0.86); border-radius: 10px;">
+          {{--  <img src="{{public_path('img/footer-pdf-2.png')}}" alt="" width="90%" class="img">--}}
+          <h5 style="text-align: center">Atentatemante: <br>
+              GAVIER GAONA DELAPORTE<br>
+              XAVIERGAONA@YAHOO.COM
+          </h5>
+        </div>
       </div>
       <div class="row">
         <img src="{{public_path('img/footer-pdf-3.png')}}" alt="" width="100%">
