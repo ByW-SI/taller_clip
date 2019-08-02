@@ -714,6 +714,16 @@
 	        </div>
 	      </form>
 	    </div>
+      <div class="row">
+        <img src="{{public_path('img/footer.png')}}" alt="" width="100%">
+      </div>
+      <div class="row">
+        <div class="col-sm-6"><img src="{{public_path('img/footer-pdf-1.png')}}" alt="" width="100%"></div>
+        <div class="col-sm-6"><img src="{{public_path('img/footer-pdf-2.png')}}" alt="" width="100%"></div>
+      </div>
+      <div class="row">
+        <img src="{{public_path('img/footer-pdf-3.png')}}" alt="" width="100%">
+      </div>
 	  </div>
 	</div>
 </body>
