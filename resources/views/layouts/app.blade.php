@@ -34,6 +34,7 @@
         <link href="{{asset('font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
          <link rel="stylesheet" href="{{ asset('css/main.js') }}">
+         
         
          <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>

@@ -57,6 +57,12 @@
 											<a class="btn btn-warning btn-sm" href="{{ route('clientes.edit', $cliente) }}">
 												<i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar
 											</a>
+											<form method="POST" action="{{route('clientes.destroy', $cliente)}}">
+												<input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}">
+												<input name="_method" type="hidden" value="DELETE">
+												<input type="hidden" name="empleado" value="{{$cliente->id}}">
+												<button type="submit" class="btn btn-danger btn-sm">ELIMINAR</button>
+											</form>
 										</td>
 									</tr>
 								@endforeach

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Empleado;
+
 use App\EmpleadosDatosLab;
 use App\Empleado;
 use App\Area;
@@ -47,6 +48,18 @@ class EmpleadoController extends Controller
     }
 
     /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Empleado  $empleado
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $request, Empleado $empleado)
+    {
+        $empleado->delete();
+        return $this->index();
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  \App\Empleado  $empleado
@@ -54,8 +67,8 @@ class EmpleadoController extends Controller
      */
     public function show(Empleado $empleado)
     {
-        
-        return view('empleado.view',['empleado'=>$empleado]);
+
+        return view('empleado.view', ['empleado' => $empleado]);
     }
 
     /**
@@ -66,9 +79,8 @@ class EmpleadoController extends Controller
      */
     public function edit(Empleado $empleado)
     {
-        //
-        $edit=true;
-        return view('empleado.create',['empleado'=>$empleado,'edit'=>$edit]);
+        $edit = true;
+        return view('empleado.create', ['empleado' => $empleado, 'edit' => $edit]);
     }
 
     /**
@@ -82,44 +94,29 @@ class EmpleadoController extends Controller
     {
         //
         $empleado->update($request->all());
-        return redirect()->route('empleados.show',['empleado'=>$empleado])->with('success','Empleado Actualizado');
-
+        return redirect()->route('empleados.show', ['empleado' => $empleado])->with('success', 'Empleado Actualizado');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Empleado  $empleado
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Empleado $empleado)
-    {
-        //
-    }
-
-//Añadido : Iyari 05/Dic/2017
+    //Añadido : Iyari 05/Dic/2017
     public function consulta()
     {
         return view('empleado.consulta');
-    } 
+    }
 
-    public function buscar(Request $request){
-    
-    $query = $request->input('busqueda');
-    $wordsquery = explode(' ',$query);
-    $empleados = Empleado::where(function($q) use($wordsquery){ 
+    public function buscar(Request $request)
+    {
+
+        $query = $request->input('busqueda');
+        $wordsquery = explode(' ', $query);
+        $empleados = Empleado::where(function ($q) use ($wordsquery) {
             foreach ($wordsquery as $word) {
                 # code...
-            $q->orWhere('nombre','LIKE',      "%$word%")
-                ->orWhere('appaterno','LIKE', "%$word%")
-                ->orWhere('apmaterno','LIKE', "%$word%")
-                ->orWhere('rfc','LIKE',     "%$word%");
-               
+                $q->orWhere('nombre', 'LIKE',      "%$word%")
+                    ->orWhere('appaterno', 'LIKE', "%$word%")
+                    ->orWhere('apmaterno', 'LIKE', "%$word%")
+                    ->orWhere('rfc', 'LIKE',     "%$word%");
             }
-
         })->get();
-    return view('empleado.busqueda', ['empleados'=>$empleados]);
-        
-
+        return view('empleado.busqueda', ['empleados' => $empleados]);
     }
 }

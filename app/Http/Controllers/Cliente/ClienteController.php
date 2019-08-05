@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use UxWeb\SweetAlert\SweetAlert as Alert;
 use App\Cliente;
+use App\FormaContacto;
 
 class ClienteController extends Controller
 {
@@ -27,7 +28,8 @@ class ClienteController extends Controller
      */
     public function create()
     {
-        return view('clientes.create');
+        $formas_contacto = FormaContacto::get();
+        return view('clientes.create', compact('formas_contacto'));
     }
 
     /**
@@ -86,9 +88,10 @@ class ClienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, Cliente $cliente)
     {
-        //
+        $cliente->delete();
+        return $this->index();
     }
 
     public function buscar(Request $request){

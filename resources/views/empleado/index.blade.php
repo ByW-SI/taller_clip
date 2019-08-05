@@ -42,9 +42,18 @@
 											<a class="btn btn-primary btn-sm" href="{{ route('empleados.show',['empleado'=>$empleado]) }}">
 												<i class="fa fa-eye" aria-hidden="true"></i><strong> Ver</strong>
 											</a>
-											<a class="btn btn-danger btn-sm" href="{{ route('empleados.edit',['empleado'=>$empleado]) }}">
+											<a class="btn btn-warning btn-sm" href="{{ route('empleados.edit',['empleado'=>$empleado]) }}">
 												<i class="fa fa-pencil" aria-hidden="true"></i><strong> Editar</strong>
 											</a>
+										<form method="POST" action="{{route('empleados.destroy',['empleado'=>$empleado])}}">
+												<input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}">
+												<input name="_method" type="hidden" value="DELETE">
+												<input type="hidden" name="empleado" value="{{$empleado->id}}">
+												<button type="submit" class="btn btn-danger btn-sm">ELIMINAR</button>
+											</form>
+											{{-- <a class="btn btn-danger btn-sm" href="{{ route('empleados.destroy',['empleado'=>$empleado]) }}">
+												<i class="fa fa-pencil" aria-hidden="true"></i><strong> Eliminar</strong>
+											</a> --}}
 										</td>
 									</tr>
 								@endforeach

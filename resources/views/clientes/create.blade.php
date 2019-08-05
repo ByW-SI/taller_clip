@@ -77,7 +77,13 @@
 						</div>
 						<div class="col-sm-3">
 							<label class="control-label" for="formac">Forma de contacto:</label>
-							<input type="text" class="form-control" name="formac" >
+							{{-- <input type="text" class="form-control" name="formac" > --}}
+							<select name="formac" class="form-control">
+								<option value="">Seleccionar</option>
+								@foreach ($formas_contacto as $forma_contacto)
+									<option value="{{$forma_contacto->nombre}}">{{$forma_contacto->nombre}}</option>
+								@endforeach
+							</select>
 						</div>
 					</div>
 				</div>
