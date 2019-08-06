@@ -89,8 +89,8 @@
 			<li><a href="{{ route('clientes.crm.index', ['cliente' => $cliente]) }}">CRM</a></li>
 			<li><a href="{{ route('clientes.contacto.index', ['cliente' => $cliente]) }}">Contactos:</a></li>
 			<li><a href="{{route('clientes.datosgenerales.index',['cliente' => $cliente])}}">Datos Generales</a></li>
-			
 		</ul>
+		
 		<div class="panel-default">
 			<div class="panel-body">
 				<div class="row">

@@ -1,10 +1,11 @@
 @extends('layouts.noUpper')
 @section('content')
 
+<br>
 <div class="container">
-	<div class="panel panel-group">
-		<div class="panel-default">
-			<div class="panel-heading">
+	<div class="card">
+		{{-- <div class="panel-default"> --}}
+			<div class="card-header">
 				<div class="row">
 					<div class="col-sm-4">
 						<h4>Datos del Perfil:</h4>
@@ -17,37 +18,57 @@
             <form action="{{ route('perfil.update', ['id' => $perfil->id]) }}" method="post">
             <input type="hidden" name="_method" value="PUT">
             {{ csrf_field() }}
-                <div class="panel-body">
+            <div class="card-body">
                     <div class="row">
                         <div class="form-group col-sm-4">
                             <label class="control-label">Nombre:</label>
-                            <input type="text" name="nombre" class="form-control" value="{{ $perfil->nombre }}" required="">
+                        <input type="text" name="nombre" class="form-control" required="" value="{{$perfil->nombre}}">
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-4">
-                            <label class="control-label">Modulos:</label>
-                            @foreach($modulos as $modulo)
-                            @if(Auth::user()->perfil->id != 1 && $modulo->nombre == 'seguridad')
-                            @else
+                        <div class="container">
                             <div class="row">
-                                <div class="col-sm-5 text-right">
-                                    {{ $modulo->nombre }}
-                                </div>
-                                <div class="col-sm-4 text-left">
-                                    <input type="checkbox" name="modulo_id[]" value="{{ $modulo->id }}"
-                                    <?php
-                                        foreach($perfil->modulos as $mod)
-                                            if($modulo->id == $mod->id)
-                                                echo "checked";
-                                    ?>
-                                    >
+                                <div class="col-sm-4 info">
+                                    <label class="control-label">Modulos:</label>
                                 </div>
                             </div>
-                            @endif
-                            @endforeach
+                            <div class="row">
+                                @php($j = 0)
+                                @foreach($modulos as $modulo)
+                                @if($j % 2 == 0)
+                                <div class="col-sm-6">
+                                @endif
+                                    @php($j++)
+                                    @if(Auth::user()->perfil->id != 1 && $modulo->nombre == 'seguridad')
+                                    @else
+                                    <td class="col-sm-4" style="border: none; padding: 0px;">
+                                        <table class="table table-hover table-bordered" style="margin-bottom: 0px; background: #fff;">
+                                            <tr style="background: #f4f4f4;">
+                                                <th class="col-sm-10">
+                                                    <label class="control-label">{{ $modulo->nombre}}</label>
+                                                </th>
+                                                <td class="col-sm-2 text-center">
+                                                    <input type="checkbox" name="modulo_id[]"  value="{{ $modulo->id }}" id="mod{{ $j }}"
+                                                    <?php
+                                                        foreach($perfil->modulos as $mod)
+                                                            if($modulo->id == $mod->id)
+                                                                echo "checked";
+                                                        ?>  
+                                                    >
+                                                </td>
+                                            </tr>
+                                            @php($i = 0)
+                                        </table>
+                                    </td>
+                                    @endif
+                                 @if($j % 2 == 0)
+                                </div>
+                                @endif
+                                @endforeach
+                            </div>
                         </div>
                     </div>
+                    <br>
                     <div class="row">
                         <div class="col-sm-4 col-sm-offset-4 text-center">
                             <button type="submit" class="btn btn-success"><i class="fa fa-check-circle" aria-hidden="true"></i> Guardar</button>
@@ -55,7 +76,7 @@
                     </div>
                 </div>
             </form>
-		</div>
+		{{-- </div> --}}
 	</div>
 </div>
 

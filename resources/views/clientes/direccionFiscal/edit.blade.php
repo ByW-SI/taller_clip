@@ -83,6 +83,7 @@
 			<li><a href="{{ route('clientes.direccionEntrega.index', ['cliente' => $cliente]) }}">Dirección de Entrega</a></li>
 			{{-- <li><a href="{{ route('clientes.descuentos.index', ['cliente' => $cliente]) }}">Descuentos</a></li> --}}
 			<li><a href="{{ route('clientes.crm.index', ['cliente' => $cliente]) }}">CRM</a></li>
+			<li><a href="{{ route('clientes.contacto.index', ['cliente' => $cliente]) }}">Contactos:</a></li>
 			<li><a href="{{route('clientes.datosgenerales.index',['cliente' => $cliente])}}">Datos Generales</a></li>
 		</ul>
 		<form action="{{ route('clientes.direccionFiscal.update', ['cliente' => $cliente, 'fiscal' => $cliente->fiscal]) }}" method="post">
@@ -91,6 +92,13 @@
 			<div class="panel-default">
 				<div class="panel-body">
 					<div class="row">
+						<div class="form-group col-sm-3">	
+							{{-- <label class="control-label" for="copiar" id="copiarDirFisica">Copiar dirección física</label> --}}
+							<button name="copiar" id="copiar" type="button" class="btn btn-info">Copiar dirección Física</button>
+						</div>
+					</div>
+					<div class="row">
+						<input type="hidden" id="cliente_id" value="{{$cliente->id}}">
 						<div class="form-group col-sm-3">	
 							<label class="control-label" for="calle" id="lbl_calle">Calle:</label>
 							<input type="text" class="form-control" id="calle" name="calle" value="{{ $cliente->fiscal->calle }}">
@@ -148,5 +156,41 @@
 		</form>
 	</div>
 </div>
+
+<script type="text/javascript">
+	
+	document.getElementById("copiar").addEventListener("click", function(e){
+		
+		e.preventDefault();
+
+		const base_url = document.location.origin;
+		var cliente_id = document.getElementById('cliente_id').value;
+
+		
+		
+		$.ajax({
+			url: base_url+'/getClient/'+cliente_id,
+			type: 'GET',
+			contentType: "application/json",
+			success: function(cliente){
+				$('#calle').val(cliente.calle);
+				$('#numext').val(cliente.numext);
+				$('#numinter').val(cliente.numinter);
+				$('#cp').val(cliente.cp);
+				$('#colonia').val(cliente.colonia);
+				$('#municipio').val(cliente.municipio);
+				$('#ciudad').val(cliente.ciudad);
+				$('#estado').val(cliente.estado);
+				$('#calle1').val(cliente.calles);
+				$('#referencia').val(cliente.referencia);
+			},
+			error: function(error){
+				alert('ERROR');
+			}
+		});
+
+	});
+	
+	</script>
 
 @endsection

@@ -140,6 +140,11 @@ class ClienteController extends Controller
         return view('precargas.select',['precargas'=>$clientes]);
     }
 
+    public function getClientById($id){
+        $cliente = Cliente::find($id);
+        return response()->json($cliente, 200);
+    }
+
     public function getDescuentos(Cliente $cliente)
     {
         $descuentos = $cliente->descuentos;

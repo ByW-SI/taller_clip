@@ -30,6 +30,7 @@ Route::get('getDescuentos/{cliente}','Cliente\ClienteController@getDescuentos');
 
 Route::get('fecha','Crm\CrmController@porFecha')->name('fecha');
 Route::get('getclient', 'Cliente\ClienteController@getClient');
+Route::get('getClient/{client}', 'Cliente\ClienteController@getClientById');
 Route::resource('clientes', 'Cliente\ClienteController');
 Route::resource('clientes.direccionFiscal','Cliente\ClienteDireccionFiscalController')->except(['show', 'destroy']);
 Route::resource('clientes.direccionEntrega','Cliente\ClienteDireccionEntregaController')->except(['show', 'destroy']);
