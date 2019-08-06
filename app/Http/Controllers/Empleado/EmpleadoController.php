@@ -19,7 +19,7 @@ class EmpleadoController extends Controller
      */
     public function index()
     {
-        $empleados = Empleado::where('status','activo')->sortable()->paginate(10);
+        $empleados = Empleado::activos()->sortable()->paginate(10);
         return view('empleado.index', ['empleados' => $empleados]);
     }
 

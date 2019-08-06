@@ -87,4 +87,12 @@ class Cliente extends Model {
 		return $this->hasMany('App\ClienteCRM');
 	}
 
+	/**
+	 * Scope methods
+	 */
+
+	public function scopeActivos($query){
+		return $query->where('status','activo');
+	}
+
 }

@@ -17,7 +17,7 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        $clientes = Cliente::where('status','activo')->sortable()->paginate(8);
+        $clientes = Cliente::activos()->sortable()->paginate(8);
         return view('clientes.index', ['clientes' => $clientes]);
     }
 

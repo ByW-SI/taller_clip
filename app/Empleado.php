@@ -55,5 +55,13 @@ class Empleado extends Model
     public function faltasAdmin(){
         return $this->hasMany('App\EmpleadosFaltasAdministrativas');
     }
+
+    /**
+     * Scope methods
+     */
+
+    public function scopeActivos($query){
+        return $query->where('status','activo');
+    }
     
 }
