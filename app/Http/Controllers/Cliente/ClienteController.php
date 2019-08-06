@@ -17,7 +17,7 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        $clientes = Cliente::sortable()->paginate(8);
+        $clientes = Cliente::where('status','activo')->sortable()->paginate(8);
         return view('clientes.index', ['clientes' => $clientes]);
     }
 
@@ -90,7 +90,9 @@ class ClienteController extends Controller
      */
     public function destroy(Request $request, Cliente $cliente)
     {
-        $cliente->delete();
+        // $cliente->delete();
+        $cliente->status = "eliminado";
+        $cliente->save();
         return $this->index();
     }
 

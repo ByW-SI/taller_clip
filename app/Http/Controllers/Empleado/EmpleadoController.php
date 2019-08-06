@@ -19,7 +19,7 @@ class EmpleadoController extends Controller
      */
     public function index()
     {
-        $empleados = Empleado::sortable()->paginate(10);
+        $empleados = Empleado::where('status','activo')->sortable()->paginate(10);
         return view('empleado.index', ['empleados' => $empleados]);
     }
 
@@ -55,7 +55,8 @@ class EmpleadoController extends Controller
      */
     public function destroy(Request $request, Empleado $empleado)
     {
-        $empleado->delete();
+        $empleado->status = "eliminado";
+        $empleado->save();
         return $this->index();
     }
 
