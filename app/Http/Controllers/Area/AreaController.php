@@ -15,9 +15,8 @@ class AreaController extends Controller
      */
     public function index()
     {
-        //
         $areas = Area::sortable()->paginate(10);
-        return view('areas.index',['areas'=>$areas]);
+        return view('areas.index', ['areas' => $areas]);
     }
 
     /**
@@ -27,7 +26,6 @@ class AreaController extends Controller
      */
     public function create()
     {
-        //
         return view('areas.create');
     }
 
@@ -39,22 +37,8 @@ class AreaController extends Controller
      */
     public function store(Request $request)
     {
-        //
-
         Area::create($request->all());
         return redirect('areas');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Area  $area
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Area $area)
-    {
-        //
-        // return view('areas.index');
     }
 
     /**
@@ -66,8 +50,8 @@ class AreaController extends Controller
     public function edit(Area $area)
     {
         //
-       // dd($area);
-        return view('areas.edit',['area'=>$area]);
+        // dd($area);
+        return view('areas.edit', ['area' => $area]);
     }
 
     /**
@@ -79,10 +63,8 @@ class AreaController extends Controller
      */
     public function update(Request $request, Area $area)
     {
-        //
         $area->update($request->all());
         return redirect('areas');
-
     }
 
     /**
@@ -93,28 +75,27 @@ class AreaController extends Controller
      */
     public function destroy(Area $area)
     {
-        //
-        // var_dump($area);
-        // $area = Area::findoorFail($area);
-        // Area::destroy($area);
         $area->delete();
         return  redirect('areas');
     }
-    public function buscar(Request $request){
+
+    public function buscar(Request $request)
+    {
         $query = $request->input('query');
-        $wordsquery = explode(' ',$query);
-        $areas = Area::where(function($q) use($wordsquery){
+        $wordsquery = explode(' ', $query);
+        $areas = Area::where(function ($q) use ($wordsquery) {
             foreach ($wordsquery as $word) {
                 # code...
-                $q->orWhere('nombre','LIKE',"%$word%")
-                    ->orWhere('etiqueta','LIKE',"%$word%");
+                $q->orWhere('nombre', 'LIKE', "%$word%")
+                    ->orWhere('etiqueta', 'LIKE', "%$word%");
             }
         })->paginate(10);
-        return view('areas.index',['areas'=>$areas]);
+        return view('areas.index', ['areas' => $areas]);
     }
 
-          public function getAreas(){
+    public function getAreas()
+    {
         $areas = Area::get();
-        return view('precargas.select',['precargas'=>$areas]);
+        return view('precargas.select', ['precargas' => $areas]);
     }
 }

@@ -39,8 +39,6 @@ class BancoController extends Controller
      */
     public function store(Request $request)
     {
-        //
-
         Banco::create($request->all());
         return redirect('bancos');
     }
@@ -78,10 +76,8 @@ class BancoController extends Controller
      */
     public function update(Request $request, Banco $banco)
     {
-        //
         $banco->update($request->all());
         return redirect('bancos');
-
     }
 
     /**
@@ -100,11 +96,15 @@ class BancoController extends Controller
         return  redirect('bancos');
     }
     public function buscar(Request $request){
+
+        /**
+         * Obtenemos arreglo de palabras a buscar
+         */
+
         $query = $request->input('query');
         $wordsquery = explode(' ',$query);
         $bancos = Banco::where(function($q) use($wordsquery){
             foreach ($wordsquery as $word) {
-                # code...
                 $q->orWhere('nombre','LIKE',"%$word%")
                     ->orWhere('etiqueta','LIKE',"%$word%");
             }
