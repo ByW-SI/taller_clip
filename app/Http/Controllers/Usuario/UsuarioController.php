@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Usuario;
 
 use App\User;
 use App\Perfil;
+use App\Empleado;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
@@ -66,10 +67,24 @@ class UsuarioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+
+        $empleados = new Empleado;
+
+        /**
+         * Si se realizó una busqueda por consulta, obtenemos los usuarios
+         * que coincidan con la busqueda
+         */
+        if($request->input('query')){
+            $query = $request->input('query');
+            $empleados = $empleados->findByText($query);
+        }
+
+        $empleados = $empleados->noUsers()->activos()->sortable()->paginate(10);
         $perfiles = Perfil::get();
-        return view('seguridad.usuario.create', ['perfiles' => $perfiles]);
+
+        return view('seguridad.usuario.create', compact('perfiles','empleados'));
     }
 
     /**
@@ -87,7 +102,8 @@ class UsuarioController extends Controller
         else {
             $rules = [
                 'perfil_id'=>'required|integer',
-                'name'=>'required|alpha',
+                'empleado_id'=>'required|integer',
+                // 'name'=>'required|alpha',
                 'email' => 'required|string|email|unique:users',
                 'password' => 'required|string',
                 'nombre'=>'required|alpha',
@@ -97,14 +113,16 @@ class UsuarioController extends Controller
             $this->validate($request, $rules);
             $inputs = $request->all();
             $usuario = User::create([
-                'name'=> $inputs['name'],
+                'name'=> $inputs['email'],
                 'email'=>$inputs['email'],
                 'password'=>bcrypt($inputs['password']),
                 'nombre'=>$inputs['nombre'],
                 'appaterno'=>$inputs['appaterno'],
                 'apmaterno'=>$inputs['apmaterno'],
-                'perfil_id'=>$inputs['perfil_id']
+                'perfil_id'=>$inputs['perfil_id'],
+                'empleado_id'=>$inputs['empleado_id'],
             ]);
+            // dd($usuario->empleado_id);
             return view('seguridad.usuario.view', ['usuario' => $usuario]);
         }
     }

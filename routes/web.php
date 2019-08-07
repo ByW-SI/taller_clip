@@ -61,6 +61,7 @@ Route::resource('contratos','Precargas\TipoContratoController');
 Route::resource('bajas','Precargas\TipoBajaController');
 Route::resource('crm','Crm\CrmController');
 Route::get('buscarempleado','Empleado\EmpleadoController@buscar');
+Route::get('empleado/{id}','Empleado\EmpleadoController@getEmpleado');
     
 //-----  Sólo vistas  ---------------------------------------
 Route::get('sucursales',function(){
@@ -176,3 +177,4 @@ Route::get('ordentrabajoconvert/{id}','OrdenTrabajo\OrdenTrabajoController@conve
 Route::resource('ordentrabajo','OrdenTrabajo\OrdenTrabajoController');
 
 
+Route::get('pruebas','PruebasController@index');

@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Empleado;
+use Illuminate\Support\Facades\Schema;
 
 class PruebasController extends Controller
 {
-    public function create()
+    public function index()
     {
-        return view('rhpersonal.create');
+        return Empleado::findByText('Raul')->get();
     }
 }

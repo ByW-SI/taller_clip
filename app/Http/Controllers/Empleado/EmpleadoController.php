@@ -17,9 +17,19 @@ class EmpleadoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $empleados = Empleado::activos()->sortable()->paginate(10);
+        $empleados = new Empleado;
+
+        /**
+         * Si se realizó una consulta buscamos las palabras
+         * que concuerden con dicah consulta.
+         */
+        if($request->input('query')){
+            $empleados = $empleados->findByText($request->input('query'));
+        }
+
+        $empleados = $empleados->activos()->sortable()->paginate(10);
         return view('empleado.index', ['empleados' => $empleados]);
     }
 
@@ -57,7 +67,7 @@ class EmpleadoController extends Controller
     {
         $empleado->status = "eliminado";
         $empleado->save();
-        return $this->index();
+        return $this->index($request);
     }
 
     /**
@@ -96,6 +106,11 @@ class EmpleadoController extends Controller
         //
         $empleado->update($request->all());
         return redirect()->route('empleados.show', ['empleado' => $empleado])->with('success', 'Empleado Actualizado');
+    }
+
+    public function getEmpleado($id){
+        $empleado = Empleado::find($id);
+        return response()->json($empleado);
     }
 
     //Añadido : Iyari 05/Dic/2017

@@ -24,8 +24,6 @@
                         <label class="control-label">Correo:</label>
                         <input type="text" name="mail" class="form-control" value="{{ $usuario->email }}" readonly="">
                     </div>
-                </div>
-                <div class="row">
                     <div class="form-group col-sm-4">
                         <label class="control-label">Nombre:</label>
                         <input type="text" name="nombre" class="form-control" value="{{ $usuario->nombre }}" readonly="">
@@ -38,8 +36,6 @@
                         <label class="control-label">Apellido Materno:</label>
                         <input type="text" name="apmaterno" class="form-control" value="{{ $usuario->apmaterno }}" readonly="">
                     </div>
-                </div>
-                <div class="row">
                     <div class="form-group col-sm-4">
                         <label class="control-label">Perfil:</label>
                         <input type="text" name="perfil" class="form-control" value="{{ $usuario->perfil->nombre }}" readonly="">

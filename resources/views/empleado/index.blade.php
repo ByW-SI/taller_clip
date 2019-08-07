@@ -6,9 +6,24 @@
 		<div class="panel-default">
 			<div class="panel-heading">
 				<div class="row">
+					{{-- Titulo --}}
 					<div class="col-sm-4">
 						<h4>Empleados:</h4>
 					</div>
+					{{-- Botón de búsqueda --}}
+					@if(count($empleados) > 0)
+						<div class="col-sm-4">
+							<form action="{{route('empleados.index')}}" class="form-inline">
+								<div class="input-group">
+									<input type="text" name="query" id="cliente" class="form-control">
+									<span class="input-group-btn">
+										<button class="btn btn-default" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+									</span>
+								</div>
+							</form>
+						</div>
+					@endif
+					{{-- Botón para agregar cliente --}}
 					<div class="col-sm-4 text-center">
 						<a class="btn btn-success" href="{{ route('empleados.create')}}">
 							<i class="fa fa-plus" aria-hidden="true"></i><strong> Agregar Empleado</strong>

@@ -6,11 +6,13 @@
 		<div class="panel-default">
 			<div class="panel-heading">
 				<div class="row">
-					<div class="col-sm-4">
+					{{-- Titulo --}}
+					<div class="col-sm-3">
 						<h4>Clientes:</h4>
 					</div>
+					{{-- Boton de búsqueda --}}
 					@if(count($clientes) > 0)
-						<div class="col-sm-4">
+						<div class="col-sm-5">
 							<div class="input-group">
 								<input type="text" name="query" id="cliente" class="form-control">
 								<span class="input-group-btn">
@@ -19,6 +21,7 @@
 							</div>
 						</div>
 					@endif
+					{{-- Botón para agregar cliente --}}
 					<div class="col-sm-4 text-center">
 						<a href="{{ route('clientes.create') }}" class="btn btn-success">
 							<i class="fa fa-plus" aria-hidden="true"></i><strong> Agregar Cliente</strong>
@@ -52,16 +55,18 @@
 										<td>{{ $cliente->tel_celular == null ? 'N/A' : $cliente->tel_celular }}</td>
 										<td class="text-center">
 											<a class="btn btn-info btn-sm" href="{{ route('clientes.show',$cliente) }}">
-												<i class="fa fa-eye" aria-hidden="true"></i> Ver
+												<i class="fa fa-eye" aria-hidden="true"></i><strong>&nbsp;Ver</strong>
 											</a>
 											<a class="btn btn-warning btn-sm" href="{{ route('clientes.edit', $cliente) }}">
-												<i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar
+												<i class="fa fa-pencil-square-o" aria-hidden="true"></i><strong>&nbsp;Editar</strong>
 											</a>
 											<form method="POST" action="{{route('clientes.destroy', $cliente)}}">
 												<input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}">
 												<input name="_method" type="hidden" value="DELETE">
 												<input type="hidden" name="empleado" value="{{$cliente->id}}">
-												<button type="submit" class="btn btn-danger btn-sm">ELIMINAR</button>
+												<button type="submit" class="btn btn-danger btn-sm">
+														<i class="fa fa-trash" aria-hidden="true"></i><strong>&nbsp;Eliminar</strong>
+												</button>
 											</form>
 										</td>
 									</tr>
