@@ -9,6 +9,9 @@ use App\Puesto;
 use App\Sucursal;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Session;
+use UxWeb\SweetAlert\SweetAlert;
 
 class EmpleadoController extends Controller
 {
@@ -25,7 +28,7 @@ class EmpleadoController extends Controller
          * Si se realizó una consulta buscamos las palabras
          * que concuerden con dicah consulta.
          */
-        if($request->input('query')){
+        if ($request->input('query')) {
             $empleados = $empleados->findByText($request->input('query'));
         }
 
@@ -53,6 +56,17 @@ class EmpleadoController extends Controller
      */
     public function store(Request $request)
     {
+
+        $validator = Validator::make($request->all(), [
+            'email' => 'unique:empleados',
+            'rfc' => 'unique:empleados',
+        ]);
+
+        if ($validator->fails()) {
+            SweetAlert::error($validator->errors()->first());
+            return redirect()->back();
+        }
+
         $empleado = Empleado::create($request->all());
         return redirect()->route('empleados.show', ['empleado' => $empleado])->with('success', 'Empleado Creado');
     }
@@ -65,6 +79,20 @@ class EmpleadoController extends Controller
      */
     public function destroy(Request $request, Empleado $empleado)
     {
+
+        /**
+         * Si el empleado tiene una cuenta de usuario,
+         * la eliminamos
+         */
+
+        if ($empleado->user()->first()) {
+            $empleado->user()->first()->delete();
+        }
+
+        /**
+         * Eliminamos al empleado
+         */
+
         $empleado->status = "eliminado";
         $empleado->save();
         return $this->index($request);
@@ -103,12 +131,23 @@ class EmpleadoController extends Controller
      */
     public function update(Request $request, Empleado $empleado)
     {
-        //
+
+        $validator = Validator::make($request->all(), [
+            'email' => 'unique:empleados,email,' . $empleado->id,
+            'rfc' => 'unique:empleados,rfc,' . $empleado->id,
+        ]);
+
+        if ($validator->fails()) {
+            SweetAlert::error($validator->errors()->first());
+            return redirect()->back();
+        }
+
         $empleado->update($request->all());
         return redirect()->route('empleados.show', ['empleado' => $empleado])->with('success', 'Empleado Actualizado');
     }
 
-    public function getEmpleado($id){
+    public function getEmpleado($id)
+    {
         $empleado = Empleado::find($id);
         return response()->json($empleado);
     }

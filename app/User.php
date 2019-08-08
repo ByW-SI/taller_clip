@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Notifications\MailResetPasswordToken;
+use Illuminate\Support\Facades\Schema;
 
 class User extends Authenticatable
 {
@@ -24,7 +25,7 @@ class User extends Authenticatable
         'nombre',
         'appaterno',
         'apmaterno',
-        'empleado_id'
+        'empleado_id',
     ];
 
     /**
@@ -35,6 +36,10 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function empleado(){
+        return $this->belongsTo('App\Empleado');
+    }
     
     public function perfil() {
         return $this->belongsTo('App\Perfil');
@@ -42,7 +47,19 @@ class User extends Authenticatable
 
     public function datosLab() {
         return $this->hasOne('DatosLab\Cliente');
-    } 
+    }
+
+    /**
+     * Scope methods
+     */
+
+    public function scopeFindByText($query, $word){
+        $columns = Schema::getColumnListing('users');
+        foreach($columns as $column){
+            $query->orWhere($column, 'LIKE', "%$word%");
+        }
+    }
+
 }
 
 /**

@@ -50,15 +50,16 @@ class OrdenController extends Controller
      */
     public function store(Request $request)
     {
-        //return dd($request->all());
+        // dd($request->all());
 
         $precio_orden = str_replace(",", "",$request->precio_orden);
         $orden = Orden::create($request->all());
+        // dd($orden);
         $orden->ganancia_orden = $request->ganancia_orden;
         $orden->precio_orden = $precio_orden;
         $orden->save();
 
-        for($i = 0; $i < sizeof($request->nombre_obra); $i++){
+        for($i =0; $i < sizeof($request->nombre_obra); $i++){
             $obra = new Obra(['nombre' => $request->nombre_obra[$i],
                               'nopiezas' => $request->nopiezas_obra[$i],
                               'alto_obra' => $request->alto_obra[$i],

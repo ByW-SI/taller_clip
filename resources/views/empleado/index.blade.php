@@ -11,19 +11,19 @@
 						<h4>Empleados:</h4>
 					</div>
 					{{-- Botón de búsqueda --}}
-					@if(count($empleados) > 0)
+					{{-- @if(count($empleados) > 0) --}}
 						<div class="col-sm-4">
 							<form action="{{route('empleados.index')}}" class="form-inline">
 								<div class="input-group">
-									<input type="text" name="query" id="cliente" class="form-control">
+									<input type="text" name="query" id="cliente" class="form-control" value="{{Request::input('query')}}">
 									<span class="input-group-btn">
 										<button class="btn btn-default" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
 									</span>
 								</div>
 							</form>
 						</div>
-					@endif
-					{{-- Botón para agregar cliente --}}
+					{{-- @endif --}}
+					{{-- Botón para agregar empleado --}}
 					<div class="col-sm-4 text-center">
 						<a class="btn btn-success" href="{{ route('empleados.create')}}">
 							<i class="fa fa-plus" aria-hidden="true"></i><strong> Agregar Empleado</strong>
@@ -55,16 +55,18 @@
 										<td>{{$empleado->rfc}}</td>
 										<td class="text-center">
 											<a class="btn btn-primary btn-sm" href="{{ route('empleados.show',['empleado'=>$empleado]) }}">
-												<i class="fa fa-eye" aria-hidden="true"></i><strong> Ver</strong>
+												<i class="fa fa-eye" aria-hidden="true"></i><strong>&nbsp;Ver</strong>
 											</a>
 											<a class="btn btn-warning btn-sm" href="{{ route('empleados.edit',['empleado'=>$empleado]) }}">
-												<i class="fa fa-pencil" aria-hidden="true"></i><strong> Editar</strong>
+												<i class="fa fa-pencil" aria-hidden="true"></i><strong>&nbsp;Editar</strong>
 											</a>
 										<form method="POST" action="{{route('empleados.destroy',['empleado'=>$empleado])}}">
 												<input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}">
 												<input name="_method" type="hidden" value="DELETE">
 												<input type="hidden" name="empleado" value="{{$empleado->id}}">
-												<button type="submit" class="btn btn-danger btn-sm">ELIMINAR</button>
+												<button type="submit" class="btn btn-danger btn-sm">
+													<i class="fa fa-trash" aria-hidden="true"></i><strong>&nbsp;Eliminar</strong>
+												</button>
 											</form>
 											{{-- <a class="btn btn-danger btn-sm" href="{{ route('empleados.destroy',['empleado'=>$empleado]) }}">
 												<i class="fa fa-pencil" aria-hidden="true"></i><strong> Eliminar</strong>
@@ -75,7 +77,7 @@
 							</table>
 							{{ $empleados->links() }}
 						@else
-							<h4>No hay empleados agregados.</h4>
+							<h4>No se encontró ningún usuario.</h4>
 						@endif
 					</div>
 				</div>

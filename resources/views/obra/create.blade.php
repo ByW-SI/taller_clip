@@ -25,25 +25,25 @@
                     @endif
                     <div class="row">
                         <div class="col-sm-3 form-group">
-                            <label class="control-label">Nombre de la obra:</label>
+                            <label class="control-label">✱Nombre de la obra:</label>
                             <input required type="text" name="nombre" value="{{($edit && $obra) ? $obra->nombre : ""}}" id="nombre" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
                         </div>
                         <div class="col-sm-3 form-group">
-                            <label class="control-label">Número de piezas:</label>
+                            <label class="control-label">✱Número de piezas:</label>
                             <input required type="number" step="1" min="1" name="nopiezas" value="{{($edit && $obra) ? $obra->nopiezas : "1"}}" id="nopiezas" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
                         </div>
                         <div class="col-sm-3 form-group">
-                            <label class="control-label">Alto de la obra:</label>
+                            <label class="control-label">✱Alto de la obra:</label>
                             <input required type="number" step="0.01" min="0" name="alto_obra" value="{{($edit && $obra) ? $obra->alto_obra : ""}}" id="alto_obra" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
                         </div>
                         <div class="col-sm-3 form-group">
-                            <label class="control-label">Ancho de la obra:</label>
+                            <label class="control-label">✱Ancho de la obra:</label>
                             <input required type="number" step="0.01" min="0" name="ancho_obra" value="{{($edit && $obra) ? $obra->ancho_obra : ""}}" id="ancho_obra" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-3 form-group">
-                            <label class="control-label">Profundidad de la obra:</label>
+                            <label class="control-label">✱Profundidad de la obra:</label>
                             <input required type="number" step="0.01" min="0" name="profundidad_obra" value="{{($edit && $obra) ? $obra->profundidad_obra : ""}}" id="profundidad_obra" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
                         </div>
                         <div class="col-sm-6 form-group">
@@ -53,7 +53,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-3 form-group">
-                            <label class="control-label">Sección:</label>
+                            <label class="control-label">✱Sección:</label>
                             <select required class="custom-select" id="seccion" required>
                                 <option value="">---</option>
                                 <option value="Maria Luisa">Maria Luisa</option>

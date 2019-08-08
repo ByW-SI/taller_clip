@@ -30,8 +30,8 @@
                             @if(Auth::user()->perfil->id != 1 && $seguridad)
                             @else
                             <tr>
-                                <td class="col-sm-9">{{ $perfil->nombre }}</td>
-                                <td class="text-center col-sm-3">
+                                <td class="col-sm-7">{{ $perfil->nombre }}</td>
+                                <td class="text-center col-sm-5">
                                     <form method="post" action="{{ route('perfil.destroy', ['id' => $perfil->id]) }}" style="">
                                     <a class="btn btn-primary btn-sm" href="{{ route('perfil.show', ['id' => $perfil->id]) }}"><i class="fa fa-eye" aria-hidden="true"></i><strong> Ver</strong></a>
                                     <a class="btn btn-warning btn-sm" href="{{ route('perfil.edit', ['id' => $perfil->id]) }}"><i class="fa fa-pencil" aria-hidden="true"></i><strong> Editar</strong></a>

@@ -90,7 +90,11 @@ class ClienteController extends Controller
      */
     public function destroy(Request $request, Cliente $cliente)
     {
-        // $cliente->delete();
+
+        /**
+         * Eliminamos al usuario
+         */
+
         $cliente->status = "eliminado";
         $cliente->save();
         return $this->index();

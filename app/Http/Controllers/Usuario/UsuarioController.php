@@ -56,9 +56,24 @@ class UsuarioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $usuarios = User::get();
+        
+        $usuarios = new User;
+
+        /**
+         * Si el usuario realizó una busqueda,
+         * obtenemos los usuarios que coincidan
+         * con el termino solicitado
+         */
+
+        if($request->input('query')){
+            $query = $request->input('query');
+            $usuarios = $usuarios->findByText($query);
+            // dd( $usuarios->get() );
+        }
+
+        $usuarios = $usuarios->get();
         return view('seguridad.usuario.index', ['usuarios' => $usuarios]);
     }
 
@@ -106,7 +121,7 @@ class UsuarioController extends Controller
                 // 'name'=>'required|alpha',
                 'email' => 'required|string|email|unique:users',
                 'password' => 'required|string',
-                'nombre'=>'required|alpha',
+                'nombre'=>'required|string',
                 'appaterno'=>'required|alpha',
                 'apmaterno'=>"nullable|alpha"
             ];
@@ -209,6 +224,7 @@ class UsuarioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function destroy($id)
     {
         $usuario = User::find($id);
@@ -218,6 +234,6 @@ class UsuarioController extends Controller
             return redirect()->route('denegado');
         else
             $usuario->delete();
-            return $this->index();
+            return redirect()->route('usuario.index');
     }
 }

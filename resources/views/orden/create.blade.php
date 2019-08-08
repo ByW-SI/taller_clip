@@ -16,14 +16,14 @@
                       </button>
                     </div>
                 @endif
-                <form role="form" method="POST" action="{{$edit ? route('orden.update',['orden'=>$orden]) : route('orden.store')}} " id="formroden">
+                <form role="form" method="POST" action="{{$edit ? route('orden.update',['orden'=>$orden]) : route('orden.store')}} " id="formroden" novalidate>
                     {{csrf_field()}}
                     @if ($edit)
                         {{method_field('PUT')}}
                     @endif
                     <div class="row">
                         <div class="col-sm-3 form-group">
-                            <label class="control-label">Nombre:</label>
+                            <label class="control-label">✱Nombre:</label>
                             <input required class="form-control" type="text" name="nombre" id="nombre" value="{{($edit && $orden) ? $orden->nombre : ""}}">
                         </div>
                         <div class="col-sm-3 form-group">
@@ -31,17 +31,17 @@
                             <input type="date" name="fecha" id="nombre" class="form-control" value="{{($edit && $orden) ? $orden->nombre : date('Y-m-d') }}" readonly>
                         </div>
                         <div class="col-sm-3 form-group">
-                            <label class="control-label">Número de orden:</label>
+                            <label class="control-label">✱Número de orden:</label>
                             <input required type="number" step="1" name="noorden" id="noorden" class="form-control" value="{{ ($edit && $orden) ? $orden->noorden : ++$preclave}}" readonly>
                         </div>
                         <div class="col-sm-3 form-group">
-                            <label class="control-label">Número de obras:</label>
+                            <label class="control-label">✱Número de obras:</label>
                             <input required type="number" step="1" min="1" name="noobras" id="noobras" class="form-control" value="{{ ($edit && $orden) ? $orden->noobras : ""}}" onchange="setHTML(this.value)">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-3">
-                            <label class="control-label">Cliente:</label>
+                            <label class="control-label">✱Cliente:</label>
                             <select required class="form-control" name="cliente_id" id="cliente_id">
                                 <option value="">---</option>
                                 @foreach($clientes as $cliente)
@@ -51,12 +51,12 @@
                         </div>
                         
                         <div class=" col-sm-6">
-                            <label class="control-label">Descripción:</label>
+                            <label class="control-label">✱Descripción:</label>
                             <textarea required class="form-control" name="descripcion" id="descripcion">{{ ($edit && $orden) ? $orden->descripcion : ""}}</textarea>
                         </div>
 
                         <div class="col-sm-3 form-group">
-                            <label class="control-label">Precio total de venta:</label>
+                            <label class="control-label">✱Precio total de venta:</label>
                             <input required type="text" id="total" name="precio_orden" class="form-control"  readonly="">
                             <input type="hidden" name="ganancia_orden" id="ganancia_orden">
                         </div>
@@ -108,37 +108,37 @@
                         <div class="tab-pane fade show active" id="home${i+1}" role="tabpanel" aria-labelledby="home-tab">
                             <div class="row">
                                 <div class="col-sm-3 form-group">
-                                    <label class="control-label">Nombre de la obra:</label>
+                                    <label class="control-label">✱Nombre de la obra:</label>
                                     <input required type="text" name="nombre_obra[]" value="{{($edit && $obra) ? $obra->nombre : ""}}" id="nombre" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
                                 </div>
                                 <div class="col-sm-3 form-group">
-                                    <label class="control-label">Número de piezas:</label>
+                                    <label class="control-label">✱Número de piezas:</label>
                                     <input required type="number" name="nopiezas_obra[]" step="1" min="1"  value="{{($edit && $obra) ? $obra->nopiezas : "1"}}" class="form-control medidas" id="nopiezas${i+1}" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" onchange="actualizarPrecioMedidas(${i+1})" required>
                                 </div>
                                 <div class="col-sm-3 form-group">
-                                    <label class="control-label">Alto de la obra (cm):</label>
+                                    <label class="control-label">✱Alto de la obra (cm):</label>
                                     <input required type="number" name="alto_obra[]" step="0.01" min="0"  value="{{($edit && $obra) ? $obra->alto_obra : ""}}" id="alto_obra" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
                                 </div>
                                 <div class="col-sm-3 form-group">
-                                    <label class="control-label">Ancho de la obra (cm):</label>
+                                    <label class="control-label">✱Ancho de la obra (cm):</label>
                                     <input required type="number" name="ancho_obra[]" step="0.01" min="0" value="{{($edit && $obra) ? $obra->ancho_obra : ""}}" id="ancho_obra" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-3 form-group">
-                                    <label class="control-label">Alto marco (cm):</label>
+                                    <label class="control-label">✱Alto marco (cm):</label>
                                     <input required type="number" onchange="cambiarPrecio(0,${i+1})" name="alto_obra_marco[]" step="0.01" min="0" value="0" id="alto_obra_marco${i+1}" class="form-control controladordeprecio medidas">
                                 </div>
                                 <div class="col-sm-3 form-group">
-                                    <label class="control-label">Ancho marco (cm):</label>
+                                    <label class="control-label">✱Ancho marco (cm):</label>
                                     <input required type="number" onchange="cambiarPrecio(0,${i+1})" name="ancho_obra_marco[]" step="0.01" min="0" value="0" id="ancho_obra_marco${i+1}" class="form-control controladordeprecio medidas">
                                 </div>
                                 <div class="col-sm-3 form-group">
-                                    <label class="control-label">Profundidad marco (cm):</label>
+                                    <label class="control-label">✱Profundidad marco (cm):</label>
                                     <input required type="number"  onchange="cambiarPrecio(0,${i+1})" name="profundidad_obra_marco[]" step="0.01" min="0" value="0" id="profundidad_obra_marco${i+1}" class="form-control controladordeprecio medidas">
                                 </div>
                                 <div class="col-sm-3 form-group">
-                                    <label class="control-label">Profundidad de la obra:</label>
+                                    <label class="control-label">✱Profundidad de la obra:</label>
                                     <input required type="number" name="profundidad_obra[]" step="0.01" min="0" value="{{($edit && $obra) ? $obra->profundidad_obra : "0"}}" id="profundidad_obra" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
                                 </div>
                             </div>
@@ -181,7 +181,7 @@
                         <div class="tab-pane fade" id="profile${i+1}" role="tabpanel" aria-labelledby="profile${i+1}-tab">
                             <div class="row">
                                 <div class="col-sm-3 form-group">
-                                    <label class="control-label">Buscar material:</label>
+                                    <label class="control-label">✱Buscar material:</label>
                                     <select required class="custom-select seccion2" id="seccion${i+1}" required onchange="agregarATabla(this.id)">
                                         <option value="">---</option>
                                         <option value="Maria Luisa">Maria Luisa</option>

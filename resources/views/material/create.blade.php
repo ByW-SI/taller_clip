@@ -29,7 +29,7 @@
                     @endif
                     <div class="row">
                         <div class="col-sm-3 form-group">
-                            <label class="control-label">Sección:</label>
+                            <label class="control-label">✱Sección:</label>
                             <select required class="custom-select" name="seccion" id="seccion" required>
                                 <option value="">---</option>
                                 <option value="Maria Luisa" {{($edit && $material->seccion == "Maria Luisa" || "MARIA LUISA") ? "selected" : ""}}>Maria Luisa</option>
@@ -40,36 +40,36 @@
                             </select>
                         </div>
                         <div class="col-sm-3 form-group">
-                            <label class="control-label">Descripción:</label>
-                            <input type="text" name="descripcion" value="{{($edit && $material) ? $material->descripcion : ""}}" id="descripcion" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            <label class="control-label">✱Descripción:</label>
+                            <input type="text" name="descripcion" value="{{($edit && $material) ? $material->descripcion : ""}}" id="descripcion" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
                         </div>
                         <div class="col-sm-3 form-group">
-                            <label class="control-label">Clave:</label>
+                            <label class="control-label">✱Clave:</label>
                             <input required type="text" name="clave" value="{{($edit && $material) ? $material->clave : ""}}" id="clave" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
                         </div>
                         <div class="col-sm-3 form-group">
-                            <label id="ancho-label" class="control-label">Ancho:</label>
+                            <label id="ancho-label" class="control-label">✱Ancho:</label>
                             <input required type="number" name="ancho" id="ancho" value="{{($edit && $material) ? $material->ancho : ""}}" class="form-control" step="0.01" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-3 form-group">
-                            <label id="alto-label" class="control-label">Alto:</label>
+                            <label id="alto-label" class="control-label">✱Alto:</label>
                             <input required type="number" name="alto" id="alto" value="{{($edit && $material) ? $material->alto : ""}}" class="form-control" step="0.01" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
                         </div>
                         <div class="col-sm-3 form-group">
-                            <label id="espesor-label" class="control-label">Espesor:</label>
+                            <label id="espesor-label" class="control-label">✱Espesor:</label>
                             <input required type="number" name="espesor" id="espesor" value="{{($edit && $material) ? $material->espesor : ""}}" class="form-control" step="0.01" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
                         </div>
                         <div class="col-sm-3 form-group">
-                            <label class="control-label">Color:</label>
+                            <label class="control-label">✱Color:</label>
                             <input required type="text" name="color" id="color" value="{{($edit && $material) ? $material->color : ""}}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-3 form-group">
-                            <label class="control-label">Proveedor:</label>
-                            <select class="custom-select" name="proveedor" id="descripcion">
+                            <label class="control-label">✱Proveedor:</label>
+                            <select class="custom-select" name="proveedor" id="descripcion" required>
                                 <option value="">---</option>
                                     @foreach($provedores as $provedor)
                                         <option value="{{$provedor->id}}" {{($edit && $material->proveedor_id == $provedor->id) ? "selected" : ""}}>{{$provedor->razonsocial ? $provedor->razonsocial : $provedor->nombre." ".$provedor->apellidopaterno." ".$provedor->apellidomaterno }}</option>
@@ -77,7 +77,7 @@
                             </select>
                         </div>
                         <div class="col-sm-3 form-group">
-                            <label class="control-label">Costo:</label>
+                            <label class="control-label">✱Costo:</label>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">$</span>
@@ -89,7 +89,7 @@
                             </div>
                         </div>
                         <div class="col-sm-3 form-group">
-                            <label class="control-label">Precio(metro cuadrado):</label>
+                            <label class="control-label">✱Precio (metro cuadrado):</label>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">$</span>

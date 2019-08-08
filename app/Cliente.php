@@ -52,6 +52,9 @@ class Cliente extends Model {
 		'deleted_at'
 	];
 
+	public function user(){
+		return $this->hasOne('App\User');
+	}
 
 	public function contactos() {
         return $this->hasMany('App\ContactoCliente', 'cliente_id');

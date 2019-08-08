@@ -78,7 +78,7 @@
 							</div>
 							<div class="form-group col-sm-3">
 								<label class="control-label" for="email">✱Correo electrónico:</label>
-								<input type="text" class="form-control" name="email" id="email" value="{{ $empleado->email }}" required="">
+								<input type="text" class="form-control" name="email" id="email" value="{{ $empleado->email }}" required>
 							</div><div class="form-group col-sm-3">
 								<label class="control-label" for="nss">Número de Seguro Social:</label>
 								<input type="text" class="form-control" name="nss" id="nss" value="{{ $empleado->nss }}">
