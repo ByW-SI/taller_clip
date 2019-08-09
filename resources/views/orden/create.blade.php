@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="row">
-                    <h5>Crear orden:</h5>
+                    <h5>Crear orden aqui:</h5>
                 </div>
             </div>
             <div class="card-body">
@@ -16,7 +16,7 @@
                       </button>
                     </div>
                 @endif
-                <form role="form" method="POST" action="{{$edit ? route('orden.update',['orden'=>$orden]) : route('orden.store')}} " id="formroden" novalidate>
+                <form role="form" method="POST" action="{{$edit ? route('orden.update',['orden'=>$orden]) : route('orden.store')}} " id="formroden">
                     {{csrf_field()}}
                     @if ($edit)
                         {{method_field('PUT')}}
@@ -42,7 +42,7 @@
                     <div class="row">
                         <div class="col-sm-3">
                             <label class="control-label">✱Cliente:</label>
-                            <select required class="form-control" name="cliente_id" id="cliente_id">
+                            <select class="form-control" name="cliente_id" id="cliente_id" required>
                                 <option value="">---</option>
                                 @foreach($clientes as $cliente)
                                     <option value="{{$cliente->id}}">{{$cliente->nombre}}</option>
@@ -164,13 +164,13 @@
                                     <input readonly value="0" class="form-control totalE" type="text" name="totals_envio[]" id="totals_envio${i+1}"  min="0">
                                 </div>
                                 <div class="col-sm-3 form-group">
-                                    <label class="control-label">Ganancia Obra ${i+1}:</label>
-                                    <input value="0" class="form-control aumentoObra" type="number" name="aumento_obra[]" id="aumento_obra${i+1}"  min="0" step="0.01">
+                                    <label class="control-label">Incremento Obra ${i+1}:</label>
+                                    <input value="0" class="form-control aumentoObra" type="number" name="aumento_obra[]" id="aumento_obra${i+1}">
                                 </div>
                                 <div class="col-sm-3 form-group">
                                     <input type="hidden" class="totals_obra" value="0">
                                     <label class="control-label">Total Obra ${i+1}:</label>
-                                    <input readonly value="0" class="form-control totalObra" type="text" name="totals_obra[]" id="totals_obra${i+1}"  min="0">
+                                    <input readonly value="0" class="form-control totalObra" type="text" name="totals_obra[]" id="totals_obra${i+1}"  min="0" onchange="actualizarTotal('works')">
                                 </div>
                                 <div class="col-sm-6 form-group">
                                     <label class="control-label">Descripción de la obra:</label>
@@ -349,8 +349,9 @@
                                             <input type="number" step="0.01" class="form-control" id="costovario">
                                         </div>
                                         <div class="col-3 form-group">
-                                            <button id="btn-v-${i+1}" type="button"
-                                                class="mt-4 btn btn-primary agregarvario">Agregar</button>
+                                            <button id="btn-v-${i+1}" type="button" class="mt-4 btn btn-primary agregarvario">
+                                                Agregar
+                                            </button>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -1158,7 +1159,6 @@
             //console.log(total);
             input_total.val(new Intl.NumberFormat('es-MX').format(total));
         }
-
 
     </script>
     @endsection

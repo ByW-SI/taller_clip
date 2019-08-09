@@ -8,6 +8,8 @@ use App\Material;
 use App\Cliente;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use UxWeb\SweetAlert\SweetAlert;
+use Illuminate\Support\Facades\Validator;
 
 class OrdenController extends Controller
 {
@@ -16,7 +18,7 @@ class OrdenController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $ordenes = Orden::get();
         return view('orden.index', ['ordenes'=>$ordenes]);
@@ -33,7 +35,7 @@ class OrdenController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create( Request $request)
     {
         $clientes = Cliente::get();
         $preclave = Orden::get()->count();
@@ -51,6 +53,18 @@ class OrdenController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
+
+        // SweetAlert::error('Error');
+        // return redirect()->back('orden.create');
+
+        $validation = Validator::make($request->all(),[
+            'nombre' => 'required',
+        ]);
+        
+        if ($validation->fails()) {
+            SweetAlert::error($validation->errors()->first());
+            return redirect()->back();
+        }
 
         $precio_orden = str_replace(",", "",$request->precio_orden);
         $orden = Orden::create($request->all());
