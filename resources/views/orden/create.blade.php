@@ -76,6 +76,7 @@
 
         $(document).ready(function() {
             $('#total').val('0');
+            var temp = 0;
         });
 
         function setHTML(obras) {
@@ -165,12 +166,12 @@
                                 </div>
                                 <div class="col-sm-3 form-group">
                                     <label class="control-label">Incremento Obra ${i+1}:</label>
-                                    <input value="0" class="form-control aumentoObra" type="number" name="aumento_obra[]" id="aumento_obra${i+1}">
+                                    <input value="0" class="form-control aumentoObra" type="number" name="aumento_obra[]" id="aumento_obra${i+1}" onchange="actualizarTotal('works')">
                                 </div>
                                 <div class="col-sm-3 form-group">
                                     <input type="hidden" class="totals_obra" value="0">
                                     <label class="control-label">Total Obra ${i+1}:</label>
-                                    <input readonly value="0" class="form-control totalObra" type="text" name="totals_obra[]" id="totals_obra${i+1}"  min="0" onchange="actualizarTotal('works')">
+                                    <input readonly value="0" class="form-control totalObra" type="text" name="totals_obra[]" id="totals_obra${i+1}"  min="0">
                                 </div>
                                 <div class="col-sm-6 form-group">
                                     <label class="control-label">Descripción de la obra:</label>
@@ -596,10 +597,10 @@
                     <input type="hidden" name="materiales_obra[` +  (id - 1 ) + `][]" value="${material.id}">
                     <input required type="number" step="1" min="0" name="cantidad_material_obra[` +  (id-1 ) + `][]" value="1" id="cantidad_material" class="form-control cant_input" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required onchange="actualizarPrecioMedidas(${id})">
                 </td>
-                <td class="precioFmaterial">$`+new Intl.NumberFormat('es-MX').format((volumen * material.precio))+`</td>
+                <td class="precioFmaterial${material.id}">$`+new Intl.NumberFormat('es-MX').format((volumen * material.precio))+`</td>
                 <td>
                     <div class="row mt-1 mb-1 justify-content-md-center">
-                        <a href="#/" onclick="removeMaterial('row${material.id}')" class="btn btn-danger remove_button">
+                        <a href="#/" onclick="removeMaterial('row${material.id}')" class="btn btn-danger boton_material_eliminar but" id="${material.id}">
                             Eliminar
                         </a>
                     </div>
@@ -665,7 +666,7 @@
             else
                 var volumen = (ancho_marco * alto_marco);
 
-            var temp = volumen *preciom2 * cantidad_material;
+            temp = volumen *preciom2 * cantidad_material;
             var ganaciamaterial = 0.0;
             if (!isNaN(costo_material)) 
                  ganaciamaterial = volumen *costo_material * cantidad_material;
@@ -682,15 +683,35 @@
                 $('#total_obra'+obra_id).val(new Intl.NumberFormat('es-MX').format(valor));
                 precio_total += valor;
 
-                $('#total').val(new Intl.NumberFormat('es-MX').format(precio_total));
             }else{
                 $('#total_obra'+obra_id).val(0);
                 precio_total += (temp);
-                if (precio_total < 0.5) 
+                if (precio_total < 0.5){
                     $('#total').val('0');
-                else
-                    $('#total').val(new Intl.NumberFormat('es-MX').format(precio_total));
+                } 
+                    
+                else{
+
+                    total_pedidos = 0.0;
+                    $('.totalObra').each(function(index, el) {
+                            total_pedidos += parseFloat($(el).val());
+                            // console.log('WORKS: '+$(el).val());
+                        });
+                    console.log(total_pedidos);
+
+                    $('#total').val(new Intl.NumberFormat('es-MX').format(total_pedidos));
+                }
+                    
             }
+
+            total_pedidos = 0.0;
+                $('.totalObra').each(function(index, el) {
+                    total_pedidos += parseFloat($(el).val());
+                    // console.log('WORKS: '+$(el).val());
+                });
+                console.log(total_pedidos);
+
+                $('#total').val(new Intl.NumberFormat('es-MX').format(total_pedidos));
 
             // ######### Calcular ganancia de acuerdo al material
             let ganancia_orden = 0.0;
@@ -762,7 +783,14 @@
             }
             total_orden += total_MO + total_V + total_E;
 
-            $('#total').val(new Intl.NumberFormat('es-MX').format(total_orden));
+            total_pedidos = 0.0;
+            $('.totalObra').each(function(index, el) {
+                    total_pedidos += parseFloat($(el).val());
+                    // console.log('WORKS: '+$(el).val());
+                });
+            console.log(total_pedidos);
+
+            $('#total').val(new Intl.NumberFormat('es-MX').format(total_pedidos));
 
         }
 
@@ -977,7 +1005,15 @@
             totalvarios += parseFloat($(this).val());
             var precio_total = parseFloat($('#total').val().replace(',', ''));
             precio_total += totalsvarios;
-            $('#total').val(new Intl.NumberFormat('es-MX').format(precio_total));
+
+            total_pedidos = 0.0;
+            $('.totalObra').each(function(index, el) {
+                    total_pedidos += parseFloat($(el).val());
+                    // console.log('WORKS: '+$(el).val());
+                });
+            console.log(total_pedidos);
+
+            $('#total').val(new Intl.NumberFormat('es-MX').format(total_pedidos));
         });
 
         // ----  PARA ACTUALIZAR LA SUMA DE MANO DE OBRA CON LOS DESCUENTOS Y GANANCIAS
@@ -1009,7 +1045,15 @@
             totalmanoobra += parseFloat($(this).val());
             var precio_total = parseFloat($('#total').val().replace(/,/g, ''));
             precio_total += totalmanoobra;
-            $('#total').val(new Intl.NumberFormat('es-MX').format(precio_total));
+
+            total_pedidos = 0.0;
+            $('.totalObra').each(function(index, el) {
+                    total_pedidos += parseFloat($(el).val());
+                    // console.log('WORKS: '+$(el).val());
+                });
+            console.log(total_pedidos);
+
+            $('#total').val(new Intl.NumberFormat('es-MX').format(total_pedidos));
         });
         $(document).on('change', '.totalsE', function(event) {
             console.log('si cambio');
@@ -1017,7 +1061,15 @@
             totalenvios += parseFloat($(this).val());
             var precio_total = parseFloat($('#total').val().replace(/,/g, ''));
             precio_total += totalenvios;
-            $('#total').val(new Intl.NumberFormat('es-MX').format(precio_total));
+
+            total_pedidos = 0.0;
+            $('.totalObra').each(function(index, el) {
+                    total_pedidos += parseFloat($(el).val());
+                    // console.log('WORKS: '+$(el).val());
+                });
+            console.log(total_pedidos);
+
+            $('#total').val(new Intl.NumberFormat('es-MX').format(total_pedidos));
         });
         $(document).on('change', '.totalsO', function(event) {
             console.log('si cambio');
@@ -1025,7 +1077,15 @@
             totalordens += parseFloat($(this).val());
             var precio_total = parseFloat($('#total').val().replace(/,/g, ''));
             precio_total += precio_total;
-            $('#total').val(new Intl.NumberFormat('es-MX').format(precio_total));
+
+            total_pedidos = 0.0;
+            $('.totalObra').each(function(index, el) {
+                    total_pedidos += parseFloat($(el).val());
+                    // console.log('WORKS: '+$(el).val());
+                });
+            console.log(total_pedidos);
+
+            $('#total').val(new Intl.NumberFormat('es-MX').format(total_pedidos));
         });
 
         $(document).on('change', '.aumentoObra', function(event) {
@@ -1159,6 +1219,81 @@
             //console.log(total);
             input_total.val(new Intl.NumberFormat('es-MX').format(total));
         }
+
+        function actualizarTotal(string){
+            // total_pedidos = 0.0;
+            $('.totalObra').each(function(index, el) {
+                    // total_pedidos += parseFloat($(el).val());
+                    console.log($(el).val());
+                });
+        }
+
+        $(document).on('change', '.aumentoObra', function(event){
+            total_pedidos = 0.0;
+            $('.totalObra').each(function(index, el) {
+                    total_pedidos += parseFloat($(el).val());
+                    // console.log('WORKS: '+$(el).val());
+                });
+                $('#total').val(new Intl.NumberFormat('es-MX').format(total_pedidos));
+            // console.log(total_pedidos);
+        });
+
+
+        $(document).on('change', '.totalO', function(event){
+            total_pedidos = 0.0;
+            $('.totalObra').each(function(index, el) {
+                    total_pedidos += parseFloat($(el).val());
+                    // console.log('WORKS: '+$(el).val());
+                });
+                $('#total').val(new Intl.NumberFormat('es-MX').format(total_pedidos));
+            // console.log(total_pedidos);
+        });
+
+        $(document).on('click', '.boton_material',  function(event){
+
+            var id_boton = $(this).prop('id');
+
+            console.log("ID: "+ $(this).prop('id')  );
+            
+            total_obra = 0.0;
+             $('.precioFmaterial'+id_boton).each(function(index, el) {
+                    total_obra += parseFloat( $(el).text().replace("$","") );
+            });
+
+            $('#total_obra'+id_boton).val(new Intl.NumberFormat('es-MX').format(total_obra));
+            
+            total_pedidos = 0.0;
+             $('.totalObra').each(function(index, el) {
+                    total_pedidos += parseFloat($(el).val());
+                    // console.log('WORKS: '+$(el).val());
+                });
+                $('#total').val(new Intl.NumberFormat('es-MX').format(total_pedidos));
+            // console.log(total_pedidos);
+
+        });
+
+        $(document).on('click', '.boton_material_eliminar',  function(event){
+
+            var id_boton = $(this).prop('id');
+
+            console.log("ID: "+ $(this).prop('id')  );
+
+            total_obra = 0.0;
+            $('.precioFmaterial'+id_boton).each(function(index, el) {
+                    total_obra += parseFloat( $(el).text().replace("$","") );
+            });
+
+            $('#total_obra'+id_boton).val(new Intl.NumberFormat('es-MX').format(total_obra));
+
+            total_pedidos = 0.0;
+            $('.totalObra').each(function(index, el) {
+                    total_pedidos += parseFloat($(el).val());
+                    // console.log('WORKS: '+$(el).val());
+                });
+                $('#total').val(new Intl.NumberFormat('es-MX').format(total_pedidos));
+            // console.log(total_pedidos);
+
+    });
 
     </script>
     @endsection
