@@ -1220,14 +1220,6 @@
             input_total.val(new Intl.NumberFormat('es-MX').format(total));
         }
 
-        function actualizarTotal(string){
-            // total_pedidos = 0.0;
-            $('.totalObra').each(function(index, el) {
-                    // total_pedidos += parseFloat($(el).val());
-                    console.log($(el).val());
-                });
-        }
-
         $(document).on('change', '.aumentoObra', function(event){
             total_pedidos = 0.0;
             $('.totalObra').each(function(index, el) {
@@ -1239,51 +1231,7 @@
         });
 
 
-        $(document).on('change', '.totalO', function(event){
-            total_pedidos = 0.0;
-            $('.totalObra').each(function(index, el) {
-                    total_pedidos += parseFloat($(el).val());
-                    // console.log('WORKS: '+$(el).val());
-                });
-                $('#total').val(new Intl.NumberFormat('es-MX').format(total_pedidos));
-            // console.log(total_pedidos);
-        });
-
-        $(document).on('click', '.boton_material',  function(event){
-
-            var id_boton = $(this).prop('id');
-
-            console.log("ID: "+ $(this).prop('id')  );
-            
-            total_obra = 0.0;
-             $('.precioFmaterial'+id_boton).each(function(index, el) {
-                    total_obra += parseFloat( $(el).text().replace("$","") );
-            });
-
-            $('#total_obra'+id_boton).val(new Intl.NumberFormat('es-MX').format(total_obra));
-            
-            total_pedidos = 0.0;
-             $('.totalObra').each(function(index, el) {
-                    total_pedidos += parseFloat($(el).val());
-                    // console.log('WORKS: '+$(el).val());
-                });
-                $('#total').val(new Intl.NumberFormat('es-MX').format(total_pedidos));
-            // console.log(total_pedidos);
-
-        });
-
-        $(document).on('click', '.boton_material_eliminar',  function(event){
-
-            var id_boton = $(this).prop('id');
-
-            console.log("ID: "+ $(this).prop('id')  );
-
-            total_obra = 0.0;
-            $('.precioFmaterial'+id_boton).each(function(index, el) {
-                    total_obra += parseFloat( $(el).text().replace("$","") );
-            });
-
-            $('#total_obra'+id_boton).val(new Intl.NumberFormat('es-MX').format(total_obra));
+        $(document).on('click', 'a',  function(event){
 
             total_pedidos = 0.0;
             $('.totalObra').each(function(index, el) {
@@ -1293,7 +1241,7 @@
                 $('#total').val(new Intl.NumberFormat('es-MX').format(total_pedidos));
             // console.log(total_pedidos);
 
-    });
+        });
 
     </script>
     @endsection
