@@ -1,13 +1,21 @@
 @extends('layouts.cotizacion')
-	@section('content')
+    @section('content')
+
     <div class="container-fluid">
         <div class="card">
+            {{-- Titulo de la orden --}}
             <div class="card-header">
                 <div class="row">
                     <h5>Crear orden aqui:</h5>
                 </div>
             </div>
             <div class="card-body">
+                {{-- Si no se selecciono un material, mostramos un error --}}
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{session('error')}}
+                    </div>
+                @endif
                 @if (session("alert"))
                     <div class="alert alert-{{session("alert")['class']}} alert-dismissible fade show" role="alert">
                        {{session('alert')['message']}}
@@ -74,7 +82,8 @@
     <script type="text/javascript">
         var esprimero = true;
 
-        $(document).ready(function() {
+        $(document).ready(function() {            
+
             $('#total').val('0');
             var temp = 0;
         });
@@ -520,9 +529,12 @@
         }
 
         $(document).on('change', '.medidas', function(event) {
+
+            // Obtenemos el id (numerico) del input que cambió
             let obra_id = parseInt($(this).prop('id').replace(/[a-z_]+/, ""));
             let links = $(this).parents('div#obras').find('ul#myTab').eq(obra_id-1).children('li').children();
-            //console.log($('#nopiezas'+obra_id).val());
+            
+            // Si se establece el ancho y alto del marco, habilitamos el botón de materiales
             if ($('#alto_obra_marco'+obra_id).val() != '0' && $('#ancho_obra_marco'+obra_id).val() != '0' ) {
                 let clase = $(links[1]).prop('class');
                 clase = clase.replace("disabled", "");
@@ -530,6 +542,7 @@
             }
         });
 
+        // Obtenemos la lista de materiales dependiendo la categoria de material elegida
         function agregarATabla(id){
             $.ajax({
                 url: '../buscarMaterial/'+$('#'+id).val() + '/'+ id.replace('seccion',''),
@@ -540,8 +553,9 @@
                 error: function(){
                 }
             })
-
         }
+
+
         function getObra(obra_id,index){
             $.ajax({
                 url:"../getObra/"+obra_id,
@@ -565,17 +579,10 @@
             });
         }
     
-           
-
         function addMaterial(material, id){
             var ancho_marco = parseFloat($('#ancho_obra_marco' + id).val()) / 100;
             var alto_marco = parseFloat($('#alto_obra_marco' + id).val()) / 100;
-            //var profundidad_marco = parseFloat($('#profundidad_obra_marco' + id).val());
-            /*if (profundidad_marco != 0) {
-                var volumen = (ancho_marco * alto_marco * profundidad_marco);
-            }
-            else{*/
-            //}
+            
             if (material.seccion == "MARCO"){
                 var volumen = ((ancho_marco * 2) + (alto_marco*2));
             }
@@ -630,9 +637,9 @@
             //obtenemos el costo del material en float
             celda = parseFloat(celda.children[0].value);
             
-            console.log('cantidad a quitar: ' + cantaquitar);
+            // console.log('cantidad a quitar: ' + cantaquitar);
             var obra = $('#'+id).parent().attr('id').replace('myMaterials','');
-            console.log('obra: ' + obra);
+            // console.log('obra: ' + obra);
             //alert('cantidad a quitar:\n' + cantaquitar + '\nid obra:\n' + obra);
             cambiarPrecio(-cantaquitar, obra, -celda);
             $(`#${id}`).remove();
@@ -709,7 +716,7 @@
                     total_pedidos += parseFloat($(el).val());
                     // console.log('WORKS: '+$(el).val());
                 });
-                console.log(total_pedidos);
+                // console.log(total_pedidos);
 
                 $('#total').val(new Intl.NumberFormat('es-MX').format(total_pedidos));
 

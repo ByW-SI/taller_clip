@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use UxWeb\SweetAlert\SweetAlert;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Redirect;
 
 class OrdenController extends Controller
 {
@@ -52,10 +53,6 @@ class OrdenController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->input('materiales_obra'));
-
-        // SweetAlert::error('Error');
-        // return redirect()->back('orden.create');
 
         $validation = Validator::make($request->all(),[
             'nombre' => 'required',
@@ -64,7 +61,7 @@ class OrdenController extends Controller
         
         if ($validation->fails()) {
             SweetAlert::error($validation->errors()->first());
-            return redirect()->back();
+            return Redirect::back()->with('error', 'Para realizar una orden debes seleccionar al menos un material');
         }
 
         $precio_orden = str_replace(",", "",$request->precio_orden);
