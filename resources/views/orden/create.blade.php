@@ -530,7 +530,7 @@
 
         $(document).on('change', '.medidas', function(event) {
 
-            // Obtenemos el id (numerico) del input que cambió
+            // Obtenemos el número de obra del input modificado
             let obra_id = parseInt($(this).prop('id').replace(/[a-z_]+/, ""));
             let links = $(this).parents('div#obras').find('ul#myTab').eq(obra_id-1).children('li').children();
             
@@ -589,7 +589,7 @@
             else
                 var volumen = (ancho_marco * alto_marco);
             var rowHTML = 
-            `<tr id="row${material.id}">
+            `<tr id="row${material.id}" class="materiales-de-orden">
                 <td scope="row">
                     ${material.clave}
                 </td>
@@ -831,7 +831,7 @@
                 });
                 return 0;
             }
-            let total = parseFloat(inputs.eq(2).val());// - parseFloat($('#costomanodeobra').val());
+            let total = parseFloat(inputs.eq(2).val()) - parseFloat(inputs.eq(3).val());
             var ht = '<tr id="algo' + contador + '"><td> <input type="hidden" form="formroden" name="manodeobrasn['+(parseInt(obra_id) - 1)+'][]" value="' + inputs.eq(0).val() + '"> ' + inputs.eq(0).val() + '</td>' +
                 ' <td><input type="hidden" form="formroden" name="manodeobrasp['+(parseInt(obra_id) - 1)+'][]" value="' + inputs.eq(1).val() + '" >' + inputs.eq(1).val() + '</td>' +
                 '<td><input type="hidden" form="formroden" name="manodeobrasd['+(parseInt(obra_id) - 1)+'][]" value="' + $('#desmanodeobra').val() + '"> ' + $('#desmanodeobra').val() + '</td>' +
@@ -896,10 +896,13 @@
                 });
                 return 0;
             }
+            
+            const total = parseFloat(inputs.eq(1).val()) - parseFloat(inputs.eq(2).val());
+
             var ht = ' <tr id="algo' + contador + '"><td> <input type="hidden" form="formroden" name="variosd['+(parseInt(obra_id) - 1)+'][]" value="' + inputs.eq(0).val() + '" > ' + inputs.eq(0).val() + '</td>' +
                 '<td class="montovario"><input type="hidden" form="formroden" name="variosm['+(parseInt(obra_id) - 1)+'][]" value="' + inputs.eq(1).val() + '" > ' + inputs.eq(1).val() + '</td>' +
                 ' <td> <input type="hidden" form="formroden" class="costos_varios" name="variosc['+(parseInt(obra_id) - 1)+'][]" value="' + inputs.eq(2).val() + '" > ' + inputs.eq(2).val() + '</td>' +
-                ' <td> <input type="hidden" form="formroden" class="totals_varios" name="variost['+(parseInt(obra_id) - 1)+'][]" value="' + inputs.eq(1).val() + '" > ' + inputs.eq(1).val() + '</td>' +
+                ' <td> <input type="hidden" form="formroden" class="totals_varios" name="variost['+(parseInt(obra_id) - 1)+'][]" value="' + total + '" > ' + total + '</td>' +
                 '<td><button class="btn btn-danger" id="btn-elim-v-'+obra_id+'" onclick="removeVario(' + "'algo" + contador + "'" + ',' + inputs.eq(1).val() + ')">Eliminar</button></td></tr>';
 
             card.find('#tablavarios').append(ht);
@@ -963,11 +966,13 @@
                 return 0;
             }
 
+            const total = inputs.eq(1).val() - inputs.eq(2).val();
+            
             var ht = '<tr id="algo' + contador + '"><td> <input type="hidden" form="formroden" name="enviosdi['+(parseInt(obra_id) - 1)+'][]" value="' + direccion.val() + '" > ' + direccion.val() + '</td>' +
                 ' <td> <input type="hidden" form="formroden" name="enviosd['+(parseInt(obra_id) - 1)+'][]" value="' + inputs.eq(0).val() + '" >' + inputs.eq(0).val() + '</td>' +
                 ' <td class="montoenvio"> <input type="hidden" form="formroden" name="enviosm['+(parseInt(obra_id) - 1)+'][]" value="' + inputs.eq(1).val() + '"  > ' + inputs.eq(1).val() + '</td>' +
                 ' <td class=""> <input type="hidden" form="formroden" class="costos_envio" name="enviosc['+(parseInt(obra_id) - 1)+'][]" value="' + inputs.eq(2).val() + '"  > ' + inputs.eq(2).val() + '</td>' +
-                ' <td class=""> <input type="hidden" form="formroden" class="totals_envio" name="enviost['+(parseInt(obra_id) - 1)+'][]" value="' + inputs.eq(1).val() + '"  > ' + inputs.eq(1).val() + '</td>' +
+                ' <td class=""> <input type="hidden" form="formroden" class="totals_envio" name="enviost['+(parseInt(obra_id) - 1)+'][]" value="' + total + '"  > ' + total + '</td>' +
                 '<td><button class="btn btn-danger" id="btn-elim-e-'+obra_id+'" onclick="removeEnvio(' + "'algo" + contador + "'" + ',' + $("#montoenvio").val() + ')">Eliminar</button></td></tr>';
             card.find('#tablaenvios').append(ht);
             card.find('tbody#tablaenvios tr').each(function(index, el) {
@@ -1227,16 +1232,25 @@
             input_total.val(new Intl.NumberFormat('es-MX').format(total));
         }
 
+        /**
+         * Al incrementar el costo de la obra, 
+         * recalculamos el total de todo el pedido
+         * con las suma de todas las obras
+        */
+
         $(document).on('change', '.aumentoObra', function(event){
             total_pedidos = 0.0;
             $('.totalObra').each(function(index, el) {
                     total_pedidos += parseFloat($(el).val());
-                    // console.log('WORKS: '+$(el).val());
                 });
                 $('#total').val(new Intl.NumberFormat('es-MX').format(total_pedidos));
-            // console.log(total_pedidos);
         });
 
+        /**
+         * Al dar click en un boton
+         * calculamos el total de todo el pedido
+         * con la suma de todas las obras
+        */
 
         $(document).on('click', 'a',  function(event){
 
@@ -1249,6 +1263,19 @@
             // console.log(total_pedidos);
 
         });
+
+        
+        // En caso de requerir mensaje al no seleccionar un material
+        // $(document).on('click', '#submit',  function(event){
+        //     total_materiales_elegidos = parseInt($('.materiales-de-orden').length);
+        //     if(total_materiales_elegidos == 0){
+        //         swal({
+        //             type: 'error',
+        //             title: 'Ups...',
+        //             text: 'Es necesario seleccionar al menos un material'
+        //         });
+        //     }
+        // });
 
     </script>
     @endsection
