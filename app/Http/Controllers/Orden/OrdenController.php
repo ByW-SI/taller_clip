@@ -52,13 +52,14 @@ class OrdenController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
+        // dd($request->input('materiales_obra'));
 
         // SweetAlert::error('Error');
         // return redirect()->back('orden.create');
 
         $validation = Validator::make($request->all(),[
             'nombre' => 'required',
+            'materiales_obra' => 'required',
         ]);
         
         if ($validation->fails()) {
