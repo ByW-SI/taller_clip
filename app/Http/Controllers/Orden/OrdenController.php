@@ -21,7 +21,7 @@ class OrdenController extends Controller
      */
     public function index(Request $request)
     {
-        $ordenes = Orden::get();
+        $ordenes = Orden::activas()->get();
         return view('orden.index', ['ordenes'=>$ordenes]);
     }
 
@@ -176,5 +176,13 @@ class OrdenController extends Controller
     public function destroy(Orden $orden)
     {
         //
+    }
+
+    public function delete(Request $request){
+        $orden = Orden::where('id',$request->input('orden_id'))->first();
+        $orden->status = "eliminado";
+        $orden->save();
+        $ordenes = Orden::activas()->get();
+        return view('orden.index', ['ordenes'=>$ordenes]);
     }
 }

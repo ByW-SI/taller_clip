@@ -143,8 +143,18 @@ class CotizacionController extends Controller
 
     public function downloadPDF($id){
       $cotizacion = Cotizacion::find($id);
-      //dd($cotizacion->ordens[0]->obras);
-      $pdf = PDF::loadView('cotizacion.pdf', compact('cotizacion'));
+
+        $total_ordenes = 0;
+        foreach( $cotizacion->ordens as $orden ){
+            foreach($orden->obras as $obra){
+                // dd($obra->id);
+                $total_ordenes += $obra->total_obra;
+            }
+        }
+
+        // dd($total_ordenes);
+
+      $pdf = PDF::loadView('cotizacion.pdf', compact('cotizacion','total_ordenes'));
       return $pdf->download('Cotizacion '.$id.'.pdf');
 
     }

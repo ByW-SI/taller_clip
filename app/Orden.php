@@ -40,5 +40,14 @@ class Orden extends Model
         }
         return $total;
     }
+
+    /**
+     * Scope methos
+     */
+
+     public function scopeActivas($query){
+        return $query->where('status','activo');
+     }
+
 }
 

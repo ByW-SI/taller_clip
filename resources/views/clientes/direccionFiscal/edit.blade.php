@@ -191,6 +191,6 @@
 
 	});
 	
-	</script>
+</script>
 
 @endsection

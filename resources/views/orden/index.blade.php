@@ -118,6 +118,12 @@
                   </div>
                   <div class="row mt-1 mb-1 justify-content-md-center">
                     <button type="button" data-toggle="modal" data-target="#infObra{{$orden->id}}" href="#" class="btn btn-info">Ver</button>
+                    <form method="POST" action="{{route('historial/ordenes',['id'=>$orden->id])}}">
+                      <input type="hidden" name="_method" value="delete">
+                      <input type="hidden" name="_token" value="{{csrf_token()}}">
+                      <input type="hidden" name="orden_id" value="{{$orden->id}}">
+                      <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </form>
                   </div>
                 </td>
                 <td>

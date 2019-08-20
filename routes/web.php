@@ -164,6 +164,7 @@ Route::get('getdescripciones', 'Descripcion\DescripcionController@');
 Route::resource('orden', 'Orden\OrdenController');
 Route::resource('obra','Obra\ObraController');
 
+Route::delete('historial/ordenes','Orden\OrdenController@delete')->name('historial/ordenes');
 
 Route::get('/buscarMaterial/{seccion}/{idtabla}','Material\MaterialController@buscarMateriales')->name('buscarmaterialporseccion');
 Route::get('getObra/{obra}','Obra\ObraController@getObra');
