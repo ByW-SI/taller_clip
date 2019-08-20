@@ -181,23 +181,23 @@
                         @endforeach
                         <!--Materiales-->
                         @foreach(Auth::user()->perfil->modulos as $modulo)
-                        @if($modulo->nombre == "materiales")
-                        <div class="row my-2">
-                            <div class="col">
-                                <div class="card">
-                                    <div id="clase3" class="card-header nave" data-toggle="collapse" data-target="#collapseExample3">
-                                        <p class="mb-0" style="float: left;">Materiales&nbsp<i class="fa fa-cubes"></i></p>
-                                        <p class="mb-0" style="float: right;"><i class="fa fa-angle-double-down"></i></p>
+                            @if($modulo->nombre == "materiales")
+                            <div class="row my-2">
+                                <div class="col">
+                                    <div class="card">
+                                        <div id="clase3" class="card-header nave" data-toggle="collapse" data-target="#collapseExample3">
+                                            <p class="mb-0" style="float: left;">Materiales&nbsp<i class="fa fa-cubes"></i></p>
+                                            <p class="mb-0" style="float: right;"><i class="fa fa-angle-double-down"></i></p>
+                                        </div>
+                                        <ul id="collapseExample3" class="list-group list-group-flush collapse" data-parent="#acoreond">
+                                            <a class="nave3"  onclick="AgregarNuevoTab('{{ url('/material/create/') }}', 'Crear Materiales')" href="#"><li class="list-group-item">Crear material&nbsp<i class="fa fa-object-group"></i></li></a>
+                                            <a class="nave3"  onclick="AgregarNuevoTab('{{ url('material') }}', 'Materiales')" href="#"><li class="list-group-item">Búsqueda&nbsp<i class="fa fa-search" aria-hidden="true"></i></li></a>
+                                            {{-- <a class="nave3"  onclick="AgregarNuevoTab('{{ route('excel.import') }}', 'Alta Excel')" href="#"><li class="list-group-item">Alta Excel&nbsp<i class="fa fa-search" aria-hidden="true"></i></li></a> --}}
+                                        </ul>
                                     </div>
-                                    <ul id="collapseExample3" class="list-group list-group-flush collapse" data-parent="#acoreond">
-                                        <a class="nave3"  onclick="AgregarNuevoTab('{{ url('/material/create/') }}', 'Crear Materiales')" href="#"><li class="list-group-item">Crear material&nbsp<i class="fa fa-object-group"></i></li></a>
-                                        <a class="nave3"  onclick="AgregarNuevoTab('{{ url('material') }}', 'Materiales')" href="#"><li class="list-group-item">Búsqueda&nbsp<i class="fa fa-search" aria-hidden="true"></i></li></a>
-                                        {{-- <a class="nave3"  onclick="AgregarNuevoTab('{{ route('excel.import') }}', 'Alta Excel')" href="#"><li class="list-group-item">Alta Excel&nbsp<i class="fa fa-search" aria-hidden="true"></i></li></a> --}}
-                                    </ul>
                                 </div>
                             </div>
-                        </div>
-                        @endif
+                            @endif
                         @endforeach
                         <!--Obras-->
                         @foreach(Auth::user()->perfil->modulos as $modulo)
@@ -259,22 +259,22 @@
                         @endforeach
                         <!--Proveedores-->
                         @foreach(Auth::user()->perfil->modulos as $modulo)
-                        @if($modulo->nombre == "proveedores")
-                        <div class="row my-2">
-                            <div class="col">
-                                <div class="card">
-                                    <div id="clase1" class="card-header nave" data-toggle="collapse" data-target="#collapseExample1">
-                                        <p class="mb-0" style="float: left;">Proveedores&nbsp<i class="fa fa-users"></i></p>
-                                        <p class="mb-0" style="float: right;"><i class="fa fa-angle-double-down"></i></p>
+                            @if($modulo->nombre == "proveedores")
+                            <div class="row my-2">
+                                <div class="col">
+                                    <div class="card">
+                                        <div id="clase1" class="card-header nave" data-toggle="collapse" data-target="#collapseExample1">
+                                            <p class="mb-0" style="float: left;">Proveedores&nbsp<i class="fa fa-users"></i></p>
+                                            <p class="mb-0" style="float: right;"><i class="fa fa-angle-double-down"></i></p>
+                                        </div>
+                                        <ul id="collapseExample1" class="list-group list-group-flush collapse" data-parent="#acoreond">
+                                            <a class="nave1"  onclick="AgregarNuevoTab('{{ url('/proveedores/create')}}', 'Alta Proveedores')" href="#"><li class="list-group-item">Alta&nbsp<i class="fa fa-user-plus" aria-hidden="true"></i></li></a>
+                                            <a class="nave1"  onclick="AgregarNuevoTab('{{ url('/proveedores') }}', 'Historial Proveedores')" href="#"><li class="list-group-item">Búsqueda&nbsp<i class="fa fa-search" aria-hidden="true"></i></li></a>
+                                        </ul>
                                     </div>
-                                    <ul id="collapseExample1" class="list-group list-group-flush collapse" data-parent="#acoreond">
-                                        <a class="nave1"  onclick="AgregarNuevoTab('{{ url('/proveedores/create')}}', 'Alta Proveedores')" href="#"><li class="list-group-item">Alta&nbsp<i class="fa fa-user-plus" aria-hidden="true"></i></li></a>
-                                        <a class="nave1"  onclick="AgregarNuevoTab('{{ url('/proveedores') }}', 'Historial Proveedores')" href="#"><li class="list-group-item">Búsqueda&nbsp<i class="fa fa-search" aria-hidden="true"></i></li></a>
-                                    </ul>
                                 </div>
                             </div>
-                        </div>
-                        @endif
+                            @endif
                         @endforeach
                         <!--Tipo de cambio-->
                         @foreach(Auth::user()->perfil->modulos as $modulo)

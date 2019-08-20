@@ -6,11 +6,12 @@ use Illuminate\Http\Request;
 use App\Empleado;
 use Illuminate\Support\Facades\Schema;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class PruebasController extends Controller
 {
     public function index()
     {
-        return User::find(12)->findByText('cas')->get();
+        return Auth::user()->perfil->modulos;
     }
 }

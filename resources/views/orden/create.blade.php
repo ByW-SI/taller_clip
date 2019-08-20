@@ -579,6 +579,7 @@
             });
         }
     
+        // En la pestaña materiales al dar click
         function addMaterial(material, id){
             var ancho_marco = parseFloat($('#ancho_obra_marco' + id).val()) / 100;
             var alto_marco = parseFloat($('#alto_obra_marco' + id).val()) / 100;
@@ -589,33 +590,33 @@
             else
                 var volumen = (ancho_marco * alto_marco);
             var rowHTML = 
-            `<tr id="row${material.id}" class="materiales-de-orden">
-                <td scope="row">
-                    ${material.clave}
-                </td>
-                <td>${material.seccion}</td>
-                <td>${material.alto} cm</td>
-                <td>${material.ancho} cm</td>
-                <td>${material.espesor} cm</td>
-                <td>${material.color}</td>
-                <td class="precioporm2">$${new Intl.NumberFormat('es-MX').format(material.precio)}</td>
-                <td>
-                    <input type="hidden" class="costo${id}" value="${material.costo}">
-                    <input type="hidden" name="materiales_obra[` +  (id - 1 ) + `][]" value="${material.id}">
-                    <input required type="number" step="1" min="0" name="cantidad_material_obra[` +  (id-1 ) + `][]" value="1" id="cantidad_material" class="form-control cant_input" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required onchange="actualizarPrecioMedidas(${id})">
-                </td>
-                <td class="precioFmaterial${material.id}">$`+new Intl.NumberFormat('es-MX').format((volumen * material.precio))+`</td>
-                <td>
-                    <div class="row mt-1 mb-1 justify-content-md-center">
-                        <a href="#/" onclick="removeMaterial('row${material.id}')" class="btn btn-danger boton_material_eliminar but" id="${material.id}">
-                            Eliminar
-                        </a>
-                    </div>
-                </td>
-                
-            </tr>`;
+                `<tr id="row${material.id}" class="materiales-de-orden">
+                    <td scope="row">
+                        ${material.clave}
+                    </td>
+                    <td>${material.seccion}</td>
+                    <td>${material.alto} cm</td>
+                    <td>${material.ancho} cm</td>
+                    <td>${material.espesor} cm</td>
+                    <td>${material.color}</td>
+                    <td class="precioporm2">$${new Intl.NumberFormat('es-MX').format(material.precio)}</td>
+                    <td>
+                        <input type="hidden" class="costo${id}" value="${material.costo}">
+                        <input type="hidden" name="materiales_obra[` +  (id - 1 ) + `][]" value="${material.id}">
+                        <input required type="number" step="1" min="0" name="cantidad_material_obra[` +  (id-1 ) + `][]" value="1" id="cantidad_material" class="form-control cant_input" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required onchange="actualizarPrecioMedidas(${id})">
+                    </td>
+                    <td class="precioFmaterial${material.id}">$`+new Intl.NumberFormat('es-MX').format((volumen * material.precio))+`</td>
+                    <td>
+                        <div class="row mt-1 mb-1 justify-content-md-center">
+                            <a href="#/" onclick="removeMaterial('row${material.id}')" class="btn btn-danger boton_material_eliminar but" id="${material.id}">
+                                Eliminar
+                            </a>
+                        </div>
+                    </td>
+                    
+                </tr>`;
             $("#myMaterials" + id).append(rowHTML);
-            console.log('material.costo: ' + material.costo);
+            // console.log('material.costo: ' + material.costo);
             cambiarPrecio(material.precio, id, material.costo, material);
 
             // para habilitar la mano de obra, varios y envio
