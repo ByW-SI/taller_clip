@@ -429,9 +429,28 @@
                               @else
                                 {{ $total_ordenes }}
                               @endif
-                            {{-- ${{ $cotizacion->totalneto }} --}}
                           </td>
                         </tr>
+
+
+                        {{-- <tr>
+                            <th colspan="2"></th>
+                            <th>Subtotal:</th>
+                            <td style="text-align:center">${{ $cotizacion->totalproyecto }}</td>
+                          </tr>
+                          @if( $cotizacion->totalproyecto != $cotizacion->totalneto )
+                            <tr>
+                              <th colspan="2"></th>
+                              <th>I.V.A. 16%</th>
+                              <td style="text-align:center">${{$cotizacion->totalproyecto*0.16}}</td>
+                            </tr>
+                          @endif
+                          <tr>
+                            <th colspan="2"></th>
+                            <th>Total:</th>
+                            <td style="text-align:center">${{ $cotizacion->totalneto }}</td>
+                          </tr> --}}
+
                   	@endif
               	</tbody>
 		        </table>

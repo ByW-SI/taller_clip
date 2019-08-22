@@ -192,7 +192,7 @@
                                         <ul id="collapseExample3" class="list-group list-group-flush collapse" data-parent="#acoreond">
                                             <a class="nave3"  onclick="AgregarNuevoTab('{{ url('/material/create/') }}', 'Crear Materiales')" href="#"><li class="list-group-item">Crear material&nbsp<i class="fa fa-object-group"></i></li></a>
                                             <a class="nave3"  onclick="AgregarNuevoTab('{{ url('material') }}', 'Materiales')" href="#"><li class="list-group-item">Búsqueda&nbsp<i class="fa fa-search" aria-hidden="true"></i></li></a>
-                                            {{-- <a class="nave3"  onclick="AgregarNuevoTab('{{ route('excel.import') }}', 'Alta Excel')" href="#"><li class="list-group-item">Alta Excel&nbsp<i class="fa fa-search" aria-hidden="true"></i></li></a> --}}
+                                            <a class="nave3"  onclick="AgregarNuevoTab('{{ route('excel.import') }}', 'Alta Excel')" href="#"><li class="list-group-item">Alta Excel&nbsp<i class="fa fa-search" aria-hidden="true"></i></li></a>
                                         </ul>
                                     </div>
                                 </div>
