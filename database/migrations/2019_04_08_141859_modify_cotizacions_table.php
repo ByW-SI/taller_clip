@@ -18,7 +18,7 @@ class ModifyCotizacionsTable extends Migration
             $table->double('Gananciaenvios', 8, 2);
             $table->double('Ganancia_varios', 8, 2);
             $table->double('Ganancia_manodeobra', 8, 2);
-            $table->double('Ganancia_orden', 8, 2);
+            // $table->double('Ganancia_orden', 8, 2);
         });
     }
 

@@ -275,7 +275,7 @@
 				<div class="col-md-12 offset-md-2 mt-3">
 					<div class="form-group col-xs-4">
 						<label class="control-label" for="curso1" id="lbl_curso"><i class="fa fa-asterisk" aria-hidden="true"></i>Curso:</label>
-						<input type="text" class="form-control" id="id_curso1" name="curso1" value="{{ $estudios->curso1 }}">
+						<input type="text" class="form-control" id="id_curso1" name="curso1" value="{{ $estudios->curso1 }}" required>
 						<div class="boton checkbox-disabled">
 							<label>
 						<input id="boton-toggle" type="checkbox" data-toggle="toggle" data-on="Sí" data-off="No" data-style="ios" name="certificado1" @if ($estudios->certificado1 == 1)

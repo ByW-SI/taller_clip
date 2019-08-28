@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ModifyOrdensTable extends Migration
+class ModifyOrdens_Table extends Migration
 {
     /**
      * Run the migrations.

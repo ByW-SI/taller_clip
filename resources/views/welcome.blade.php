@@ -153,7 +153,7 @@
                                         <p class="mb-0" style="float: right;"><i class="fa fa-angle-double-down"></i></p>
                                     </div>
                                     <ul id="collapseExample10" class="list-group list-group-flush collapse" data-parent="#acoreond">
-                                        <a class="nave10"  onclick="AgregarNuevoTab('{{ url('/crm/create')}}', 'CRMS')" href="#"><li class="list-group-item">CRMS&nbsp<i class="fa fa-user-plus" aria-hidden="true"></i></li></a>
+                                        <a class="nave10"  onclick="AgregarNuevoTab('{{ url('/crm/create')}}', 'CRMS')" href="#"><li class="list-group-item">CRM&nbsp<i class="fa fa-user-plus" aria-hidden="true"></i></li></a>
                                     </ul>
                                 </div>
                             </div>

@@ -65,7 +65,7 @@
 				<a href="{{ route('clientes.contacto.index', ['cliente' => $cliente]) }}">Contactos:</a>
 			</li>
 			<li>
-				<a href="{{ route('clientes.datosGenerales.index', ['cliente' => $cliente]) }}">Datos Generales:</a>
+				<a href="{{ route('clientes.datosgenerales.index', ['cliente' => $cliente]) }}">Datos Generales:</a>
 			</li>
 		</ul>
 		<div class="panel panel-default">

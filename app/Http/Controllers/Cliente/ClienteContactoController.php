@@ -61,6 +61,7 @@ class ClienteContactoController extends Controller
     {
         $cliente = Cliente::find($cliente);
         $contacto = ContactoCliente::find($contacto);
+        // dd('aqui2');
         return view('clientes.contactos.view', ['cliente' => $cliente, 'contacto' => $contacto]);
     }
 
