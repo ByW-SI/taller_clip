@@ -42,7 +42,7 @@
                             </tr>
                             @forelse($usuarios as $usuario)
                                 <tr>
-                                    <td>{{ $usuario->perfil->nombre }}</td>
+                                    <td>{{ !$usuario->perfil ? : $usuario->perfil->nombre }}</td>
                                     <td>{{ $usuario->nombre }}</td>
                                     <td>{{ $usuario->appaterno }}</td>
                                     <td>{{ $usuario->apmaterno }}</td>
