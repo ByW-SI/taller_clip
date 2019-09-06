@@ -41,21 +41,23 @@
                                 <th class="text-center col-sm-3">Acciones</th>
                             </tr>
                             @forelse($usuarios as $usuario)
-                                <tr>
-                                    <td>{{ !$usuario->perfil ? : $usuario->perfil->nombre }}</td>
-                                    <td>{{ $usuario->nombre }}</td>
-                                    <td>{{ $usuario->appaterno }}</td>
-                                    <td>{{ $usuario->apmaterno }}</td>
-                                    <td class="text-center">
-                                        {{-- <form method="post" action="{{ route('usuario.destroy', ['id' => $usuario->id]) }}" style=""> --}}
-                                            <a class="btn btn-primary btn-sm" href="{{ route('usuario.show', ['id' => $usuario->id]) }}"><i class="fa fa-eye" aria-hidden="true"></i><strong> Ver</strong></a>
-                                            <a class="btn btn-warning btn-sm" href="{{ route('usuario.edit', ['id' => $usuario->id]) }}"><i class="fa fa-pencil" aria-hidden="true"></i><strong> Editar</strong></a>
-                                            {{-- <input type="hidden" name="_method" value="DELETE"> --}}
-                                            {{-- {{ csrf_field() }} --}}
-                                            {{-- <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash" aria-hidden="true"></i><strong> Borrar</strong></button> --}}
-                                        {{-- </form> --}}
-                                    </td>
-                                </tr>
+                                @if ($usuario->id != 1)
+                                    <tr>
+                                        <td>{{ !$usuario->perfil ? : $usuario->perfil->nombre }}</td>
+                                        <td>{{ $usuario->nombre }}</td>
+                                        <td>{{ $usuario->appaterno }}</td>
+                                        <td>{{ $usuario->apmaterno }}</td>
+                                        <td class="text-center">
+                                            {{-- <form method="post" action="{{ route('usuario.destroy', ['id' => $usuario->id]) }}" style=""> --}}
+                                                <a class="btn btn-primary btn-sm" href="{{ route('usuario.show', ['id' => $usuario->id]) }}"><i class="fa fa-eye" aria-hidden="true"></i><strong> Ver</strong></a>
+                                                <a class="btn btn-warning btn-sm" href="{{ route('usuario.edit', ['id' => $usuario->id]) }}"><i class="fa fa-pencil" aria-hidden="true"></i><strong> Editar</strong></a>
+                                                {{-- <input type="hidden" name="_method" value="DELETE"> --}}
+                                                {{-- {{ csrf_field() }} --}}
+                                                {{-- <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash" aria-hidden="true"></i><strong> Borrar</strong></button> --}}
+                                            {{-- </form> --}}
+                                        </td>
+                                    </tr>
+                                @endif
                                 @empty
                                 <p>No se encontró ningún usuario</p>
                             @endforelse

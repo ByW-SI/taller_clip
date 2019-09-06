@@ -174,7 +174,7 @@ class UsuarioController extends Controller
         $usuario = User::find($id);
         $seguridad = $this->hasSecurity($usuario->perfil);
 
-        if($usuario->perfil->id == self::PERFIL_ID_ADMIN || (Auth::user()->perfil->id != self::PERFIL_ID_ADMIN && $seguridad))
+        if($usuario->perfil == null || $usuario->perfil->id == self::PERFIL_ID_ADMIN || (Auth::user()->perfil->id != self::PERFIL_ID_ADMIN && $seguridad))
             return redirect()->route('denegado');
         else {
             $perfiles = Perfil::get();

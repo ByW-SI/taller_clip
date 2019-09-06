@@ -22,6 +22,7 @@ function persona(elemento) {
 	$("#apellidomaterno").val('');
 	$("#razonsocial").val('');
 	if(elemento.value == "Fisica") {
+		console.log("Fisica");
 		document.getElementById('perfisica').style.display = 'block';
 		document.getElementById('permoral').style.display = 'none';
 		document.getElementById('varrfc').pattern = "^[A-Za-z]{4}[0-9]{6}[A-Za-z0-9]{3}";
@@ -30,6 +31,7 @@ function persona(elemento) {
 		$("#idnombre").prop('required', true);
 		$("#apellidopaterno").prop('required', true);
 	} else if(elemento.value == "Moral") {
+		console.log("Moral");
 		document.getElementById('perfisica').style.display = 'none';
 		document.getElementById('permoral').style.display = 'block';
 		document.getElementById('varrfc').pattern = "^[A-Za-z]{3}[0-9]{6}[A-Za-z0-9]{3}";
@@ -39,6 +41,8 @@ function persona(elemento) {
 		$("#idnombre").prop('required', false);
 		$("#apellidopaterno").prop('required', false);
 	}
+
+	$('#varrfc').val('');
 }
 
 
