@@ -219,7 +219,6 @@ function persona(elemento) {
 		$("#apellidopaterno").prop('required', false);
 	}
 
-	// $('#varrfc').val('');
 }
 </script>
      
