@@ -14,6 +14,7 @@ function formulario(elemento){
 		}
 }
 function persona(elemento) {
+	console.log('persona works');
 	$("#idnombre").prop('required', false);
 	$("#apellidopaterno").prop('required', false);
 	$("#razonsocial").prop('required', false);

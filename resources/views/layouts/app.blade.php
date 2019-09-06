@@ -185,5 +185,43 @@
     @include('sweet::alert')
     <script type="https://unpkg.com/sweetalert/dist/main.js"></script>
      <script type="https://unpkg.com/sweetalert/dist/jquery-3.2.1.min"></script>
+
+
+<script>
+
+function persona(elemento) {
+	console.log('persona works');
+	$("#idnombre").prop('required', false);
+	$("#apellidopaterno").prop('required', false);
+	$("#razonsocial").prop('required', false);
+	$("#idnombre").val('');
+	$("#apellidopaterno").val('');
+	$("#apellidomaterno").val('');
+	$("#razonsocial").val('');
+	if(elemento.value == "Fisica") {
+		console.log("Fisica");
+		document.getElementById('perfisica').style.display = 'block';
+		document.getElementById('permoral').style.display = 'none';
+		document.getElementById('varrfc').pattern = "^[A-Za-z]{4}[0-9]{6}[A-Za-z0-9]{3}";
+		document.getElementById('varrfc').placeholder = "Ingrese 13 caracteres";
+		document.getElementById('varrfc').title = "Siga el formato 4 letras seguidas por 6 digitos y 3 caracteres";
+		$("#idnombre").prop('required', true);
+		$("#apellidopaterno").prop('required', true);
+	} else if(elemento.value == "Moral") {
+		console.log("Moral");
+		document.getElementById('perfisica').style.display = 'none';
+		document.getElementById('permoral').style.display = 'block';
+		document.getElementById('varrfc').pattern = "^[A-Za-z]{3}[0-9]{6}[A-Za-z0-9]{3}";
+		document.getElementById('varrfc').placeholder = "Ingrese 12 caracteres";
+		document.getElementById('varrfc').title = "Siga el formato 3 letras seguidas por 6 digitos y 3 caracteres";
+		$("#razonsocial").prop('required', true);
+		$("#idnombre").prop('required', false);
+		$("#apellidopaterno").prop('required', false);
+	}
+
+	$('#varrfc').val('');
+}
+</script>
+     
 </body>
 </html>
