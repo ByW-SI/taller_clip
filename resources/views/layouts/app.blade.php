@@ -218,7 +218,7 @@ function persona(elemento) {
 		$("#idnombre").prop('required', false);
 		$("#apellidopaterno").prop('required', false);
 	}
-
+    console.log('work app');
 }
 </script>
      
