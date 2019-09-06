@@ -45,9 +45,11 @@ class UsuarioController extends Controller
      * @return boolean
      */
     public function hasSecurity($perfil) {
-        foreach ($perfil->modulos as $modulo)
-            if($modulo->nombre == 'seguridad')
-                return true;
+        if($perfil){
+            foreach ($perfil->modulos as $modulo)
+                if($modulo->nombre == 'seguridad')
+                    return true;
+        }
         return false;
     }
 
